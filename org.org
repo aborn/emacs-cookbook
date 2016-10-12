@@ -1,10 +1,9 @@
-#+LATEX_HEADER: \usepackage{fontspec}
-#+LATEX_HEADER: \setmainfont{Source Code Pro}
 #+TITLE: org 实践
 #+AUTHOR: aborn
 #+DATE: 2016-10-12
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
 
 #+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
 
