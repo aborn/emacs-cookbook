@@ -1,0 +1,13 @@
+#+TITLE: org 实践
+#+AUTHOR: aborn
+#+DATE: 2016-10-12
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
+
+-----
+* org模式简介
+Org是一种记笔记、管理todo-list及项目管理的一种高效的纯文本编辑系统。
+* 文档结构
+排版
