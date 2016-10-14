@@ -1,5 +1,24 @@
+;;; cookbook.el --- produce cookbook pdf  -*- lexical-binding: t; -*-
 
 (defvar cookbook-root-dir "~/github/emacs-cookbook/")
+
+(defun cookbook-org-async-batch-export-to-pdf ()
+  "async do export to pdf"
+  (interactive)
+  (message "start export all org files to pdf formart.")
+  (async-start
+   `(lambda ()
+      ,(async-inject-variables "\\`load-path\\'")
+      ,(async-inject-variables "\\`org-latex-pdf-process\\'")
+      (require 'cookbook)
+      (require 'cl-lib)
+      (require 'f)
+      (require 's)
+      (cookbook-org-batch-export-to-pdf))
+   (lambda (result)
+     (message "%S" result)
+     (message "finished export all org files to pdf formart."))))
+
 (defun cookbook-org-batch-export-to-pdf ()
   "export all org file to pdf"
   (interactive)
@@ -14,13 +33,14 @@
                      (dest-file (concat
                                  (substring x 0 (- (length x) 3))
                                  "pdf")))
-                (cookbook-org-to-pdf src-file dest-file)))
+                (cookbook-org-to-pdf src-file)))
           files)))
 
-(defun cookbook-org-to-pdf ()
+(defun cookbook-org-to-pdf (src-file)
   "export source file to dest files"
   ;;(message "src-file: %s dest-file:%s" src-file dest-file)
-  (find-file "/Users/aborn/github/emacs-cookbook/org.org")
+  (find-file src-file)
   (org-latex-export-to-pdf))
 
 (provide 'cookbook)
+;;; cookbook.el ends here
