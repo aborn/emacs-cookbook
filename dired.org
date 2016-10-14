@@ -1,0 +1,24 @@
+#+TITLE: dired 实践
+#+AUTHOR: aborn
+#+DATE: 2016-10-14
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
+
+-----
+* dired模式
+dired的全称为Directory Edit，即目录编辑，是一个非常老的模式。
+* 常用命令
+** 移动命令
+ *n* 下移
+ *p* 上移
+** 编辑命令
+ *R* 重命名或者移动文件
+ *D* 删除文件或者目录
+ *+* 创建目录
+ *Z* gzip压缩文件
+** 其他命令
+ *RET* 打开文件或者目录
+ *q*   退出
