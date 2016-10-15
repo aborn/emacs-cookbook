@@ -58,7 +58,7 @@
    (f-files cookbook-chapters-dir)))
 
 (defun cookbook-run-async ()
-  "async do export to pdf"
+  "Do cookbook-run actioin use async method."
   (interactive)
   (message "start export all org files to pdf formart.")
   (async-start
@@ -75,7 +75,7 @@
      (message "finished export all org files to pdf formart."))))
 
 (defun cookbook-run ()
-  "export all org file to pdf"
+  "Export all org file to pdf."
   (interactive)
   (let* ((files (cookbook-chapter-org-files)))
     (mapc #'(lambda (x)
@@ -105,7 +105,7 @@
    "-----\n"))
 
 (defun cookbook-org-content-extract ()
-  "extract org content"
+  "Extract current buffer org content (hearder content excluded.)"
   (let* ((content (buffer-string))
          (s-begin (string-match "-----\n" content)))
     (when s-begin
