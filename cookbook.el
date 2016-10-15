@@ -37,7 +37,15 @@
 (defvar cookbook-root-dir "~/github/emacs-cookbook/")
 (defvar cookbook-name "emacs-cookbook")
 
-(defun cookbook-org-async-batch-export-to-pdf ()
+(defun cookbook-chapter-org-files ()
+  "Get all chater org files."
+  (cl-remove-if-not
+   #'(lambda (x)
+       (and (s-ends-with? ".org" x)
+            (not (s-ends-with? "README.org" x))))
+   (f-files cookbook-root-dir)))
+
+(defun cookbook-run-async ()
   "async do export to pdf"
   (interactive)
   (message "start export all org files to pdf formart.")
@@ -49,20 +57,15 @@
       (require 'cl-lib)
       (require 'f)
       (require 's)
-      (cookbook-org-batch-export-to-pdf))
+      (cookbook-run))
    (lambda (result)
      (message "%S" result)
      (message "finished export all org files to pdf formart."))))
 
-(defun cookbook-org-batch-export-to-pdf ()
+(defun cookbook-run ()
   "export all org file to pdf"
   (interactive)
-  (let* ((files
-          (cl-remove-if-not
-           #'(lambda (x)
-               (and (s-ends-with? ".org" x)
-                    (not (s-ends-with? "README.org" x))))
-           (f-files cookbook-root-dir))))
+  (let* ((files (cookbook-chapter-org-files)))
     (mapc #'(lambda (x)
               (let* ((src-file x)
                      (dest-file (concat
@@ -77,13 +80,44 @@
   (find-file src-file)
   (org-latex-export-to-pdf))
 
+(defun cookbook-header-content ()
+  (concat
+   "#+TITLE: emacs实践笔记\n"
+   "#+AUTHOR: aborn\n"
+   (format "#+DATE: %s\n" (format-time-string "%Y-%m-%d %H:%M" (current-time)))
+   "#+EMAIL: aborn.jiang@gmail.com\n"
+   "#+LANGUAGE: zh\n"
+   "#+LATEX_HEADER: \\usepackage{xeCJK}\n\n"
+   "#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup"
+   "-----\n"))
+
 (defun cookbook-org-content-extract ()
   "extract org content"
   (interactive)
   (let* ((content (buffer-string))
          (s-begin (string-match "-----\n" content)))
     (when s-begin
-      (substring-no-properties content (+ s-begin 6)))))
+      (substring-no-properties content (+ s-begin 5)))))
+
+(defun cookbook-produce-text-content ()
+  (concat
+   (cookbook-header-content)
+   (reduce 'concat
+           (mapcar #'(lambda (org-file)
+                       (find-file org-file)
+                       (cookbook-org-content-extract))
+                   (cookbook-chapter-org-files)))))
+
+(defun cookbook-produce-org ()
+  ""
+  (interactive)
+  (let* ((cookbook-content (cookbook-produce-text-content))
+         (cookbook-file (expand-file-name
+                         (concat cookbook-name ".org")
+                         cookbook-root-dir)))
+    (save-excursion
+      (write-region cookbook-content nil cookbook-file))
+    ))
 
 (provide 'cookbook)
 ;;; cookbook.el ends here
