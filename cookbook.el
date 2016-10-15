@@ -35,6 +35,7 @@
 (require 's)
 
 (defvar cookbook-root-dir "~/github/emacs-cookbook/")
+(defvar cookbook-name "emacs-cookbook")
 
 (defun cookbook-org-async-batch-export-to-pdf ()
   "async do export to pdf"
@@ -75,6 +76,14 @@
   ;;(message "src-file: %s dest-file:%s" src-file dest-file)
   (find-file src-file)
   (org-latex-export-to-pdf))
+
+(defun cookbook-org-content-extract ()
+  "extract org content"
+  (interactive)
+  (let* ((content (buffer-string))
+         (s-begin (string-match "-----\n" content)))
+    (when s-begin
+      (substring-no-properties content (+ s-begin 6)))))
 
 (provide 'cookbook)
 ;;; cookbook.el ends here
