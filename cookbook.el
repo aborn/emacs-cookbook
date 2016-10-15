@@ -105,7 +105,6 @@
 
 (defun cookbook-org-content-extract ()
   "extract org content"
-  (interactive)
   (let* ((content (buffer-string))
          (s-begin (string-match "-----\n" content)))
     (when s-begin
