@@ -37,13 +37,24 @@
 (defvar cookbook-root-dir "~/github/emacs-cookbook/")
 (defvar cookbook-name "emacs-cookbook")
 
+(defgroup cookbook nil
+  "cookbook group"
+  :prefix "cookbook-"
+  :group 'org-export-pdf)
+
+(defcustom cookbook-chapters-dir
+  (expand-file-name "chapters" cookbook-root-dir)
+  "Chapters root path"
+  :type 'string
+  :group 'cookbook)
+
 (defun cookbook-chapter-org-files ()
   "Get all chater org files."
   (cl-remove-if-not
    #'(lambda (x)
        (and (s-ends-with? ".org" x)
             (not (s-ends-with? "README.org" x))))
-   (f-files cookbook-root-dir)))
+   (f-files cookbook-chapters-dir)))
 
 (defun cookbook-run-async ()
   "async do export to pdf"
@@ -72,7 +83,8 @@
                                  (substring x 0 (- (length x) 3))
                                  "pdf")))
                 (cookbook-org-to-pdf src-file)))
-          files)))
+          files)
+    (cookbook-produce)))
 
 (defun cookbook-org-to-pdf (src-file)
   "export source file to dest files"
@@ -102,22 +114,27 @@
 (defun cookbook-produce-text-content ()
   (concat
    (cookbook-header-content)
-   (reduce 'concat
-           (mapcar #'(lambda (org-file)
-                       (find-file org-file)
-                       (cookbook-org-content-extract))
-                   (cookbook-chapter-org-files)))))
+   (cl-reduce 'concat
+              (mapcar #'(lambda (org-file)
+                          (find-file org-file)
+                          (cookbook-org-content-extract))
+                      (cookbook-chapter-org-files)))))
 
-(defun cookbook-produce-org ()
-  ""
+(defun cookbook-org-file-name ()
+  (expand-file-name
+   (concat cookbook-name ".org")
+   cookbook-root-dir))
+
+(defun cookbook-produce ()
+  "Produce cookbook org & pdf."
   (interactive)
   (let* ((cookbook-content (cookbook-produce-text-content))
-         (cookbook-file (expand-file-name
-                         (concat cookbook-name ".org")
-                         cookbook-root-dir)))
-    (save-excursion
-      (write-region cookbook-content nil cookbook-file))
-    ))
+         (cookbook-file (cookbook-org-file-name)))
+    (find-file cookbook-file)
+    (erase-buffer)
+    (insert cookbook-content)
+    (save-buffer)
+    (cookbook-org-to-pdf cookbook-file)))
 
 (provide 'cookbook)
 ;;; cookbook.el ends here

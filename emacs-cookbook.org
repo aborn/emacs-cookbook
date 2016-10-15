@@ -1,0 +1,57 @@
+#+TITLE: emacs实践笔记
+#+AUTHOR: aborn
+#+DATE: 2016-10-15 19:22
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup-----
+
+* dired模式
+dired的全称为Directory Edit，即目录编辑，是一个非常老的模式。
+* 常用命令
+** 移动命令
+ *n* 下移
+ *p* 上移
+** 编辑命令
+ *R* 重命名或者移动文件
+ *D* 删除文件或者目录
+ *+* 创建目录
+ *Z* gzip压缩文件
+** 其他命令
+ *RET* 打开文件或者目录
+ *q*   退出
+
+* org模式简介
+Emacs的org-mode可用于记笔记、管理自己的待办事项(TODO lists)，同时，也可用于管理项目。它是一种高效的纯文本编辑系统。
+
+* 文档结构
+Org是基于Outline-mode，并提供灵活的命令编辑结构化的文档。其文档结构语法跟markdown很类似。
+** 目录结构
+Org的目录结构在每行最左边以星号标记，星号越多，标题层级越深。下面是一些例子：
+
+#+BEGIN_EXAMPLE
+\* 一级目录
+\** 二级目录
+\*** 三级目录
+
+\* 另一个一级目录
+#+END_EXAMPLE
+
+** 显示与隐藏
+目录结构下的内容可以隐藏起来，通常用采用 *TAB* 和 /S-TAB/ 这两个命令来切换。
+
+** 块结构
+在Org文档中，加入代码块这种类型的块结构，都是采用begin...end这种模式，下面是一个例子：
+
+#+BEGIN_EXAMPLE
+\#+BEGIN_EXAMPLE
+\#+END_EXAMPLE
+#+END_EXAMPLE
+
+* 表格
+* 超链接
+* 待办事项
+
+* 包列表
+1. elisp-slime-nav 写elisp代码时，可用于跳转到函数的定义
