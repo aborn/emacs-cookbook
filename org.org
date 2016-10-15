@@ -4,6 +4,7 @@
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
+#+LATEX_HEADER: \setCJKmainfont{Microsoft YaHei}
 
 #+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
 

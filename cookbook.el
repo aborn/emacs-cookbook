@@ -4,7 +4,7 @@
 
 ;; Author: Aborn Jiang <aborn.jiang@gmail.com>
 ;; Version: 0.1.0
-;; Package-Requires: ((f "0.19.0") (s "1.10.0"))
+;; Package-Requires: ((cl-lib "0.5") (f "0.19.0") (s "1.10.0"))
 ;; Keywords: emacs cookbook
 ;; URL: https://github.com/aborn/emacs-cookbook
 
