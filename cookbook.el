@@ -4,7 +4,7 @@
 
 ;; Author: Aborn Jiang <aborn.jiang@gmail.com>
 ;; Version: 0.1.0
-;; Package-Requires: ((cl-lib "0.5") (f "0.19.0") (s "1.10.0"))
+;; Package-Requires: ((cl-lib "0.5") (f "0.19.0") (s "1.10.0") (async "1.9"))
 ;; Keywords: emacs cookbook
 ;; URL: https://github.com/aborn/emacs-cookbook
 
@@ -33,6 +33,7 @@
 (require 'cl-lib)
 (require 'f)
 (require 's)
+(require 'async)
 
 (defvar cookbook-root-dir "~/github/emacs-cookbook/")
 (defvar cookbook-name "emacs-cookbook")
