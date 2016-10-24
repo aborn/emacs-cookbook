@@ -50,7 +50,7 @@
   :group 'cookbook)
 
 (defun cookbook-chapter-org-files ()
-  "Get all chater org files."
+  "Get all chater org files. 获得所有org文件名"
   (cl-remove-if-not
    #'(lambda (x)
        (and (s-ends-with? ".org" x)
