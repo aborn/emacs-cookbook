@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-10-16 00:47
+#+DATE: 2016-10-24 23:17
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -57,6 +57,13 @@ Org提供三种类型的列表：有序列表、无序列表和描述列表
 
 * 表格
 * 超链接
+Org模式提供了比较好用的超链接方式，可以链接到普通网页、文件、email等。
+** 链接格式
+格式如下
+#+BEGIN_EXAMPLE
+[[链接][描述]]
+#+END_EXAMPLE
+
 * 待办事项
 
 * 包列表

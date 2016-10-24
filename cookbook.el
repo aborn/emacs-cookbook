@@ -58,7 +58,7 @@
    (f-files cookbook-chapters-dir)))
 
 (defun cookbook-run-async ()
-  "Do cookbook-run actioin use async method."
+  "Do cookbook-run actioin use async method. 异步生成emacs-cookbook.pdf"
   (interactive)
   (message "start export all org files to pdf formart.")
   (async-start
