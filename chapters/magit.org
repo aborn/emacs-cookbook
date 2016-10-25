@@ -1,0 +1,17 @@
+#+TITLE: magit 实践
+#+AUTHOR: aborn
+#+DATE: 2016-10-25
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
+#+LATEX_HEADER: \setCJKmainfont{Microsoft YaHei}
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
+
+-----
+* magit模式简介
+magit是emacs下版本管理的强大武器
+
+* 常用命令
+ *magit-diff* 相当于git diff, 当进入diff-buffer后按g更新之
+ *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
