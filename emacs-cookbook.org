@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-10-24 23:17
+#+DATE: 2016-10-26 23:30
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -21,6 +21,13 @@ dired的全称为Directory Edit，即目录编辑，是一个非常老的模式�
 ** 其他命令
  *RET* 打开文件或者目录
  *q*   退出
+
+* magit模式简介
+magit是emacs下版本管理的强大武器
+
+* 常用命令
+ *magit-diff* 相当于git diff, 当进入diff-buffer后按g更新之
+ *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
 
 * org模式简介
 Emacs的org-mode可用于记笔记、管理自己的待办事项(TODO lists)，同时，也可用于管理项目。它是一种高效的纯文本编辑系统。
@@ -59,10 +66,12 @@ Org提供三种类型的列表：有序列表、无序列表和描述列表
 * 超链接
 Org模式提供了比较好用的超链接方式，可以链接到普通网页、文件、email等。
 ** 链接格式
-格式如下
+链接的格式如下：
 #+BEGIN_EXAMPLE
-[[链接][描述]]
+[[链接][描述]]  或者只有链接没有描述  [[链接]]
 #+END_EXAMPLE
+一旦链接编辑完成，在org模式下，只显示 *描述* 部分，而不会显示整体（后一种是只显示链接）。
+为了编辑链接和描述，需要通过快捷键 *C-c C-l* 来完成。
 
 * 待办事项
 
