@@ -1,0 +1,20 @@
+#+TITLE: bookmarks 实践
+#+AUTHOR: aborn
+#+DATE: 2016-10-27
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
+#+LATEX_HEADER: \setCJKmainfont{Microsoft YaHei}
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
+
+-----
+* emacs的书签功能
+emacs的书签功能可以保存光标的位置
+
+** 设置一个书签
+ *bookmark-set* 对应快捷键为 *C-x r m*
+
+** 列出保存的书签
+ *bookmark-bmenu-list* 对应快捷键为 *C-x r l*
+ *helm-bookmarks* 利用helm在minor-buffer里查找书签
