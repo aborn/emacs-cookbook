@@ -1,11 +1,21 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-10-26 23:38
+#+DATE: 2016-10-27 22:59
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
 
 #+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup-----
+
+* emacs的书签功能
+emacs的书签功能可以保存光标的位置
+
+** 设置一个书签
+ *bookmark-set* 对应快捷键为 *C-x r m*
+
+** 列出保存的书签
+ *bookmark-bmenu-list* 对应快捷键为 *C-x r l*
+ *helm-bookmarks* 利用helm在minor-buffer里查找书签
 
 * dired模式
 dired的全称为Directory Edit，即目录编辑，是一个非常老的模式。
@@ -83,6 +93,7 @@ Org模式支持两种链接，即，内部链接和外部链接。它们有相�
 外部链接有很多中形式，最常见的形式是网页链接
 
 * 待办事项
+Org模式用来管理自己的TODO list非常方便
 
 * 包列表
 1. elisp-slime-nav 写elisp代码时，可用于跳转到函数的定义
