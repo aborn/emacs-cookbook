@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-10-27 22:59
+#+DATE: 2016-10-29 00:45
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -14,8 +14,26 @@ emacs的书签功能可以保存光标的位置
  *bookmark-set* 对应快捷键为 *C-x r m*
 
 ** 列出保存的书签
- *bookmark-bmenu-list* 对应快捷键为 *C-x r l*
- *helm-bookmarks* 利用helm在minor-buffer里查找书签
+ *bookmark-bmenu-list* 对应快捷键为 *C-x r l* ，它将打开一个*Bookmark List*的buffer同时
+列出所有保存的书签。
+
+** 跳转到一个书签
+使用 *bookmark-jump* 函数，可以跳转到一个特定的书签，它绑定的快捷键为 *C-x r b* 。当然也可以
+使用 *helm-bookmarks* 这个第三方package来快速查找书签，并跳转到查找到的书签。
+
+** 删除一个书签
+删除一个书签对应的命令为 *bookmark-delete* 。
+
+** 保存书签
+在最新版本（从24版本开始？），emacs在退出的时候会自动保存书签。如果想手动保存书签的话，可以采用
+ *bookmark-save* 这个函数命令。默认的情况，emacs会将书签保存在 *bookmark-default-file*
+变量对应的文件中。在我的机器中，对应的文件如下：
+#+NAME: 书签文件路径
+#+BEGIN_SRC emacs-lisp
+ELISP> bookmark-default-file
+"/Users/aborn/.emacs.d/.cache/bookmarks"
+ELISP>
+#+END_SRC
 
 * dired模式
 dired的全称为Directory Edit，即目录编辑，是一个非常老的模式。
