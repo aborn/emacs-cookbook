@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-10-30 17:28
+#+DATE: 2016-10-30 17:45
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -8,7 +8,9 @@
 #+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup-----
 
 * emacs的书签功能
-emacs的书签功能可以保存光标的位置
+emacs的书签用于记录你在文件中的阅读位置。它有点类似寄存器，跟寄存器一样，它能记录位置。
+但同寄存器有两点不一样：1. 它有比较长的名字; 2. 当emacs关闭的时候，它会自动持久化到
+磁盘。
 
 ** 设置一个书签
  *bookmark-set* 对应快捷键为 *C-x r m*
@@ -17,17 +19,17 @@ emacs的书签功能可以保存光标的位置
  *bookmark-bmenu-list* 对应快捷键为 *C-x r l* ，它将打开一个*Bookmark List*的buffer同时
 列出所有保存的书签。
 
-*** 书签列表Buffer*Bookmark List*
+*** 书签列表*Bookmark List*
 在*Bookmark List*这个buffer里，有以下快捷键可以使用：
-- a 显示当前书签的标注信息
-- A 在另一个buffer中显示所有书签的所有标注信息
-- d 标记书签，以便用来删除 (x – 执行删除)
-- e 编辑当前书签的标注信息
-- m 标记书签，以便用于进一步显示和其他操作 (v – 访问这个书签)
-- o 选中当前书签，并显示在另一个window中
-- C-o 在另一个window中切换到当前这个书签
-- r 重命名当前书签
-- w 将当前书签的位置显示在minibuffer里
+- a 显示当前书签的标注信息;
+- A 在另一个buffer中显示所有书签的所有标注信息;
+- d 标记书签，以便用来删除 (x – 执行删除);
+- e 编辑当前书签的标注信息;
+- m 标记书签，以便用于进一步显示和其他操作 (v – 访问这个书签);
+- o 选中当前书签，并显示在另一个window中;
+- C-o 在另一个window中切换到当前这个书签;
+- r 重命名当前书签;
+- w 将当前书签的位置显示在minibuffer里。
 
 ** 跳转到一个书签
 使用 *bookmark-jump* 函数，可以跳转到一个特定的书签，它绑定的快捷键为 *C-x r b* 。
@@ -35,7 +37,7 @@ emacs的书签功能可以保存光标的位置
 来快速查找书签，并跳转到书签位置。
 
 *** 修改默认排序
-要书签查找和跳转的时候，默认的书签排序是按字母排序的。如果想将最近访问的书签放在最前面，
+书签查找和跳转的时候，默认的书签排序是按字母排序的。如果想将最近访问的书签放在最前面，
 将下面代码添加到你的emacs配置文件中。
 #+NAME: 修改默认排序
 #+BEGIN_SRC emacs-lisp
@@ -49,8 +51,8 @@ emacs的书签功能可以保存光标的位置
 删除一个书签对应的命令为 *bookmark-delete* 。
 
 ** 保存书签
-在最新版本（老版本的bookmark保存在 *~/.emacs.bmk* ），
-emacs在退出的时候会自动保存书签。如果想手动保存书签的话，可以采用
+最新版本emacs（老版本的书签保存在 *~/.emacs.bmk* ），
+在退出的时候会自动保存书签。如果想手动保存书签的话，可以采用
  *bookmark-save* 这个函数命令。默认的情况，emacs会将书签保存在 *bookmark-default-file*
 变量对应的文件中。在我的机器中，对应的文件如下：
 #+NAME: 书签文件路径
@@ -61,8 +63,8 @@ ELISP>
 #+END_SRC
 
 ** 其他设置
-有一个变量 *bookmark-save-flag* 。如果这个变量的值为一个数值，它表示修改（添加）
-多少次bookmark后会自动保存一次。当这个变量的值为被设置为1时，每次对bookmark的改
+有一个变量 *bookmark-save-flag* 。如果这个变量的值为一个数值，它表示修改（或新增）
+多少次书签后，emacs会自动保存书签到磁盘。当这个变量的值为被设置为1时，每次对bookmark的改
 动，emacs就会自动保存内容到磁盘相应位置（这样可以防止emacs突然crash时bookmark的丢失）。
 如果这个值设置为nil，表示emacs不会主动保存bookmark，除非用户手动调用
 *M-x bookmark-save* 。
