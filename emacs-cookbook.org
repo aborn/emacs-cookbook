@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-10-29 00:59
+#+DATE: 2016-10-30 17:08
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -16,6 +16,18 @@ emacs的书签功能可以保存光标的位置
 ** 列出保存的书签
  *bookmark-bmenu-list* 对应快捷键为 *C-x r l* ，它将打开一个*Bookmark List*的buffer同时
 列出所有保存的书签。
+
+*** \*Bookmark List*
+在*Bookmark List*这个buffer里，有以下快捷键可以使用：
+- a 显示当前书签的标注信息
+- A 在另一个buffer中显示所有书签的所有标注信息
+- d 标记书签，以便用来删除 (x – 执行删除)
+- e 编辑当前书签的标注信息
+- m 标记书签，以便用于进一步显示和其他操作 (v – 访问这个书签)
+- o 选中当前书签，并显示在另一个window中
+- C-o 在另一个window中切换到当前这个书签
+- r 重命名当前书签
+- w 将当前书签的位置显示在minibuffer里
 
 ** 跳转到一个书签
 使用 *bookmark-jump* 函数，可以跳转到一个特定的书签，它绑定的快捷键为 *C-x r b* 。当然也可以
@@ -38,9 +50,9 @@ ELISP>
 
 ** 其他设置
 有一个变量 *bookmark-save-flag* 。如果这个变量的值为一个数值，它表示修改（添加）
-多少次bookmark后会自动保存一次。极端的情况，设置这个变量的值为1，这样每设置一个
-bookmark，它就会自动保存一次（这样可以防止emacs突然crash时bookmark的丢失）。如
-果这个值设置为nil，表示emacs不会主动保存bookmark，除非用户手动调用
+多少次bookmark后会自动保存一次。当这个变量的值为被设置为1时，每次对bookmark的改
+动，emacs就会自动保存内容到磁盘相应位置（这样可以防止emacs突然crash时bookmark的丢失）。
+如果这个值设置为nil，表示emacs不会主动保存bookmark，除非用户手动调用
 *M-x bookmark-save* 。
 
 * dired模式
