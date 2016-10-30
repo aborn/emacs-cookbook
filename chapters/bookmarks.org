@@ -74,3 +74,6 @@ ELISP>
 动，emacs就会自动保存内容到磁盘相应位置（这样可以防止emacs突然crash时bookmark的丢失）。
 如果这个值设置为nil，表示emacs不会主动保存bookmark，除非用户手动调用
 *M-x bookmark-save* 。
+
+** bookmark+
+[[https://www.emacswiki.org/emacs/bookmark+.el][bookmark+]] 是对bookmark的一个扩展的包。
