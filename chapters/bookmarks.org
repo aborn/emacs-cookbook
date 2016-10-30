@@ -38,6 +38,10 @@ emacs的书签用于记录你在文件中的阅读位置。它有点类似寄存
 如果你的emacs中安装了[[https://github.com/emacs-helm/helm][helm]] 这个插件，你也可以使用 *helm-bookmarks* 这个命令
 来快速查找书签，并跳转到书签位置。
 
+*** helm-bookmarks
+通过helm-bookmarks命令来查找并跳转书签如下图：
+[[./images/bookmark.png]]
+
 *** 修改默认排序
 书签查找和跳转的时候，默认的书签排序是按字母排序的。如果想将最近访问的书签放在最前面，
 将下面代码添加到你的emacs配置文件中。
