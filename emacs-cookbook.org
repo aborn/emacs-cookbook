@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-10-30 17:15
+#+DATE: 2016-10-30 17:28
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -30,8 +30,20 @@ emacs的书签功能可以保存光标的位置
 - w 将当前书签的位置显示在minibuffer里
 
 ** 跳转到一个书签
-使用 *bookmark-jump* 函数，可以跳转到一个特定的书签，它绑定的快捷键为 *C-x r b* 。当然也可以
-使用 *helm-bookmarks* 这个第三方package来快速查找书签，并跳转到查找到的书签。
+使用 *bookmark-jump* 函数，可以跳转到一个特定的书签，它绑定的快捷键为 *C-x r b* 。
+如果你的emacs中安装了[[https://github.com/emacs-helm/helm][helm]] 这个插件，你也可以使用 *helm-bookmarks* 这个命令
+来快速查找书签，并跳转到书签位置。
+
+*** 修改默认排序
+要书签查找和跳转的时候，默认的书签排序是按字母排序的。如果想将最近访问的书签放在最前面，
+将下面代码添加到你的emacs配置文件中。
+#+NAME: 修改默认排序
+#+BEGIN_SRC emacs-lisp
+(defadvice bookmark-jump (after bookmark-jump activate)
+  (let ((latest (bookmark-get-bookmark bookmark)))
+    (setq bookmark-alist (delq latest bookmark-alist))
+    (add-to-list 'bookmark-alist latest)))
+#+END_SRC
 
 ** 删除一个书签
 删除一个书签对应的命令为 *bookmark-delete* 。
