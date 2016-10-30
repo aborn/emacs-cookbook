@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-10-30 17:45
+#+DATE: 2016-10-30 18:27
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -36,6 +36,11 @@ emacs的书签用于记录你在文件中的阅读位置。它有点类似寄存
 如果你的emacs中安装了[[https://github.com/emacs-helm/helm][helm]] 这个插件，你也可以使用 *helm-bookmarks* 这个命令
 来快速查找书签，并跳转到书签位置。
 
+*** helm-bookmarks
+通过helm-bookmarks命令来查找并跳转书签如下图：
+
+[[./images/bookmark.png]]
+
 *** 修改默认排序
 书签查找和跳转的时候，默认的书签排序是按字母排序的。如果想将最近访问的书签放在最前面，
 将下面代码添加到你的emacs配置文件中。
@@ -68,6 +73,9 @@ ELISP>
 动，emacs就会自动保存内容到磁盘相应位置（这样可以防止emacs突然crash时bookmark的丢失）。
 如果这个值设置为nil，表示emacs不会主动保存bookmark，除非用户手动调用
 *M-x bookmark-save* 。
+
+** bookmark+
+[[https://www.emacswiki.org/emacs/bookmark+.el][bookmark+]] 是对bookmark的一个扩展的包。
 
 * dired模式
 dired的全称为Directory Edit，即目录编辑，是一个非常老的模式。

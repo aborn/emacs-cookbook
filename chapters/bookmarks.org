@@ -40,6 +40,7 @@ emacs的书签用于记录你在文件中的阅读位置。它有点类似寄存
 
 *** helm-bookmarks
 通过helm-bookmarks命令来查找并跳转书签如下图：
+
 [[./images/bookmark.png]]
 
 *** 修改默认排序
