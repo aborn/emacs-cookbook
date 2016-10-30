@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-10-30 17:08
+#+DATE: 2016-10-30 17:15
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -17,7 +17,7 @@ emacs的书签功能可以保存光标的位置
  *bookmark-bmenu-list* 对应快捷键为 *C-x r l* ，它将打开一个*Bookmark List*的buffer同时
 列出所有保存的书签。
 
-*** \*Bookmark List*
+*** 书签列表Buffer*Bookmark List*
 在*Bookmark List*这个buffer里，有以下快捷键可以使用：
 - a 显示当前书签的标注信息
 - A 在另一个buffer中显示所有书签的所有标注信息
@@ -37,7 +37,7 @@ emacs的书签功能可以保存光标的位置
 删除一个书签对应的命令为 *bookmark-delete* 。
 
 ** 保存书签
-在最新版本（从24版本开始,老版本的bookmark保存在 *~/.emacs.bmk* ），
+在最新版本（老版本的bookmark保存在 *~/.emacs.bmk* ），
 emacs在退出的时候会自动保存书签。如果想手动保存书签的话，可以采用
  *bookmark-save* 这个函数命令。默认的情况，emacs会将书签保存在 *bookmark-default-file*
 变量对应的文件中。在我的机器中，对应的文件如下：
