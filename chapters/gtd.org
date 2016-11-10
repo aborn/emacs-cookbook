@@ -1,0 +1,13 @@
+#+TITLE: org 实践
+#+AUTHOR: aborn
+#+DATE: 2016-11-10
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
+
+-----
+
+* org-capture.el
+Org 8.0 以后版本采用org-capture.el取代原有的org-remember.el
