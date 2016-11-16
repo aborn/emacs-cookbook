@@ -69,3 +69,10 @@ Org支持的外部链接有很多中形式，如文件、网页、新闻组、�
 
 * 待办事项
 Org模式用来管理自己的TODO list非常方便
+
+* 日程表(Agenda View)
+我们可以用Org来按排自己的行程
+
+** 日程文件(Agenda files)
+变量org-agenda-files保存了一个文件列表,这些文件用来记录日程，下面是一些操作函数:
+C-c [ org-agenda-file-to-front
