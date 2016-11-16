@@ -84,3 +84,10 @@ C-c ] 将当前文件从agenda文件列表中删除 org-remove-file
 + a   创建一个日程
 + t/T 创建一个TODO items
 + L   对当前文件生成timeline
+
+** 内建Agenda视图
+
+** 计划Schedule
+相关命令
+
++ org-schedule 将当前TODO添加计划时间
