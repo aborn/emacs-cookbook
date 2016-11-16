@@ -75,4 +75,12 @@ Org模式用来管理自己的TODO list非常方便
 
 ** 日程文件(Agenda files)
 变量org-agenda-files保存了一个文件列表,这些文件用来记录日程，下面是一些操作函数:
-C-c [ org-agenda-file-to-front
+C-c [ 将当前文件加入到agenda文件列表最前页面 org-agenda-file-to-front
+C-c ] 将当前文件从agenda文件列表中删除 org-remove-file
+
+** 分发按键
+默认采用 *C-c a* ,接下的默认的命令有：
+
++ a   创建一个日程
++ t/T 创建一个TODO items
++ L   对当前文件生成timeline
