@@ -12,5 +12,8 @@
 magit是emacs下版本管理的强大武器
 
 * 常用命令
- *magit-diff* 相当于git diff, 当进入diff-buffer后按g更新之
- *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
++ *magit-diff* 相当于git diff, 当进入diff-buffer后按 /g/ 更新之
++ *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
++ *magit-branch-delete* 删除本地分支
++ *magit-checkout* 切换分支
++ *magit-branch-and-checkout* 从当前分支切一个新的分支
