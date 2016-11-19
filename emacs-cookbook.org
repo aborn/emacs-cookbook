@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-10-31 10:23
+#+DATE: 2016-11-20 00:04
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -101,15 +101,22 @@ dired的全称为Directory Edit，即目录编辑，是一个非常老的模式�
  *RET* 打开文件或者目录
  *q*   退出
 
+
+* org-capture.el
+Org 8.0 以后版本采用org-capture.el取代原有的org-remember.el
+
 * magit模式简介
 magit是emacs下版本管理的强大武器
 
 * 常用命令
- *magit-diff* 相当于git diff, 当进入diff-buffer后按g更新之
- *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
++ *magit-diff* 相当于git diff, 当进入diff-buffer后按 /g/ 更新之
++ *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
++ *magit-branch-delete* 删除本地分支
++ *magit-checkout* 切换分支
++ *magit-branch-and-checkout* 从当前分支切一个新的分支
 
 * org模式简介
-Emacs的org-mode可用于记笔记、管理自己的待办事项(TODO lists)，同时，也可用于管理项目。它是一种高效的纯文本编辑系统。
+Emacs的org-mode可用于记笔记、管理自己的待办事项(TODO lists)，同时，也可用于管理项目。它是一个高效的纯文本编辑系统。
 
 * 文档结构
 Org是基于Outline-mode，并提供灵活的命令编辑结构化的文档。其文档结构语法跟markdown很类似。
@@ -159,10 +166,38 @@ Org模式支持两种链接，即，内部链接和外部链接。它们有相�
 其中 *链接ID* 是文档中唯一的标识ID
 
 *** 外部链接
-外部链接有很多中形式，最常见的形式是网页链接
+Org支持的外部链接有很多中形式，如文件、网页、新闻组、电子邮件信息、BBDB数据条目等。
+它们以一个短的标识字符串打头，紧接着是一个冒号，冒号后面没有空格字符。
+
+*** 链接处理相关命令
+
++ org-store-link 保存当前位置的一个链接，以备后面插入使用
++ org-insert-link 插入链接，绑定的快捷键为C-c C-l，如果光标正在一个链接上，那么C-c C-l的行为是编辑这个链接及其描述
 
 * 待办事项
 Org模式用来管理自己的TODO list非常方便
+
+* 日程表(Agenda View)
+我们可以用Org来按排自己的行程
+
+** 日程文件(Agenda files)
+变量org-agenda-files保存了一个文件列表,这些文件用来记录日程，下面是一些操作函数:
+C-c [ 将当前文件加入到agenda文件列表最前页面 org-agenda-file-to-front
+C-c ] 将当前文件从agenda文件列表中删除 org-remove-file
+
+** 分发按键
+默认采用 *C-c a* ,接下的默认的命令有：
+
++ a   创建一个日程
++ t/T 创建一个TODO items
++ L   对当前文件生成timeline
+
+** 内建Agenda视图
+
+** 计划Schedule
+相关命令
+
++ org-schedule 将当前TODO添加计划时间
 
 * 包列表
 1. elisp-slime-nav 写elisp代码时，可用于跳转到函数的定义
