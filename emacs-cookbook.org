@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-11-20 00:04
+#+DATE: 2016-11-20 09:26
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
