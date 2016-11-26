@@ -88,6 +88,6 @@ C-c ] 将当前文件从agenda文件列表中删除 org-remove-file
 ** 内建Agenda视图
 
 ** 计划Schedule
-相关命令
+用org来安排日程
 
 + org-schedule 将当前TODO添加计划时间
