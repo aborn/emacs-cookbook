@@ -152,4 +152,9 @@ C-c ] 将当前文件从agenda文件列表中删除 org-remove-file
 + %i 初始化文本，当前上下文将作为初始化文本
 
 *** 属性properties
-最后一个字段表示属性列表
+最后一个字段表示属性列表，支持以下属性配置：
+
++ :prepend 一般一个记录条目插入在目标文件的最后，这个属性可以将条目插入在最前
++ :immediate-finish 立刻完成，没有交互
++ :clock-in 对这个条目设置闹钟
++ :kill-buffer 如果目标文件没有相应的访问buffer,插入后，自动关闭buffer
