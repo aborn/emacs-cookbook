@@ -102,3 +102,54 @@ C-c ] 将当前文件从agenda文件列表中删除 org-remove-file
 自己定义好的 [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][模板]] 快速创建记录。一旦完成内容的输入，按下C-c C-c (org-capture-finalize)，来完成。
 然后，你就能继续做你当下的事。如果想跳转到刚刚创建的记录的buffer, 用C-u C-c C-c来完成。如果想
 中途中止输入，只要按下 C-c C-k (org-capture-kill)。
+
+** org条目复制与移动
+有时候，我们想将当前的某条目转移到其他文件或者其他项目里。这时，我们会用到 org-copy 和 org-refile
+这两个命令。它们对应的快捷键分别是 C-c M-w 及 C-c C-w 。这里有一个问题是，目标文件如何配置？
+目录文件的配置由一个变量决定， *org-refile-targets* ，我自己的配置如下：
+
+#+BEGIN_SRC emacs-lisp
+(setq org-refile-targets
+      '((nil :maxlevel . 3)       ;; 当前文件的最大层级
+        (aborn-gtd-files :maxlevel . 3)))
+#+END_SRC
+
+注意：我这时将文件放在 aborn-gtd-files 文件列表里。
+
+** 记录模板
+记录的模板为一个列表变量，org-capture-templates，列表的每条记录由如下几段组成：
+
+#+BEGIN_EXAMPLE
+("t" "Todo" entry (file+headline (expand-file-name org-default-notes-file org-directory) "Tasks")
+         "* TODO %?\n  创建于:%T  %i\n")
+#+END_EXAMPLE
+
+*** 快捷键
+如例子中的那样，"t"表示对应按键t这个快捷键。它能帮助我们快速地选中哪条模板进行快速记录。
+
+*** 描述
+接下来是一段简单的描述
+
+*** 类型
+第三段表示类型，有五种类型：entry item checkitem table-line plain
+
++ entry 普通的Org结点，保证目标文件为org-mode文件，插入的时候将作为目录结点的子结点
+（如果没有，将做为顶级结点）；
++ item 与entry类似，不同点在于它的目标文件可以为简单的纯文本文件；
++ checkitem 复选条目；
++ table-line 在目标文件中的第一个table中插入新行；
++ plain 纯文本记录
+
+*** 目标文件
+第四个字段配置目标文件
+
+*** 模板
+第五个字段表示模板，[[http://orgmode.org/manual/Template-expansion.html#Template-expansion][模板参数]] 含义如下：
+
++ %t 只有日期的时间戳
++ %T 日期+时间的时间戳
++ %u,%U 如上，只不过它们是inactive的
++ %i 初始化文本，当前上下文将作为初始化文本
+
+*** 属性properties
+最后一个字段表示属性列表
