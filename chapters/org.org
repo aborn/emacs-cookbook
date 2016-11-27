@@ -91,3 +91,14 @@ C-c ] 将当前文件从agenda文件列表中删除 org-remove-file
 用org来安排日程
 
 + org-schedule 将当前TODO添加计划时间
+
+* Org快速记录
+有时候，突然想到一些待办事项，或者一些突发的灵感。这时，我们想用emacs快速记录它，[[http://orgmode.org/manual/Capture.html#Capture][Org-Capture]] 提供
+这个好用的功能。它的前身是org-remember.el（注：从org 8.0开始，org-remember被org-capture）
+替代。
+
+** 如何使用org-capture?
+快速记录的命令为 *M-x org-capture* ，默认绑定的快捷键为 C-c c 。当这个命令被调用后，你可以使用
+自己定义好的 [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][模板]] 快速创建记录。一旦完成内容的输入，按下C-c C-c (org-capture-finalize)，来完成。
+然后，你就能继续做你当下的事。如果想跳转到刚刚创建的记录的buffer, 用C-u C-c C-c来完成。如果想
+中途中止输入，只要按下 C-c C-k (org-capture-kill)。
