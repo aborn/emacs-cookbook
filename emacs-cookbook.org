@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2016-11-27 16:09
+#+DATE: 2016-12-03 23:08
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -266,6 +266,12 @@ C-c ] 将当前文件从agenda文件列表中删除 org-remove-file
 + :immediate-finish 立刻完成，没有交互
 + :clock-in 对这个条目设置闹钟
 + :kill-buffer 如果目标文件没有相应的访问buffer,插入后，自动关闭buffer
+
+* Org的导出功能
+Org文件支持导出多种格式的目标文件，如ASCII文件、HTML文件(用于发布为Web)、PDF文档等。
+
+** 导出的Dispatcher
+任何导出命令都有一个前缀按键，我们称之为Dispatcher，为 *C-c C-e*
 
 * 包列表
 1. elisp-slime-nav 写elisp代码时，可用于跳转到函数的定义
