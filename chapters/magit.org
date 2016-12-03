@@ -15,6 +15,10 @@ magit是emacs下版本管理的强大武器
 + *magit-dispatch-popup* 命令分发器，在spacemacs里绑定到 *M-m g m*
 + *magit-diff* 相当于git diff, 当进入diff-buffer后按 /g/ 更新之
 + *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
-+ *magit-branch-delete* 删除本地分支
 + *magit-checkout* 切换分支
 + *magit-branch-and-checkout* 从当前分支切一个新的分支
+
+* 分支操作
+常用的分支操作如下：
++ (magit-branch-delete) *b k* 删除一个或多个（本地）分支
++ (magit-branch-rename) *b r* 对当前Branch进行重命名
