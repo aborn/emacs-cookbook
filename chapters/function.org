@@ -1,4 +1,13 @@
 #+TITLE: 函数
+#+AUTHOR: aborn
+#+DATE: 2016-12-04
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
+
+-----
 
 * 什么是函数？
 函数是有传入参数的可计算的规则。计算的结果为函数返回值。大部分计算机语言里，
