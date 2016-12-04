@@ -31,3 +31,22 @@ defun name args [doc] [declare] [interactive] body. . .
 
 * 函数调用
 函数的调用有两种方式，**funcall**和**apply**
+
+** funcall
+funcall它的语法如下：
+
+#+BEGIN_SRC emacs-lisp
+funcall function &rest arguments
+#+END_SRC
+
+因为funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算。
+注意参数 *function* 必须为一个Lisp函数或者原生函数，不能为Special Forms或者宏。
+
+** apply
+apply的语法如下：
+
+#+BEGIN_SRC emacs-lisp
+apply function &rest arguments
+#+END_SRC
+
+它与funcall功能类似，唯一不同的是它的arguments是一个列表对象。
