@@ -49,7 +49,7 @@ funcall function &rest arguments
 #+END_SRC
 
 因为funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算。
-注意参数 *function* 必须为一个Lisp函数或者原生函数，不能为Special Forms或者宏。
+注意参数 *function* 必须为一个Lisp函数或者原生函数，不能为Special Forms或者宏(可以为lamda匿名函数)。
 
 ** apply
 apply的语法如下：
