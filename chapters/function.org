@@ -16,17 +16,21 @@
 
 * 函数定义
 定义一个函数的语法如下：
-```elisp
+
+#+BEGIN_SRC emacs-lisp
 defun name args [doc] [declare] [interactive] body. . .
-```
+#+END_SRC
 
 * 检查一个函数是否定义
-检查一个函数是否定义
-```elisp
+检查一个变量是否绑定到函数， *fboundp symbol* , 还有一个函数 *(functionp OBJECT)*
+
+#+BEGIN_SRC emacs-lisp
 (fboundp 'info)                         ; t
 (fboundp 'setq)                         ; t
 (fboundp 'xyz)                          ; nil
-```
+(functionp (lambda () (message "Anonymous Functions")))   ; t
+(fboundp (lambda () (message "Anonymous Functions")))     ; *** Eval error ***
+#+END_SRC
 
 * 函数参数
 有些参数是可选的，当用户没有传是，设置一个默认值，下面是一个例子：
