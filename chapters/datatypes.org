@@ -36,4 +36,9 @@
     + (rassoc value alist) 获取列表第一个value为 *value* 所关联的值；
     + (assoc-default key alist) 获取列表中第一个key为 *key* 的value；
 
+    #+BEGIN_SRC emacs-lisp
+    ELISP> (assoc-default 'rose alist-of-colors)
+    red
+    #+END_SRC
+
 ** 属性列表plist (Property Lists)
