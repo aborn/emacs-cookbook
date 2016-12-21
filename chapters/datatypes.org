@@ -1,0 +1,37 @@
+#+TITLE: 基本数据类型
+#+AUTHOR: aborn
+#+DATE: 2016-12-21
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
+
+-----
+
+
+* 列表
+
+** 关联列表alist
+   关联列表是一种特殊的列表，它的每个元素都是一个点对构成，如下示例:
+
+   #+BEGIN_SRC emacs-lisp
+   (setq alist-of-colors
+      '((rose . red) (lily . white) (buttercup . yellow)))
+   #+END_SRC
+
+   关联列表可以用来记录key-value这样的map结构；对每个元素做car操作拿到key，做cdr操作即拿到
+   相关系的value。
+
+*** 关联列表操作
+    + (assoc key alist) 获取列表第一个key所关联的值；下面是一个例子：
+
+    #+BEGIN_SRC emacs-lisp
+    ELISP> (assoc 'rose alist-of-colors)
+    (rose . red)
+    #+END_SRC
+
+    注意：这里用得比较是equal函数，如想用eq函数，请采用(assq key alist)这个函数
+
+    + (rassoc value alist) 获取列表第一个value为 *value* 所关联的值；
+    + (assoc-default key alist) 获取列表中第一个key为 *key* 的value；
