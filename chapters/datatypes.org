@@ -12,7 +12,7 @@
 
 * 列表
 
-** 关联列表alist
+** 关联列表alist (Association Lists)
    关联列表是一种特殊的列表，它的每个元素都是一个点对构成，如下示例:
 
    #+BEGIN_SRC emacs-lisp
@@ -35,3 +35,5 @@
 
     + (rassoc value alist) 获取列表第一个value为 *value* 所关联的值；
     + (assoc-default key alist) 获取列表中第一个key为 *key* 的value；
+
+** 属性列表plist (Property Lists)
