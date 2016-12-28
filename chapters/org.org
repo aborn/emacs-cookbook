@@ -9,158 +9,158 @@
 
 -----
 * org模式简介
-Emacs的org-mode可用于记笔记、管理自己的待办事项(TODO lists)，同时，也可用于管理项目。它是一个高效的纯文本编辑系统。
+  Emacs的org-mode可用于记笔记、管理自己的待办事项(TODO lists)，同时，也可用于管理项目。它是一个高效的纯文本编辑系统。
 
 * 文档结构
-Org是基于Outline-mode，并提供灵活的命令编辑结构化的文档。其文档结构语法跟markdown很类似。
+  Org是基于Outline-mode，并提供灵活的命令编辑结构化的文档。其文档结构语法跟markdown很类似。
 ** 目录结构
-Org的目录结构在每行最左边以星号标记，星号越多，标题层级越深。下面是一些例子：
+   Org的目录结构在每行最左边以星号标记，星号越多，标题层级越深。下面是一些例子：
 
-#+BEGIN_EXAMPLE
-\* 一级目录
-\** 二级目录
-\*** 三级目录
+   #+BEGIN_EXAMPLE
+   \* 一级目录
+   \** 二级目录
+   \*** 三级目录
 
-\* 另一个一级目录
-#+END_EXAMPLE
+   \* 另一个一级目录
+   #+END_EXAMPLE
 
 ** 显示与隐藏
-目录结构下的内容可以隐藏起来，通常用采用 *TAB* 和 /S-TAB/ 这两个命令来切换。
+   目录结构下的内容可以隐藏起来，通常用采用 *TAB* 和 /S-TAB/ 这两个命令来切换。
 
 ** 列表
-Org提供三种类型的列表：有序列表、无序列表和描述列表
-1. 有序列表以'1.' 或者 '1)'
-2. 无序列表以'-', '+' 或者 '*'
-3. 描述列表
+   Org提供三种类型的列表：有序列表、无序列表和描述列表
+   1. 有序列表以'1.' 或者 '1)'
+   2. 无序列表以'-', '+' 或者 '*'
+   3. 描述列表
 
 ** 块结构
-在Org文档中，加入代码块这种类型的块结构，都是采用begin...end这种模式，下面是一个例子：
+   在Org文档中，加入代码块这种类型的块结构，都是采用begin...end这种模式，下面是一个例子：
 
-#+BEGIN_EXAMPLE
+   #+BEGIN_EXAMPLE
 \#+BEGIN_EXAMPLE
 \#+END_EXAMPLE
-#+END_EXAMPLE
+   #+END_EXAMPLE
 
 * 表格
 * 超链接
-Org模式提供了比较好用的超链接方式，可以链接到普通网页、文件、email等。
+  Org模式提供了比较好用的超链接方式，可以链接到普通网页、文件、email等。
 ** 链接格式
-Org模式支持两种链接，即，内部链接和外部链接。它们有相同的格式：
-#+BEGIN_EXAMPLE
+   Org模式支持两种链接，即，内部链接和外部链接。它们有相同的格式：
+   #+BEGIN_EXAMPLE
 [[链接][描述]]  或 当只有链接没有描述  [[链接]]
-#+END_EXAMPLE
-一旦链接编辑完成，在org模式下，只显示 *描述* 部分，而不会显示整体（后一种是只显示链接）。
-为了编辑链接和描述，需要通过快捷键 *C-c C-l* 来完成。
+   #+END_EXAMPLE
+   一旦链接编辑完成，在org模式下，只显示 *描述* 部分，而不会显示整体（后一种是只显示链接）。
+   为了编辑链接和描述，需要通过快捷键 *C-c C-l* 来完成。
 *** 内部链接
-内部链接是指向当前文件的链接,它的链接格式:
-#+BEGIN_EXAMPLE
+    内部链接是指向当前文件的链接,它的链接格式:
+    #+BEGIN_EXAMPLE
 [[#链接ID]]
-#+END_EXAMPLE
-其中 *链接ID* 是文档中唯一的标识ID
+    #+END_EXAMPLE
+    其中 *链接ID* 是文档中唯一的标识ID
 
 *** 外部链接
-Org支持的外部链接有很多中形式，如文件、网页、新闻组、电子邮件信息、BBDB数据条目等。
-它们以一个短的标识字符串打头，紧接着是一个冒号，冒号后面没有空格字符。
+    Org支持的外部链接有很多中形式，如文件、网页、新闻组、电子邮件信息、BBDB数据条目等。
+    它们以一个短的标识字符串打头，紧接着是一个冒号，冒号后面没有空格字符。
 
 *** 链接处理相关命令
 
-+ org-store-link 保存当前位置的一个链接，以备后面插入使用
-+ org-insert-link 插入链接，绑定的快捷键为C-c C-l，如果光标正在一个链接上，那么C-c C-l的行为是编辑这个链接及其描述
+    + org-store-link 保存当前位置的一个链接，以备后面插入使用
+    + org-insert-link 插入链接，绑定的快捷键为C-c C-l，如果光标正在一个链接上，那么C-c C-l的行为是编辑这个链接及其描述
 
 * 待办事项
-Org模式用来管理自己的TODO list非常方便
+  Org模式用来管理自己的TODO list非常方便
 
 * 日程表(Agenda View)
-我们可以用Org来按排自己的行程
+  我们可以用Org来按排自己的行程
 
 ** 日程文件(Agenda files)
-变量org-agenda-files保存了一个文件列表,这些文件用来记录日程，下面是一些操作函数:
-C-c [ 将当前文件加入到agenda文件列表最前页面 org-agenda-file-to-front
-C-c ] 将当前文件从agenda文件列表中删除 org-remove-file
+   变量org-agenda-files保存了一个文件列表,这些文件用来记录日程，下面是一些操作函数:
+   C-c [ 将当前文件加入到agenda文件列表最前页面 org-agenda-file-to-front
+   C-c ] 将当前文件从agenda文件列表中删除 org-remove-file
 
 ** 分发按键
-默认采用 *C-c a* ,接下的默认的命令有：
+   默认采用 *C-c a* ,接下的默认的命令有：
 
-+ a   创建一个日程
-+ t/T 创建一个TODO items
-+ L   对当前文件生成timeline
+   + a   创建一个日程
+   + t/T 创建一个TODO items
+   + L   对当前文件生成timeline
 
 ** 内建Agenda视图
 
 ** 计划Schedule
-用org来安排日程
+   用org来安排日程
 
-+ org-schedule 将当前TODO添加计划时间
+   + org-schedule 将当前TODO添加计划时间
 
 * Org快速记录
-有时候，突然想到一些待办事项，或者一些突发的灵感。这时，我们想用emacs快速记录它，[[http://orgmode.org/manual/Capture.html#Capture][Org-Capture]] 提供
-这个好用的功能。它的前身是org-remember.el（注：从org 8.0开始，org-remember被org-capture）
-替代。
+  有时候，突然想到一些待办事项，或者一些突发的灵感。这时，我们想用emacs快速记录它，[[http://orgmode.org/manual/Capture.html#Capture][Org-Capture]] 提供
+  这个好用的功能。它的前身是org-remember.el（注：从org 8.0开始，org-remember被org-capture）
+  替代。
 
 ** 如何使用org-capture?
-快速记录的命令为 *M-x org-capture* ，默认绑定的快捷键为 C-c c 。当这个命令被调用后，你可以使用
-自己定义好的 [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][模板]] 快速创建记录。一旦完成内容的输入，按下C-c C-c (org-capture-finalize)，来完成。
-然后，你就能继续做你当下的事。如果想跳转到刚刚创建的记录的buffer, 用C-u C-c C-c来完成。如果想
-中途中止输入，只要按下 C-c C-k (org-capture-kill)。
+   快速记录的命令为 *M-x org-capture* ，默认绑定的快捷键为 C-c c 。当这个命令被调用后，你可以使用
+   自己定义好的 [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][模板]] 快速创建记录。一旦完成内容的输入，按下C-c C-c (org-capture-finalize)，来完成。
+   然后，你就能继续做你当下的事。如果想跳转到刚刚创建的记录的buffer, 用C-u C-c C-c来完成。如果想
+   中途中止输入，只要按下 C-c C-k (org-capture-kill)。
 
 ** org条目复制与移动
-有时候，我们想将当前的某条目转移到其他文件或者其他项目里。这时，我们会用到 org-copy 和 org-refile
-这两个命令。它们对应的快捷键分别是 C-c M-w 及 C-c C-w 。这里有一个问题是，目标文件如何配置？
-目录文件的配置由一个变量决定， *org-refile-targets* ，我自己的配置如下：
+   有时候，我们想将当前的某条目转移到其他文件或者其他项目里。这时，我们会用到 org-copy 和 org-refile
+   这两个命令。它们对应的快捷键分别是 C-c M-w 及 C-c C-w 。这里有一个问题是，目标文件如何配置？
+   目录文件的配置由一个变量决定， *org-refile-targets* ，我自己的配置如下：
 
-#+BEGIN_SRC emacs-lisp
+   #+BEGIN_SRC emacs-lisp
 (setq org-refile-targets
       '((nil :maxlevel . 3)       ;; 当前文件的最大层级
         (aborn-gtd-files :maxlevel . 3)))
-#+END_SRC
+   #+END_SRC
 
-注意：我这时将文件放在 aborn-gtd-files 文件列表里。
+   注意：我这时将文件放在 aborn-gtd-files 文件列表里。
 
 ** 记录模板
-记录的模板为一个列表变量，org-capture-templates，列表的每条记录由如下几段组成：
+   记录的模板为一个列表变量，org-capture-templates，列表的每条记录由如下几段组成：
 
-#+BEGIN_EXAMPLE
+   #+BEGIN_EXAMPLE
 ("t" "Todo" entry (file+headline (expand-file-name org-default-notes-file org-directory) "Tasks")
          "* TODO %?\n  创建于:%T  %i\n")
-#+END_EXAMPLE
+   #+END_EXAMPLE
 
 *** 快捷键
-如例子中的那样，"t"表示对应按键t这个快捷键。它能帮助我们快速地选中哪条模板进行快速记录。
+    如例子中的那样，"t"表示对应按键t这个快捷键。它能帮助我们快速地选中哪条模板进行快速记录。
 
 *** 描述
-接下来是一段简单的描述
+    接下来是一段简单的描述
 
 *** 类型
-第三段表示类型，有五种类型：entry item checkitem table-line plain
+    第三段表示类型，有五种类型：entry item checkitem table-line plain
 
-+ entry 普通的Org结点，保证目标文件为org-mode文件，插入的时候将作为目录结点的子结点
-（如果没有，将做为顶级结点）；
-+ item 与entry类似，不同点在于它的目标文件可以为简单的纯文本文件；
-+ checkitem 复选条目；
-+ table-line 在目标文件中的第一个table中插入新行；
-+ plain 纯文本记录
+    + entry 普通的Org结点，保证目标文件为org-mode文件，插入的时候将作为目录结点的子结点
+    （如果没有，将做为顶级结点）；
+    + item 与entry类似，不同点在于它的目标文件可以为简单的纯文本文件；
+    + checkitem 复选条目；
+    + table-line 在目标文件中的第一个table中插入新行；
+    + plain 纯文本记录
 
 *** 目标文件
-第四个字段配置目标文件
+    第四个字段配置目标文件
 
 *** 模板
-第五个字段表示模板，[[http://orgmode.org/manual/Template-expansion.html#Template-expansion][模板参数]] 含义如下：
+    第五个字段表示模板，[[http://orgmode.org/manual/Template-expansion.html#Template-expansion][模板参数]] 含义如下：
 
-+ %t 只有日期的时间戳
-+ %T 日期+时间的时间戳
-+ %u,%U 如上，只不过它们是inactive的
-+ %i 初始化文本，当前上下文将作为初始化文本
+    + %t 只有日期的时间戳
+    + %T 日期+时间的时间戳
+    + %u,%U 如上，只不过它们是inactive的
+    + %i 初始化文本，当前上下文将作为初始化文本
 
 *** 属性properties
-最后一个字段表示属性列表，支持以下属性配置：
+    最后一个字段表示属性列表，支持以下属性配置：
 
-+ :prepend 一般一个记录条目插入在目标文件的最后，这个属性可以将条目插入在最前
-+ :immediate-finish 立刻完成，没有交互
-+ :clock-in 对这个条目设置闹钟
-+ :kill-buffer 如果目标文件没有相应的访问buffer,插入后，自动关闭buffer
+    + :prepend 一般一个记录条目插入在目标文件的最后，这个属性可以将条目插入在最前
+    + :immediate-finish 立刻完成，没有交互
+    + :clock-in 对这个条目设置闹钟
+    + :kill-buffer 如果目标文件没有相应的访问buffer,插入后，自动关闭buffer
 
 * Org的导出功能
-Org文件支持导出多种格式的目标文件，如ASCII文件、HTML文件(用于发布为Web)、PDF文档等。
+  Org文件支持导出多种格式的目标文件，如ASCII文件、HTML文件(用于发布为Web)、PDF文档等。
 
 ** 导出的Dispatcher
-任何导出命令都有一个前缀按键，我们称之为Dispatcher，为 *C-c C-e*
+   任何导出命令都有一个前缀按键，我们称之为Dispatcher，为 *C-c C-e*
