@@ -11,6 +11,7 @@
 
 
 * 列表
+  列表是由零个或者多个元素组成的序列，列表中的每个元素都可由任意的对象组成。
 
 ** 关联列表alist (Association Lists)
    关联列表是一种特殊的列表，它的每个元素都是一个点对构成，如下示例:
@@ -42,3 +43,35 @@
     #+END_SRC
 
 ** 属性列表plist (Property Lists)
+   属性列表是由成对元素（paired elements）组成的列表，每个元素对关联着一个属性的名及其
+   对应属性值。下面是一个例子：
+
+   #+BEGIN_SRC emacs-lisp
+    (pine cones numbers (1 2 3) color "blue")
+   #+END_SRC
+
+   这里pine关联其值为cons，numbers关联其值为(1 2 3)，一般每个元素对的关联值是由symbol类型
+   组成的。
+
+*** 属性列表的操作
+    + (plist-get plist property) 返回属性列表中属性名为property的属性值:
+
+    #+BEGIN_SRC emacs-lisp
+    ELISP> (setq pl '(pine cones numbers (1 2 3) color "blue"))
+    (pine cones numbers
+          (1 2 3)
+          color "blue")
+    ELISP> (plist-get pl 'pine)
+    cones
+    ELISP> (plist-get pl 'numbers)
+    (1 2 3)
+    #+END_SRC
+
+    + (plist-member plist property) 如果属性列表plist中含有属性property，则返回non-nil。
+    + (plist-put plist property value) 保存属性property及值value的属性对
+
+    #+BEGIN_SRC emacs-lisp
+    (setq my-plist '(bar t foo 4))                    ;; => (bar t foo 4)
+    (setq my-plist (plist-put my-plist 'foo 69))      ;; => (bar t foo 69)
+    (setq my-plist (plist-put my-plist 'quux '(a)))   ;; => (bar t foo 69 quux (a))
+    #+END_SRC
