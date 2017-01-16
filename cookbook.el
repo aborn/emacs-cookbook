@@ -101,7 +101,7 @@
    "#+EMAIL: aborn.jiang@gmail.com\n"
    "#+LANGUAGE: zh\n"
    "#+LATEX_HEADER: \\usepackage{xeCJK}\n\n"
-   "#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup"
+   "#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup\n\n"
    "-----\n"))
 
 (defun cookbook-org-content-extract ()
