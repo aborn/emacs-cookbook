@@ -75,3 +75,21 @@
     (setq my-plist (plist-put my-plist 'foo 69))      ;; => (bar t foo 69)
     (setq my-plist (plist-put my-plist 'quux '(a)))   ;; => (bar t foo 69 quux (a))
     #+END_SRC
+
+** 对列表进行排序
+   对列表进行排序可以采用sort这个函数 *(sort list predicate)* 。不过这个函数是有副作用的，
+   这个函数调用后会改变原有list的结构。第三个参数predicate传入的是一个比较函数，它接收两个参数。
+   如果是想递增排序，当第一个参数小于第二个参数时返回non-nil，否则返回nil。注意这个sort函数
+   对list的排序，始终保持car部分不变。下面是一个例子：
+
+   #+BEGIN_SRC emacs-lisp
+    ELISP> (setq nums '(1 3 2 6 5 4 0))
+    (1 3 2 6 5 4 0)
+    ELISP> (sort nums '<)
+    (0 1 2 3 4 5 6)
+    ELISP> nums
+    (1 2 3 4 5 6)
+   #+END_SRC
+
+   注意这里的nums排序后，的car与原来list的car是一样的。所以一般采用重新赋值的方式
+   *(setq nums (sort nums ’<))*
