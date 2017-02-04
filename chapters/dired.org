@@ -54,3 +54,9 @@
    在dired模式下，可以对标记的文件批量执行shell命令（如果没有标记文件，则对当前文件执行shell），
    运行命令 *dired-do-shell-command* (绑定的快捷键为 *!* )，相应的它有一个对应的异步操作
    的命令 *dired-do-async-shell-command* (绑定的快捷键为 *&* )。
+
+** dired的扩展
+*** diredful
+    [[https://github.com/thamer/diredful][diredful]] 可使得不同的文件显示不同的颜色,是一个非常好的扩展
+*** dired-icon
+    [[https://gitlab.com/xuhdev/dired-icon][dired-icon]] 显示不同类型图标的icon
