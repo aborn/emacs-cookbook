@@ -1,6 +1,6 @@
 #+TITLE: emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2017-02-04 13:42
+#+DATE: 2017-02-04 13:51
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -186,7 +186,7 @@ ELISP>
     + * * 标记所有可执行文件
     + * @ 标记所有符号链接
     + * / 标记所有目录(不包括 . 和 .. )
-    + * s 标记所有文件(不高考 . 和 .. )
+    + * s 标记所有文件(不包括 . 和 .. )
     + * . 标记具有给定扩展名的文件
     + % m REGEXP <RET> 或 * % REGEXP <RET> 标记所有匹配到给定的正则表达式 的文件。
     + % g REGEXP <RET> 标记所有文件 内容 匹配到给定的正则表达式的文件。
@@ -212,13 +212,13 @@ ELISP>
 
 *** 其他命令   
     + *RET* 打开文件或者目录
-       + *g*   刷新当前dired buffer
+      + *g*   刷新当前dired buffer
     + *k*   隐藏不想显示出来的文件
     + *q*   退出
 
 ** 批量执行Shell命令
-在dired模式下，可以对标记的文件批量执行shell命令（如果没有标记文件，则对当前文件执行shell），
-运行命令 *dired-do-shell-command* (绑定的快捷键为 *!* )               
+   在dired模式下，可以对标记的文件批量执行shell命令（如果没有标记文件，则对当前文件执行shell），
+   运行命令 *dired-do-shell-command* (绑定的快捷键为 *!* )
 
 
 * 什么是函数？
