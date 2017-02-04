@@ -95,7 +95,7 @@
 
 (defun cookbook-header-content ()
   (concat
-   "#+TITLE: emacs实践笔记\n"
+   "#+TITLE: Emacs实践笔记\n"
    "#+AUTHOR: aborn\n"
    (format "#+DATE: %s\n" (format-time-string "%Y-%m-%d %H:%M" (current-time)))
    "#+EMAIL: aborn.jiang@gmail.com\n"
