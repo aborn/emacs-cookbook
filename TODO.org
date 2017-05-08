@@ -1,0 +1,7 @@
+#+TITLE: emacs-cookbook todolist
+
+-----
+* to-do-list
+** try/catch机制介绍
+   http://www.gnu.org/software/emacs/manual/html_node/elisp/Handling-Errors.html
+   https://www.gnu.org/software/emacs/manual/html_node/elisp/Catch-and-Throw.html
