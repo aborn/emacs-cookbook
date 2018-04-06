@@ -8,5 +8,14 @@
 #+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
 
 -----
+* Emacs的Package-Mode
+  当通过*M-x list-package*命令打开一个*Package*的Buffer,它有如下命令:
+  1. i 标识安装 （u 取消标识）
+  2. x 执行安装操作
+  3. d 标识删除 （x 执行删除操作）
+  4. U 标识要更新的package
+  5. ~ 标识所有废弃包
+
+
 * 包列表
-1. elisp-slime-nav 写elisp代码时，可用于跳转到函数的定义
+  1. elisp-slime-nav 写elisp代码时，可用于跳转到函数的定义

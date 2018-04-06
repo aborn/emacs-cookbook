@@ -1,6 +1,6 @@
-#+TITLE: emacs实践笔记
+#+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2017-02-04 13:51
+#+DATE: 2018-04-06 22:04
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -175,7 +175,29 @@ ELISP>
    *(setq nums (sort nums ’<))*
 
 * dired文件管理
-  dired的全称为Directory Edit，即目录编辑，是一个非常老的模式。
+  dired的全称为Directory Edit，即目录编辑，是一个非常老的模式。是Emacs下的一个文件管理神器!
+  进入当前文件的dired文件管理，*M-x dired* 。
+
+** 常用命令
+*** 光标移动命令
+    + *n* 下移
+    + *p* 上移
+
+*** 文件操作
+    + *C* 拷贝文件，dired-recursive-copies变量决定了拷贝的类型,一般为top
+    + *D* 删除文件，类似的有一个 dired-recursive-deletes 变量可以控制递归删除
+    + *R* 重命名或者移动文件
+    + *D* 删除文件或者目录
+    + *+* 创建目录
+    + *Z* gzip压缩文件
+    + *w* 复制文件名(C-u 则复制相对于dired当前目录的相对目录)
+    + *A* 对文件进行正则表达式搜索，会在第一个匹配的地方停下，然后使用M-, 搜索下一个匹配。
+
+*** 其他命令
+    + *RET* 打开文件或者目录
+    + *g*   刷新当前dired buffer
+    + *k*   隐藏不想显示出来的文件
+    + *q*   退出
 
 ** 标记与操作
    dired可以对多个文件进行标记，然后进行批量操作。一个典型的是采用 *d* 对当前文件打上删除标记，
@@ -195,30 +217,16 @@ ELISP>
     + u 去除当前行的标记
     + U 去除所有标记
 
-** 常用命令
-*** 光标移动命令
-    + *n* 下移
-    + *p* 上移
-
-*** 文件操作
-    + *C* 拷贝文件，dired-recursive-copies变量决定了拷贝的类型,一般为top
-    + *D* 删除文件，类似的有一个 dired-recursive-deletes 变量可以控制递归删除
-    + *R* 重命名或者移动文件
-    + *D* 删除文件或者目录
-    + *+* 创建目录
-    + *Z* gzip压缩文件
-    + *w* 复制文件名(C-u 则复制相对于dired当前目录的相对目录)
-    + *A* 对文件进行正则表达式搜索，会在第一个匹配的地方停下，然后使用M-, 搜索下一个匹配。
-
-*** 其他命令   
-    + *RET* 打开文件或者目录
-      + *g*   刷新当前dired buffer
-    + *k*   隐藏不想显示出来的文件
-    + *q*   退出
-
 ** 批量执行Shell命令
    在dired模式下，可以对标记的文件批量执行shell命令（如果没有标记文件，则对当前文件执行shell），
-   运行命令 *dired-do-shell-command* (绑定的快捷键为 *!* )
+   运行命令 *dired-do-shell-command* (绑定的快捷键为 *!* )，相应的它有一个对应的异步操作
+   的命令 *dired-do-async-shell-command* (绑定的快捷键为 *&* )。
+
+** dired的扩展
+*** diredful
+    [[https://github.com/thamer/diredful][diredful]] 可使得不同的文件显示不同的颜色,是一个非常好的扩展
+*** dired-icon
+    [[https://gitlab.com/xuhdev/dired-icon][dired-icon]] 根据文件类型显示相应icon
 
 
 * 什么是函数？
@@ -281,19 +289,20 @@ apply function &rest arguments
 Org 8.0 以后版本采用org-capture.el取代原有的org-remember.el
 
 * magit模式简介
-magit是emacs下版本管理的强大武器
+  magit是emacs下版本管理的强大武器
 
 * 常用命令
-+ *magit-dispatch-popup* 命令分发器，在spacemacs里绑定到 *M-m g m*
-+ *magit-diff* 相当于git diff, 当进入diff-buffer后按 /g/ 更新之
-+ *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
-+ *magit-checkout* 切换分支
-+ *magit-branch-and-checkout* 从当前分支切一个新的分支
+  + *magit-dispatch-popup* 命令分发器，在spacemacs里绑定到 *M-m g m*
+  + *magit-diff* 相当于git diff, 当进入diff-buffer后按 /g/ 更新之
+  + *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
+  + *magit-checkout* 切换分支
+  + *magit-branch-and-checkout* 从当前分支切一个新的分支
 
 * 分支操作
-常用的分支操作如下：
-+ (magit-branch-delete) *b k* 删除一个或多个（本地）分支
-+ (magit-branch-rename) *b r* 对当前Branch进行重命名
+  常用的分支操作如下：
+  + (magit-branch-delete) *b k* 删除一个或多个（本地）分支
+  + (magit-branch-rename) *b r* 对当前Branch进行重命名
+  + (magit-get-current-branch) 获取当前分支名
 
 * org模式简介
   Emacs的org-mode可用于记笔记、管理自己的待办事项(TODO lists)，同时，也可用于管理项目。它是一个高效的纯文本编辑系统。
@@ -452,5 +461,14 @@ magit是emacs下版本管理的强大武器
 ** 导出的Dispatcher
    任何导出命令都有一个前缀按键，我们称之为Dispatcher，为 *C-c C-e*
 
+* Emacs的Package-Mode
+  当通过*M-x list-package*命令打开一个*Package*的Buffer,它有如下命令:
+  1. i 标识安装 （u 取消标识）
+  2. x 执行安装操作
+  3. d 标识删除 （x 执行删除操作）
+  4. U 标识要更新的package
+  5. ~ 标识所有废弃包
+
+
 * 包列表
-1. elisp-slime-nav 写elisp代码时，可用于跳转到函数的定义
+  1. elisp-slime-nav 写elisp代码时，可用于跳转到函数的定义
