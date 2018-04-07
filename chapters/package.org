@@ -15,6 +15,7 @@
   3. d 标识删除 （x 执行删除操作）
   4. U 标识要更新的package
   5. ~ 标识所有废弃包
+  6. M-x package-autoremove 删除那些无用的旧包
 
 
 * 包列表
