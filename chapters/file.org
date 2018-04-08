@@ -15,4 +15,9 @@
 
 ** 打开文件
    如果想在buffer里打开一个文件，其命令是 *find-file* (C-x C-f)。当文件已经在buffer中存在时，
-   这个命令返回文件对应的buffer。
+   这个命令返回文件对应的buffer。如果当前没有buffer对应文件，则，创建一个buffer，并将其文件
+   内容读到buffer中，并返回这个buffer。字义如下:
+
+   #+BEGIN_SRC emacs-lisp
+   find-file filename &optional wildcards
+   #+END_SRC
