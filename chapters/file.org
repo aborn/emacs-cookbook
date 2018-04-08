@@ -1,0 +1,18 @@
+#+TITLE: 文件
+#+AUTHOR: aborn
+#+DATE: 2018-04-08
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
+
+-----
+
+* 访问文件
+  下面介绍与文件访问相关的函数，由于历史原因这些函数的命令都是以 *find-* 开头的，不是以 *visit-*
+  开头。
+
+** 打开文件
+   如果想在buffer里打开一个文件，其命令是 *find-file* (C-x C-f)。当文件已经在buffer中存在时，
+   这个命令返回文件对应的buffer。
