@@ -6,6 +6,12 @@
    开源书的目标主要是做记录，以备后查。我从2012年就开始使用Emacs，时间不算太长，现在Emacs
    已经成为必备的工具！
 
+** 参考
+   主要参考：
+   1. [[https://www.gnu.org/software/emacs/manual/emacs.html][GNU Emacs manual]]
+   2. [[https://www.gnu.org/software/emacs/manual/eintr.html][An Introduction to Programming in Emacs Lisp]]
+   3. [[https://www.gnu.org/software/emacs/manual/elisp.html][GNU Emacs Lisp Reference Manual]]
+
 ** 关于进度
    我会随着学习和使用过程，一点点地积累，不会刻意去写，所以，没有DeadLine。但我会一直坚持写下去。
    如果你也有心想一起参与写作过程，请给我提PR。
