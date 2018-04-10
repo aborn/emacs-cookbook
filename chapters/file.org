@@ -32,3 +32,12 @@
    #+BEGIN_SRC emacs-lisp
    save-buffer &optional backup-option
    #+END_SRC
+
+   文件保存对应有两个hook变量，为： *before-save-hook* 和 *after-save-hook* 分别表示保
+   存前的hook函数列表和保存后的hook函数列表。与之类似的还有一个函数 *write-file*
+
+   #+BEGIN_SRC emacs-lisp
+   write-file  filename &optional confirm
+   #+END_SRC
+   这个函数的功能是将当前buffer的内容写入到filename对应的文件中，并将当前buffer与这个文件进
+   行关联
