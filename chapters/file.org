@@ -54,3 +54,10 @@
   *file-directory-p* 这几个函数。
 
 * 文件与目录
+  判断文件是否在一个目录下，怎么做?
+
+  #+BEGIN_SRC emacs-lisp
+  file-in-directory-p  file dir
+  #+END_SRC
+
+  如果file是一个在目录dir或者dir子目录下的文件，则返回t。如果file与dir处于同一目录，也返回t
