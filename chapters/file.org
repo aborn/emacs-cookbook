@@ -41,3 +41,16 @@
    #+END_SRC
    这个函数的功能是将当前buffer的内容写入到filename对应的文件中，并将当前buffer与这个文件进
    行关联
+
+* 文件基本信息函数
+  下面介绍一些与文件基本信息相关的函数
+
+  1. 文件是否存在
+
+  #+BEGIN_SRC emacs-lisp
+  file-exists-p  lename
+  #+END_SRC
+  与之类似的有: *file-readable-p* 、 *file-executable-p* 、 *file-writable-p* 、
+  *file-directory-p* 这几个函数。
+
+* 文件与目录
