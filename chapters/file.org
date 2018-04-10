@@ -22,3 +22,13 @@
    #+BEGIN_SRC emacs-lisp
    find-file filename &optional wildcards
    #+END_SRC
+
+   这个函数有一个对应的hook变量，叫 *find-file-hook* 它的值是一个函数列表。这些函数在文件被
+   打开后依次执行。
+
+** 文件保存
+   文件被载入到buffer后，我们可以对其进行修改；修改完了后，将内容保存回文件，其对应的函数为：
+
+   #+BEGIN_SRC emacs-lisp
+   save-buffer &optional backup-option
+   #+END_SRC
