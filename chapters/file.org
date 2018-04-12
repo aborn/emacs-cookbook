@@ -71,3 +71,21 @@
 
   *file-name-directory* 返回的文件名里的目录部分，如果文件名里没有包含目录部分，则返回nil。
   与这个函数对应的一个函数为 *file-name-nondirectory* ，它返回非目录部分。
+
+** 文件名扩展
+   *expand-file-name* 这个函数将文件名转成绝对文件名：
+
+   #+BEGIN_SRC emacs-lisp
+   expand-file-name filename &optional directory
+   #+END_SRC
+
+   如果directory参数存在，将filename作为其相对路径，否则使用 *default-directory* 变量。
+   这个函数在写elisp代码时经常用到，下面是一些例子:
+
+   #+BEGIN_SRC emacs-lisp
+   (expand-file-name "foo")
+   ⇒ "/xcssun/users/rms/lewis/foo"
+   (expand-file-name "../foo")
+   ⇒ "/xcssun/users/rms/foo"
+   (expand-file-name "foo" "/usr/spool/") ⇒ "/usr/spool/foo"
+   #+END_SRC
