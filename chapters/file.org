@@ -60,7 +60,16 @@
   file-in-directory-p  file dir
   #+END_SRC
 
-  如果file是一个在目录dir或者dir子目录下的文件，则返回t。如果file与dir处于同一目录，也返回t
+  如果file是一个在目录dir或者dir子目录下的文件，则返回t。如果file与dir处于同一目录，也返回t。
+  如果想列出一个目录下的所有文件，那就要用到 *directory-files* 这个函数，其定义如下：
+
+  #+BEGIN_SRC emacs-lisp
+  directory-files directory &optional full-name match-regexp nosort
+  #+END_SRC
+
+  这个函数按字母顺序返回目录 directory 下的所有文件。参数 full-name 不为nil时，则返回每个文
+  件的绝对路径，否则返回相对路径。match-regexp 如果不是nil，该函数返回只与match-regexp相匹
+  配的文件列表。nosort如果不为nil，则不按字母排序。
 
 * 文件名
   下面介绍一些与文件名操作有关的函数
