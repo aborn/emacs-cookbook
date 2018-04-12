@@ -61,3 +61,13 @@
   #+END_SRC
 
   如果file是一个在目录dir或者dir子目录下的文件，则返回t。如果file与dir处于同一目录，也返回t
+
+* 文件名
+  下面介绍一些与文件名操作有关的函数
+
+  #+BEGIN_SRC emacs-lisp
+  file-name-directory  lename
+  #+END_SRC
+
+  *file-name-directory* 返回的文件名里的目录部分，如果文件名里没有包含目录部分，则返回nil。
+  与这个函数对应的一个函数为 *file-name-nondirectory* ，它返回非目录部分。
