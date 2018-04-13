@@ -1,6 +1,6 @@
 ;;; cookbook.el --- produce cookbook pdf  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2016  Aborn Jiang
+;; Copyright (C) 2016-2018  Aborn Jiang
 
 ;; Author: Aborn Jiang <aborn.jiang@gmail.com>
 ;; Version: 0.1.0
