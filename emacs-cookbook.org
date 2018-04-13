@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-04-13 12:50
+#+DATE: 2018-04-13 13:49
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -8,22 +8,19 @@
 #+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
 
 -----
-
-* emacs的书签功能
+* bookmarks 实践
+** emacs的书签功能
 emacs的书签用于记录你在文件中的阅读位置。它有点类似寄存器，跟寄存器一样，因为它也能记录位置位置。
 但同寄存器有两点不一样：1. 它有比较长的名字; 2. 当emacs关闭的时候，它会自动持久化到
 磁盘。
-
-** 设置一个书签
+*** 设置一个书签
 当我们阅读一个很长的文档，没能一口气读完时。我们希望记住当前文档的最后阅读的位置，以便下次再用emacs
 阅读的时候能快速地定位到。那么，我们设置一个书签，通过
  *bookmark-set* 对应快捷键为 *C-x r m*
-
-** 列出保存的书签
+*** 列出保存的书签
  *bookmark-bmenu-list* 对应快捷键为 *C-x r l* ，它将打开一个*Bookmark List*的buffer同时
 列出所有保存的书签。
-
-*** 书签列表*Bookmark List*
+**** 书签列表*Bookmark List*
 在*Bookmark List*这个buffer里，有以下快捷键可以使用：
 - a 显示当前书签的标注信息;
 - A 在另一个buffer中显示所有书签的所有标注信息;
@@ -34,18 +31,14 @@ emacs的书签用于记录你在文件中的阅读位置。它有点类似寄存
 - C-o 在另一个window中切换到当前这个书签;
 - r 重命名当前书签;
 - w 将当前书签的位置显示在minibuffer里。
-
-** 跳转到一个书签
+*** 跳转到一个书签
 使用 *bookmark-jump* 函数，可以跳转到一个特定的书签，它绑定的快捷键为 *C-x r b* 。
 如果你的emacs中安装了[[https://github.com/emacs-helm/helm][helm]] 这个插件，你也可以使用 *helm-bookmarks* 这个命令
 来快速查找书签，并跳转到书签位置。
-
-*** helm-bookmarks
+**** helm-bookmarks
 通过helm-bookmarks命令来查找并跳转书签如下图：
-
 [[./images/bookmark.png]]
-
-*** 修改默认排序
+**** 修改默认排序
 书签查找和跳转的时候，默认的书签排序是按字母排序的。如果想将最近访问的书签放在最前面，
 将下面代码添加到你的emacs配置文件中。
 #+NAME: 修改默认排序
@@ -55,11 +48,9 @@ emacs的书签用于记录你在文件中的阅读位置。它有点类似寄存
     (setq bookmark-alist (delq latest bookmark-alist))
     (add-to-list 'bookmark-alist latest)))
 #+END_SRC
-
-** 删除一个书签
+*** 删除一个书签
 删除一个书签对应的命令为 *bookmark-delete* 。
-
-** 保存书签
+*** 保存书签
 最新版本emacs（老版本的书签保存在 *~/.emacs.bmk* ），
 在退出的时候会自动保存书签。如果想手动保存书签的话，可以采用
  *bookmark-save* 这个函数命令。默认的情况，emacs会将书签保存在 *bookmark-default-file*
@@ -70,15 +61,13 @@ ELISP> bookmark-default-file
 "/Users/aborn/.emacs.d/.cache/bookmarks"
 ELISP>
 #+END_SRC
-
-** 其他设置
+*** 其他设置
 有一个变量 *bookmark-save-flag* 。如果这个变量的值为一个数值，它表示修改（或新增）
 多少次书签后，emacs会自动保存书签到磁盘。当这个变量的值被设置为1时，每次对bookmark的改
 动，emacs就会自动保存内容到磁盘相应位置（这样可以防止emacs突然crash时bookmark的丢失）。
 如果这个值设置为nil，表示emacs不会主动保存bookmark，除非用户手动调用
-*M-x bookmark-save* 。
-
-** bookmark+
+**M-x bookmark-save* 。
+*** bookmark+
 [[https://www.emacswiki.org/emacs/bookmark+.el][bookmark+]] 是对bookmark的一个扩展的包。它有更多的功能：
 1. 原始的bookmark只能对文件位置记录，bookmark+对孤立的buffer(没有关联文件的buffer)也能保存书签;
 2. 支持对书签进行打tag;
@@ -87,55 +76,40 @@ ELISP>
 5. 多个书签可以有相同的名字;
 6. 可以对函数、变量等加书签。
 更多功能请参考: https://www.emacswiki.org/emacs/BookmarkPlus#Bookmark%2b
-
-
-
-* 列表
+* 基本数据类型
+** 列表
   列表是由零个或者多个元素组成的序列，列表中的每个元素都可由任意的对象组成。
-
-** 关联列表alist (Association Lists)
+*** 关联列表alist (Association Lists)
    关联列表是一种特殊的列表，它的每个元素都是一个点对构成，如下示例:
-
    #+BEGIN_SRC emacs-lisp
    (setq alist-of-colors
       '((rose . red) (lily . white) (buttercup . yellow)))
    #+END_SRC
-
    关联列表可以用来记录key-value这样的map结构；对每个元素做car操作拿到key，做cdr操作即拿到
    相关系的value。
-
-*** 关联列表操作
+**** 关联列表操作
     + (assoc key alist) 获取列表第一个key所关联的值；下面是一个例子：
-
     #+BEGIN_SRC emacs-lisp
     ELISP> (assoc 'rose alist-of-colors)
     (rose . red)
     #+END_SRC
-
     注意：这里用得比较是equal函数，如想用eq函数，请采用(assq key alist)这个函数
-
     + (rassoc value alist) 获取列表第一个value为 *value* 所关联的值；
     + (assoc-default key alist) 获取列表中第一个key为 *key* 的value；
-
     #+BEGIN_SRC emacs-lisp
     ELISP> (assoc-default 'rose alist-of-colors)
     red
     #+END_SRC
-
-** 属性列表plist (Property Lists)
+*** 属性列表plist (Property Lists)
    属性列表是由成对元素（paired elements）组成的列表，每个元素对关联着一个属性的名及其
    对应属性值。下面是一个例子：
-
    #+BEGIN_SRC emacs-lisp
     (pine cones numbers (1 2 3) color "blue")
    #+END_SRC
-
    这里pine关联其值为cons，numbers关联其值为(1 2 3)，一般每个元素对的关联值是由symbol类型
    组成的。
-
-*** 属性列表的操作
+**** 属性列表的操作
     + (plist-get plist property) 返回属性列表中属性名为property的属性值:
-
     #+BEGIN_SRC emacs-lisp
     ELISP> (setq pl '(pine cones numbers (1 2 3) color "blue"))
     (pine cones numbers
@@ -146,22 +120,18 @@ ELISP>
     ELISP> (plist-get pl 'numbers)
     (1 2 3)
     #+END_SRC
-
     + (plist-member plist property) 如果属性列表plist中含有属性property，则返回non-nil。
     + (plist-put plist property value) 保存属性property及值value的属性对
-
     #+BEGIN_SRC emacs-lisp
     (setq my-plist '(bar t foo 4))                    ;; => (bar t foo 4)
     (setq my-plist (plist-put my-plist 'foo 69))      ;; => (bar t foo 69)
     (setq my-plist (plist-put my-plist 'quux '(a)))   ;; => (bar t foo 69 quux (a))
     #+END_SRC
-
-** 对列表进行排序
+*** 对列表进行排序
    对列表进行排序可以采用sort这个函数 *(sort list predicate)* 。不过这个函数是有副作用的，
    这个函数调用后会改变原有list的结构。第三个参数predicate传入的是一个比较函数，它接收两个参数。
    如果是想递增排序，当第一个参数小于第二个参数时返回non-nil，否则返回nil。注意这个sort函数
    对list的排序，始终保持car部分不变。下面是一个例子：
-
    #+BEGIN_SRC emacs-lisp
     ELISP> (setq nums '(1 3 2 6 5 4 0))
     (1 3 2 6 5 4 0)
@@ -170,20 +140,17 @@ ELISP>
     ELISP> nums
     (1 2 3 4 5 6)
    #+END_SRC
-
    注意这里的nums排序后，的car与原来list的car是一样的。所以一般采用重新赋值的方式
    *(setq nums (sort nums ’<))*
-
-* dired文件管理
+* dired 实践
+** dired文件管理
   dired的全称为Directory Edit，即目录编辑，是一个非常老的模式。是Emacs下的一个文件管理神器!
   进入当前文件的dired文件管理，*M-x dired* 。
-
-** 常用命令
-*** 光标移动命令
+*** 常用命令
+**** 光标移动命令
     + *n* 下移
     + *p* 上移
-
-*** 文件操作
+**** 文件操作
     + *C* 拷贝文件，dired-recursive-copies变量决定了拷贝的类型,一般为top
     + *D* 删除文件，类似的有一个 dired-recursive-deletes 变量可以控制递归删除
     + *R* 重命名或者移动文件
@@ -192,18 +159,15 @@ ELISP>
     + *Z* gzip压缩文件
     + *w* 复制文件名(C-u 则复制相对于dired当前目录的相对目录)
     + *A* 对文件进行正则表达式搜索，会在第一个匹配的地方停下，然后使用M-, 搜索下一个匹配。
-
-*** 其他命令
+**** 其他命令
     + *RET* 打开文件或者目录
     + *g*   刷新当前dired buffer
     + *k*   隐藏不想显示出来的文件
     + *q*   退出
-
-** 标记与操作
+*** 标记与操作
    dired可以对多个文件进行标记，然后进行批量操作。一个典型的是采用 *d* 对当前文件打上删除标记，
    然后使用 *x* 命令来删除所有标记的文件.
-
-*** 标记操作命令
+**** 标记操作命令
     + m 以星标记当前文件
     + * * 标记所有可执行文件
     + * @ 标记所有符号链接
@@ -212,105 +176,85 @@ ELISP>
     + * . 标记具有给定扩展名的文件
     + % m REGEXP <RET> 或 * % REGEXP <RET> 标记所有匹配到给定的正则表达式 的文件。
     + % g REGEXP <RET> 标记所有文件 内容 匹配到给定的正则表达式的文件。
-
-*** 其他标记相关命令
+**** 其他标记相关命令
     + u 去除当前行的标记
     + U 去除所有标记
-
-** 批量执行Shell命令
+*** 批量执行Shell命令
    在dired模式下，可以对标记的文件批量执行shell命令（如果没有标记文件，则对当前文件执行shell），
    运行命令 *dired-do-shell-command* (绑定的快捷键为 *!* )，相应的它有一个对应的异步操作
    的命令 *dired-do-async-shell-command* (绑定的快捷键为 *&* )。
-
-** dired的扩展
-*** diredful
+*** dired的扩展
+**** diredful
     [[https://github.com/thamer/diredful][diredful]] 可使得不同的文件显示不同的颜色,是一个非常好的扩展
-*** dired-icon
+**** dired-icon
     [[https://gitlab.com/xuhdev/dired-icon][dired-icon]] 根据文件类型显示相应icon
-
-
-* 文件及访问
+* 文件
+** 文件及访问
   文件是操作系统永久保存数据的单元，为了编辑文件，我们必要告诉Emacs去读取一个文件，并将文件的内
   容保存在一个Buffer里，这样Buffer与文件就关联在一起。下面介绍与文件访问相关的函数，由于历史原
-  因这些函数的命令都是以 *find-* 开头的，不是以 *visit-*开头。
-
-** 打开文件
+  因这些函数的命令都是以 *find-* 开头的，不是以 *visit-* 开头。
+*** 打开文件
    如果想在buffer里打开一个文件，其命令是 *find-file* (C-x C-f)。当文件已经在buffer中存在时，
    这个命令返回文件对应的buffer。如果当前没有buffer对应文件，则，创建一个buffer，并将其文件
    内容读到buffer中，并返回这个buffer。字义如下:
-
    #+BEGIN_SRC emacs-lisp
    find-file filename &optional wildcards
    #+END_SRC
-
    这个函数有一个对应的hook变量，叫 *find-file-hook* 它的值是一个函数列表。这些函数在文件被
    打开后依次执行。
-
-** 文件保存
+*** 文件保存
    文件被载入到buffer后，我们可以对其进行修改；修改完了后，将内容保存回文件，其对应的函数为：
-
    #+BEGIN_SRC emacs-lisp
    save-buffer &optional backup-option
    #+END_SRC
-
    文件保存对应有两个hook变量，为： *before-save-hook* 和 *after-save-hook* 分别表示保
    存前的hook函数列表和保存后的hook函数列表。与之类似的还有一个函数 *write-file*
-
    #+BEGIN_SRC emacs-lisp
    write-file  filename &optional confirm
    #+END_SRC
    这个函数的功能是将当前buffer的内容写入到filename对应的文件中，并将当前buffer与这个文件进
    行关联
-
-* 文件基本信息函数
+** 文件基本信息函数
   下面介绍一些与文件基本信息相关的函数
-
   1. 文件是否存在
-
   #+BEGIN_SRC emacs-lisp
   file-exists-p  lename
   #+END_SRC
   与之类似的有: *file-readable-p* 、 *file-executable-p* 、 *file-writable-p* 、
   *file-directory-p* 这几个函数。
-
-* 文件与目录
+** 文件与目录
   判断文件是否在一个目录下，怎么做?
-
   #+BEGIN_SRC emacs-lisp
   file-in-directory-p  file dir
   #+END_SRC
-
   如果file是一个在目录dir或者dir子目录下的文件，则返回t。如果file与dir处于同一目录，也返回t。
   如果想列出一个目录下的所有文件，那就要用到 *directory-files* 这个函数，其定义如下：
-
   #+BEGIN_SRC emacs-lisp
   directory-files directory &optional full-name match-regexp nosort
   #+END_SRC
-
   这个函数按字母顺序返回目录 directory 下的所有文件。参数 full-name 不为nil时，则返回每个文
   件的绝对路径，否则返回相对路径。match-regexp 如果不是nil，该函数返回只与match-regexp相匹
   配的文件列表。nosort如果不为nil，则不按字母排序。
-
-* 文件名
+*** 创建、复制和删除目录
+   对目录的创建、复制和删除都有相关的处理函数，下面一一介绍：
+   #+BEGIN_SRC emacs-lisp
+   make-directory dirname &optional parents
+   #+END_SRC
+   *make-directory* 创建一个目录名为dirname的目录
+** 文件名
   下面介绍一些与文件名操作有关的函数
-
   #+BEGIN_SRC emacs-lisp
   file-name-directory  lename
   #+END_SRC
-
   *file-name-directory* 返回的文件名里的目录部分，如果文件名里没有包含目录部分，则返回nil。
   与这个函数对应的一个函数为 *file-name-nondirectory* ，它返回非目录部分。
-
-** 文件名扩展
+*** 文件名扩展
    *expand-file-name* 这个函数将文件名转成绝对文件名：
-
    #+BEGIN_SRC emacs-lisp
    expand-file-name filename &optional directory
    #+END_SRC
-
    如果directory参数存在，将filename作为其相对路径，否则使用 *default-directory* 变量。
    这个函数在写elisp代码时经常用到，下面是一些例子:
-
    #+BEGIN_SRC emacs-lisp
    (expand-file-name "foo")
    ⇒ "/xcssun/users/rms/lewis/foo"
@@ -318,23 +262,18 @@ ELISP>
    ⇒ "/xcssun/users/rms/foo"
    (expand-file-name "foo" "/usr/spool/") ⇒ "/usr/spool/foo"
    #+END_SRC
-
-
-* 什么是函数？
+* 函数
+** 什么是函数？
 函数是有传入参数的可计算的规则。计算的结果为函数返回值。大部分计算机语言里，
 函数是有一个名字的。从严格意义来说，lisp函数是没有名字的。注意：函数也是一个lisp对象，把这个对象关联到一个symbol,
 这个symbol就是函数名
-
-* 函数定义
+** 函数定义
 定义一个函数的语法如下：
-
 #+BEGIN_SRC emacs-lisp
 defun name args [doc] [declare] [interactive] body. . .
 #+END_SRC
-
-* 检查一个函数是否定义
+** 检查一个函数是否定义
 检查一个变量是否绑定到函数， *fboundp symbol* , 还有一个函数 *(functionp OBJECT)*
-
 #+BEGIN_SRC emacs-lisp
 (fboundp 'info)                         ; t
 (fboundp 'setq)                         ; t
@@ -342,8 +281,7 @@ defun name args [doc] [declare] [interactive] body. . .
 (functionp (lambda () (message "Anonymous Functions")))   ; t
 (fboundp (lambda () (message "Anonymous Functions")))     ; *** Eval error ***
 #+END_SRC
-
-* 函数参数
+** 函数参数
 有些参数是可选的，当用户没有传是，设置一个默认值，下面是一个例子：
 ```elisp
 (defun piece-meal/fun-option-parameter (a &optional b)
@@ -352,207 +290,160 @@ defun name args [doc] [declare] [interactive] body. . .
     (setq b "ddd"))    ;; set to default value
   (message "a=%s, b=%s" a b))
 ```
-
-* 函数调用
+** 函数调用
 函数的调用有两种方式，**funcall**和**apply**
-
-** funcall
+*** funcall
 funcall它的语法如下：
-
 #+BEGIN_SRC emacs-lisp
 funcall function &rest arguments
 #+END_SRC
-
 因为funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算。
 注意参数 *function* 必须为一个Lisp函数或者原生函数，不能为Special Forms或者宏(可以为lamda匿名函数)。
-
-** apply
+*** apply
 apply的语法如下：
-
 #+BEGIN_SRC emacs-lisp
 apply function &rest arguments
 #+END_SRC
-
 它与funcall功能类似，唯一不同的是它的arguments是一个列表对象。
-
-
-* org-capture.el
+* org 实践
+** org-capture.el
 Org 8.0 以后版本采用org-capture.el取代原有的org-remember.el
-
-* magit模式简介
+* magit 实践
+** magit模式简介
   magit是emacs下版本管理的强大武器
-
-* 常用命令
+** 常用命令
   + *magit-dispatch-popup* 命令分发器，在spacemacs里绑定到 *M-m g m*
   + *magit-diff* 相当于git diff, 当进入diff-buffer后按 /g/ 更新之
   + *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
   + *magit-checkout* 切换分支
   + *magit-branch-and-checkout* 从当前分支切一个新的分支
-
-* 分支操作
+** 分支操作
   常用的分支操作如下：
   + (magit-branch-delete) *b k* 删除一个或多个（本地）分支
   + (magit-branch-rename) *b r* 对当前Branch进行重命名
   + (magit-get-current-branch) 获取当前分支名
-
-* org模式简介
+* org 实践
+** org模式简介
   Emacs的org-mode可用于记笔记、管理自己的待办事项(TODO lists)，同时，也可用于管理项目。它是一个高效的纯文本编辑系统。
-
-* 文档结构
+** 文档结构
   Org是基于Outline-mode，并提供灵活的命令编辑结构化的文档。其文档结构语法跟markdown很类似。
-** 目录结构
+*** 目录结构
    Org的目录结构在每行最左边以星号标记，星号越多，标题层级越深。下面是一些例子：
-
    #+BEGIN_EXAMPLE
    \* 一级目录
    \** 二级目录
    \*** 三级目录
-
    \* 另一个一级目录
    #+END_EXAMPLE
-
-** 显示与隐藏
+*** 显示与隐藏
    目录结构下的内容可以隐藏起来，通常用采用 *TAB* 和 /S-TAB/ 这两个命令来切换。
-
-** 列表
+*** 列表
    Org提供三种类型的列表：有序列表、无序列表和描述列表
    1. 有序列表以'1.' 或者 '1)'
    2. 无序列表以'-', '+' 或者 '*'
    3. 描述列表
-
-** 块结构
+*** 块结构
    在Org文档中，加入代码块这种类型的块结构，都是采用begin...end这种模式，下面是一个例子：
-
    #+BEGIN_EXAMPLE
 \#+BEGIN_EXAMPLE
 \#+END_EXAMPLE
    #+END_EXAMPLE
-
-* 表格
-* 超链接
+** 表格
+** 超链接
   Org模式提供了比较好用的超链接方式，可以链接到普通网页、文件、email等。
-** 链接格式
+*** 链接格式
    Org模式支持两种链接，即，内部链接和外部链接。它们有相同的格式：
    #+BEGIN_EXAMPLE
 [[链接][描述]]  或 当只有链接没有描述  [[链接]]
    #+END_EXAMPLE
    一旦链接编辑完成，在org模式下，只显示 *描述* 部分，而不会显示整体（后一种是只显示链接）。
    为了编辑链接和描述，需要通过快捷键 *C-c C-l* 来完成(注意：编辑结束后按Enter完成修改操作)。
-*** 内部链接
+**** 内部链接
     内部链接是指向当前文件的链接,它的链接格式:
     #+BEGIN_EXAMPLE
 [[#链接ID]]
     #+END_EXAMPLE
     其中 *链接ID* 是文档中唯一的标识ID
-
-*** 外部链接
+**** 外部链接
     Org支持的外部链接有很多中形式，如文件、网页、新闻组、电子邮件信息、BBDB数据条目等。
     它们以一个短的标识字符串打头，紧接着是一个冒号，冒号后面没有空格字符。
-
-*** 链接处理相关命令
-
+**** 链接处理相关命令
     + org-store-link 保存当前位置的一个链接，以备后面插入使用
     + org-insert-link 插入链接，绑定的快捷键为C-c C-l，如果光标正在一个链接上，那么C-c C-l的行为是编辑这个链接及其描述
-
-* 待办事项
+** 待办事项
   Org模式用来管理自己的TODO list非常方便
-
-* 日程表(Agenda View)
+** 日程表(Agenda View)
   我们可以用Org来按排自己的行程
-
-** 日程文件(Agenda files)
+*** 日程文件(Agenda files)
    变量org-agenda-files保存了一个文件列表,这些文件用来记录日程，下面是一些操作函数:
    C-c [ 将当前文件加入到agenda文件列表最前页面 org-agenda-file-to-front
    C-c ] 将当前文件从agenda文件列表中删除 org-remove-file
-
-** 分发按键
+*** 分发按键
    默认采用 *C-c a* ,接下的默认的命令有：
-
    + a   创建一个日程
    + t/T 创建一个TODO items
    + L   对当前文件生成timeline
-
-** 内建Agenda视图
-
-** 计划Schedule
+*** 内建Agenda视图
+*** 计划Schedule
    用org来安排日程
-
    + org-schedule 将当前TODO添加计划时间
-
-* Org快速记录
+** Org快速记录
   有时候，突然想到一些待办事项，或者一些突发的灵感。这时，我们想用emacs快速记录它，[[http://orgmode.org/manual/Capture.html#Capture][Org-Capture]] 提供
   这个好用的功能。它的前身是org-remember.el（注：从org 8.0开始，org-remember被org-capture）
   替代。
-
-** 如何使用org-capture?
+*** 如何使用org-capture?
    快速记录的命令为 *M-x org-capture* ，默认绑定的快捷键为 C-c c 。当这个命令被调用后，你可以使用
    自己定义好的 [[http://orgmode.org/manual/Capture-templates.html#Capture-templates][模板]] 快速创建记录。一旦完成内容的输入，按下C-c C-c (org-capture-finalize)，来完成。
    然后，你就能继续做你当下的事。如果想跳转到刚刚创建的记录的buffer, 用C-u C-c C-c来完成。如果想
    中途中止输入，只要按下 C-c C-k (org-capture-kill)。
-
-** org条目复制与移动
+*** org条目复制与移动
    有时候，我们想将当前的某条目转移到其他文件或者其他项目里。这时，我们会用到 org-copy 和 org-refile
    这两个命令。它们对应的快捷键分别是 C-c M-w 及 C-c C-w 。这里有一个问题是，目标文件如何配置？
    目录文件的配置由一个变量决定， *org-refile-targets* ，我自己的配置如下：
-
    #+BEGIN_SRC emacs-lisp
 (setq org-refile-targets
       '((nil :maxlevel . 3)       ;; 当前文件的最大层级
         (aborn-gtd-files :maxlevel . 3)))
    #+END_SRC
-
    注意：我这时将文件放在 aborn-gtd-files 文件列表里。
-
-** 记录模板
+*** 记录模板
    记录的模板为一个列表变量，org-capture-templates，列表的每条记录由如下几段组成：
-
    #+BEGIN_EXAMPLE
 ("t" "Todo" entry (file+headline (expand-file-name org-default-notes-file org-directory) "Tasks")
          "* TODO %?\n  创建于:%T  %i\n")
    #+END_EXAMPLE
-
-*** 快捷键
+**** 快捷键
     如例子中的那样，"t"表示对应按键t这个快捷键。它能帮助我们快速地选中哪条模板进行快速记录。
-
-*** 描述
+**** 描述
     接下来是一段简单的描述
-
-*** 类型
+**** 类型
     第三段表示类型，有五种类型：entry item checkitem table-line plain
-
     + entry 普通的Org结点，保证目标文件为org-mode文件，插入的时候将作为目录结点的子结点
     （如果没有，将做为顶级结点）；
     + item 与entry类似，不同点在于它的目标文件可以为简单的纯文本文件；
     + checkitem 复选条目；
     + table-line 在目标文件中的第一个table中插入新行；
     + plain 纯文本记录
-
-*** 目标文件
+**** 目标文件
     第四个字段配置目标文件
-
-*** 模板
+**** 模板
     第五个字段表示模板，[[http://orgmode.org/manual/Template-expansion.html#Template-expansion][模板参数]] 含义如下：
-
     + %t 只有日期的时间戳
     + %T 日期+时间的时间戳
     + %u,%U 如上，只不过它们是inactive的
     + %i 初始化文本，当前上下文将作为初始化文本
-
-*** 属性properties
+**** 属性properties
     最后一个字段表示属性列表，支持以下属性配置：
-
     + :prepend 一般一个记录条目插入在目标文件的最后，这个属性可以将条目插入在最前
     + :immediate-finish 立刻完成，没有交互
     + :clock-in 对这个条目设置闹钟
     + :kill-buffer 如果目标文件没有相应的访问buffer,插入后，自动关闭buffer
-
-* Org的导出功能
+** Org的导出功能
   Org文件支持导出多种格式的目标文件，如ASCII文件、HTML文件(用于发布为Web)、PDF文档等。
-
-** 导出的Dispatcher
+*** 导出的Dispatcher
    任何导出命令都有一个前缀按键，我们称之为Dispatcher，为 *C-c C-e*
-
-* Emacs的Package-Mode
+* 值得介绍的优秀包
+** Emacs的Package-Mode
   当通过*M-x list-package*命令打开一个*Package*的Buffer,它有如下命令:
   1. i 标识安装 （u 取消标识）
   2. x 执行安装操作
@@ -560,7 +451,5 @@ Org 8.0 以后版本采用org-capture.el取代原有的org-remember.el
   4. U 标识要更新的package
   5. ~ 标识所有废弃包
   6. M-x package-autoremove 删除那些无用的旧包
-
-
-* 包列表
+** 包列表
   1. elisp-slime-nav 写elisp代码时，可用于跳转到函数的定义

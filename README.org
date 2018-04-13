@@ -12,6 +12,13 @@
    2. [[https://www.gnu.org/software/emacs/manual/eintr.html][An Introduction to Programming in Emacs Lisp]]
    3. [[https://www.gnu.org/software/emacs/manual/elisp.html][GNU Emacs Lisp Reference Manual]]
 
+** 生成整本书
+   执行下列命令生成整本书（本地要安装latex的包）:
+
+   #+BEGIN_SRC emacs-lisp
+   M-x cookbook-run-async
+   #+END_SRC
+
 ** 关于进度
    我会随着学习和使用过程，一点点地积累，不会刻意去写，所以，没有DeadLine。但我会一直坚持写下去。
    如果你也有心想一起参与写作过程，请给我提PR。
