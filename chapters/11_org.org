@@ -164,3 +164,6 @@
 
 ** 导出的Dispatcher
    任何导出命令都有一个前缀按键，我们称之为Dispatcher，为 *C-c C-e*
+
+* org-capture.el
+  Org 8.0 以后版本采用org-capture.el取代原有的org-remember.el
