@@ -112,16 +112,17 @@
       (cookbook-wrap-star-for-each-lines (substring-no-properties content (+ s-begin 5))))))
 
 (defun cookbook-extract-org-title ()
-  "Extract current buffer org title"
+  "Extract current buffer org title, note: it should be a space before title."
   (let* ((content (buffer-string))
          (start-prefix "+TITLE:")
          (s-begin (string-match start-prefix content))
          (s-end (string-match "\n" content)))
     (when (and s-begin s-end)
-      (concat ""
+      (concat "*"
               (substring-no-properties
                content
-               (+ s-begin (length start-prefix)) s-end)))))
+               (+ s-begin (length start-prefix)) s-end)
+              "\n"))))
 
 (defun cookbook-produce-text-content ()
   (concat
@@ -129,7 +130,9 @@
    (cl-reduce 'concat
               (mapcar #'(lambda (org-file)
                           (find-file org-file)
-                          (cookbook-extract-org-content))
+                          (concat
+                           (cookbook-extract-org-title)
+                           (cookbook-extract-org-content)))
                       (cookbook-chapter-org-files)))))
 
 (defun cookbook-org-file-name ()
