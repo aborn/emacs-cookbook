@@ -1,4 +1,4 @@
-#+TITLE: 值得介绍的优秀包
+#+TITLE: 包管理
 #+AUTHOR: aborn
 #+DATE: 2016-10-14
 #+EMAIL: aborn.jiang@gmail.com
