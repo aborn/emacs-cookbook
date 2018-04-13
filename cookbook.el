@@ -104,12 +104,24 @@
    "#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup\n\n"
    "-----\n"))
 
-(defun cookbook-org-content-extract ()
+(defun cookbook-extract-org-content ()
   "Extract current buffer org content (hearder content excluded.)"
   (let* ((content (buffer-string))
          (s-begin (string-match "-----\n" content)))
     (when s-begin
       (cookbook-wrap-star-for-each-lines (substring-no-properties content (+ s-begin 5))))))
+
+(defun cookbook-extract-org-title ()
+  "Extract current buffer org title"
+  (let* ((content (buffer-string))
+         (start-prefix "+TITLE:")
+         (s-begin (string-match start-prefix content))
+         (s-end (string-match "\n" content)))
+    (when (and s-begin s-end)
+      (concat ""
+              (substring-no-properties
+               content
+               (+ s-begin (length start-prefix)) s-end)))))
 
 (defun cookbook-produce-text-content ()
   (concat
@@ -117,7 +129,7 @@
    (cl-reduce 'concat
               (mapcar #'(lambda (org-file)
                           (find-file org-file)
-                          (cookbook-org-content-extract))
+                          (cookbook-extract-org-content))
                       (cookbook-chapter-org-files)))))
 
 (defun cookbook-org-file-name ()
