@@ -109,7 +109,7 @@
   (let* ((content (buffer-string))
          (s-begin (string-match "-----\n" content)))
     (when s-begin
-      (substring-no-properties content (+ s-begin 5)))))
+      (cookbook-wrap-star-for-each-lines (substring-no-properties content (+ s-begin 5))))))
 
 (defun cookbook-produce-text-content ()
   (concat
@@ -135,6 +135,15 @@
     (insert cookbook-content)
     (save-buffer)
     (cookbook-org-to-pdf cookbook-file)))
+
+(defun cookbook-wrap-star-for-each-lines (content)
+  "Return book style star * for org mode."
+  (cl-reduce 'concat
+             (mapcar #'(lambda (item)
+                         (if (s-starts-with? "*" item)
+                             (concat "*" item "\n")
+                           (concat item "\n")))
+                     (split-string content "\n" t))))
 
 (provide 'cookbook)
 ;;; cookbook.el ends here
