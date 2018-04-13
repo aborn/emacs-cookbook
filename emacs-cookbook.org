@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-04-13 13:49
+#+DATE: 2018-04-13 23:16
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -8,74 +8,6 @@
 #+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
 
 -----
-* bookmarks 实践
-** emacs的书签功能
-emacs的书签用于记录你在文件中的阅读位置。它有点类似寄存器，跟寄存器一样，因为它也能记录位置位置。
-但同寄存器有两点不一样：1. 它有比较长的名字; 2. 当emacs关闭的时候，它会自动持久化到
-磁盘。
-*** 设置一个书签
-当我们阅读一个很长的文档，没能一口气读完时。我们希望记住当前文档的最后阅读的位置，以便下次再用emacs
-阅读的时候能快速地定位到。那么，我们设置一个书签，通过
- *bookmark-set* 对应快捷键为 *C-x r m*
-*** 列出保存的书签
- *bookmark-bmenu-list* 对应快捷键为 *C-x r l* ，它将打开一个*Bookmark List*的buffer同时
-列出所有保存的书签。
-**** 书签列表*Bookmark List*
-在*Bookmark List*这个buffer里，有以下快捷键可以使用：
-- a 显示当前书签的标注信息;
-- A 在另一个buffer中显示所有书签的所有标注信息;
-- d 标记书签，以便用来删除 (x – 执行删除);
-- e 编辑当前书签的标注信息;
-- m 标记书签，以便用于进一步显示和其他操作 (v – 访问这个书签);
-- o 选中当前书签，并显示在另一个window中;
-- C-o 在另一个window中切换到当前这个书签;
-- r 重命名当前书签;
-- w 将当前书签的位置显示在minibuffer里。
-*** 跳转到一个书签
-使用 *bookmark-jump* 函数，可以跳转到一个特定的书签，它绑定的快捷键为 *C-x r b* 。
-如果你的emacs中安装了[[https://github.com/emacs-helm/helm][helm]] 这个插件，你也可以使用 *helm-bookmarks* 这个命令
-来快速查找书签，并跳转到书签位置。
-**** helm-bookmarks
-通过helm-bookmarks命令来查找并跳转书签如下图：
-[[./images/bookmark.png]]
-**** 修改默认排序
-书签查找和跳转的时候，默认的书签排序是按字母排序的。如果想将最近访问的书签放在最前面，
-将下面代码添加到你的emacs配置文件中。
-#+NAME: 修改默认排序
-#+BEGIN_SRC emacs-lisp
-(defadvice bookmark-jump (after bookmark-jump activate)
-  (let ((latest (bookmark-get-bookmark bookmark)))
-    (setq bookmark-alist (delq latest bookmark-alist))
-    (add-to-list 'bookmark-alist latest)))
-#+END_SRC
-*** 删除一个书签
-删除一个书签对应的命令为 *bookmark-delete* 。
-*** 保存书签
-最新版本emacs（老版本的书签保存在 *~/.emacs.bmk* ），
-在退出的时候会自动保存书签。如果想手动保存书签的话，可以采用
- *bookmark-save* 这个函数命令。默认的情况，emacs会将书签保存在 *bookmark-default-file*
-变量对应的文件中。在我的机器中，对应的文件如下：
-#+NAME: 书签文件路径
-#+BEGIN_SRC emacs-lisp
-ELISP> bookmark-default-file
-"/Users/aborn/.emacs.d/.cache/bookmarks"
-ELISP>
-#+END_SRC
-*** 其他设置
-有一个变量 *bookmark-save-flag* 。如果这个变量的值为一个数值，它表示修改（或新增）
-多少次书签后，emacs会自动保存书签到磁盘。当这个变量的值被设置为1时，每次对bookmark的改
-动，emacs就会自动保存内容到磁盘相应位置（这样可以防止emacs突然crash时bookmark的丢失）。
-如果这个值设置为nil，表示emacs不会主动保存bookmark，除非用户手动调用
-**M-x bookmark-save* 。
-*** bookmark+
-[[https://www.emacswiki.org/emacs/bookmark+.el][bookmark+]] 是对bookmark的一个扩展的包。它有更多的功能：
-1. 原始的bookmark只能对文件位置记录，bookmark+对孤立的buffer(没有关联文件的buffer)也能保存书签;
-2. 支持对书签进行打tag;
-3. 对文档的某个区域保存为书签，而不仅仅是某个位置;
-4. 记录了每个书签的访问次数，及最后一次的访问时间，可以基于它们排序;
-5. 多个书签可以有相同的名字;
-6. 可以对函数、变量等加书签。
-更多功能请参考: https://www.emacswiki.org/emacs/BookmarkPlus#Bookmark%2b
 * 基本数据类型
 ** 列表
   列表是由零个或者多个元素组成的序列，列表中的每个元素都可由任意的对象组成。
@@ -142,52 +74,49 @@ ELISP>
    #+END_SRC
    注意这里的nums排序后，的car与原来list的car是一样的。所以一般采用重新赋值的方式
    *(setq nums (sort nums ’<))*
-* dired 实践
-** dired文件管理
-  dired的全称为Directory Edit，即目录编辑，是一个非常老的模式。是Emacs下的一个文件管理神器!
-  进入当前文件的dired文件管理，*M-x dired* 。
-*** 常用命令
-**** 光标移动命令
-    + *n* 下移
-    + *p* 上移
-**** 文件操作
-    + *C* 拷贝文件，dired-recursive-copies变量决定了拷贝的类型,一般为top
-    + *D* 删除文件，类似的有一个 dired-recursive-deletes 变量可以控制递归删除
-    + *R* 重命名或者移动文件
-    + *D* 删除文件或者目录
-    + *+* 创建目录
-    + *Z* gzip压缩文件
-    + *w* 复制文件名(C-u 则复制相对于dired当前目录的相对目录)
-    + *A* 对文件进行正则表达式搜索，会在第一个匹配的地方停下，然后使用M-, 搜索下一个匹配。
-**** 其他命令
-    + *RET* 打开文件或者目录
-    + *g*   刷新当前dired buffer
-    + *k*   隐藏不想显示出来的文件
-    + *q*   退出
-*** 标记与操作
-   dired可以对多个文件进行标记，然后进行批量操作。一个典型的是采用 *d* 对当前文件打上删除标记，
-   然后使用 *x* 命令来删除所有标记的文件.
-**** 标记操作命令
-    + m 以星标记当前文件
-    + * * 标记所有可执行文件
-    + * @ 标记所有符号链接
-    + * / 标记所有目录(不包括 . 和 .. )
-    + * s 标记所有文件(不包括 . 和 .. )
-    + * . 标记具有给定扩展名的文件
-    + % m REGEXP <RET> 或 * % REGEXP <RET> 标记所有匹配到给定的正则表达式 的文件。
-    + % g REGEXP <RET> 标记所有文件 内容 匹配到给定的正则表达式的文件。
-**** 其他标记相关命令
-    + u 去除当前行的标记
-    + U 去除所有标记
-*** 批量执行Shell命令
-   在dired模式下，可以对标记的文件批量执行shell命令（如果没有标记文件，则对当前文件执行shell），
-   运行命令 *dired-do-shell-command* (绑定的快捷键为 *!* )，相应的它有一个对应的异步操作
-   的命令 *dired-do-async-shell-command* (绑定的快捷键为 *&* )。
-*** dired的扩展
-**** diredful
-    [[https://github.com/thamer/diredful][diredful]] 可使得不同的文件显示不同的颜色,是一个非常好的扩展
-**** dired-icon
-    [[https://gitlab.com/xuhdev/dired-icon][dired-icon]] 根据文件类型显示相应icon
+* 函数
+** 什么是函数？
+函数是有传入参数的可计算的规则。计算的结果为函数返回值。大部分计算机语言里，
+函数是有一个名字的。从严格意义来说，lisp函数是没有名字的。注意：函数也是一个lisp对象，把这个对象关联到一个symbol,
+这个symbol就是函数名
+** 函数定义
+定义一个函数的语法如下：
+#+BEGIN_SRC emacs-lisp
+defun name args [doc] [declare] [interactive] body. . .
+#+END_SRC
+** 检查一个函数是否定义
+检查一个变量是否绑定到函数， *fboundp symbol* , 还有一个函数 *(functionp OBJECT)*
+#+BEGIN_SRC emacs-lisp
+(fboundp 'info)                         ; t
+(fboundp 'setq)                         ; t
+(fboundp 'xyz)                          ; nil
+(functionp (lambda () (message "Anonymous Functions")))   ; t
+(fboundp (lambda () (message "Anonymous Functions")))     ; *** Eval error ***
+#+END_SRC
+** 函数参数
+有些参数是可选的，当用户没有传是，设置一个默认值，下面是一个例子：
+```elisp
+(defun piece-meal/fun-option-parameter (a &optional b)
+  (when (null b)
+    (message "paramete b is not provided")
+    (setq b "ddd"))    ;; set to default value
+  (message "a=%s, b=%s" a b))
+```
+** 函数调用
+函数的调用有两种方式，**funcall**和**apply**
+*** funcall
+funcall它的语法如下：
+#+BEGIN_SRC emacs-lisp
+funcall function &rest arguments
+#+END_SRC
+因为funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算。
+注意参数 *function* 必须为一个Lisp函数或者原生函数，不能为Special Forms或者宏(可以为lamda匿名函数)。
+*** apply
+apply的语法如下：
+#+BEGIN_SRC emacs-lisp
+apply function &rest arguments
+#+END_SRC
+它与funcall功能类似，唯一不同的是它的arguments是一个列表对象。
 * 文件
 ** 文件及访问
   文件是操作系统永久保存数据的单元，为了编辑文件，我们必要告诉Emacs去读取一个文件，并将文件的内
@@ -262,66 +191,6 @@ ELISP>
    ⇒ "/xcssun/users/rms/foo"
    (expand-file-name "foo" "/usr/spool/") ⇒ "/usr/spool/foo"
    #+END_SRC
-* 函数
-** 什么是函数？
-函数是有传入参数的可计算的规则。计算的结果为函数返回值。大部分计算机语言里，
-函数是有一个名字的。从严格意义来说，lisp函数是没有名字的。注意：函数也是一个lisp对象，把这个对象关联到一个symbol,
-这个symbol就是函数名
-** 函数定义
-定义一个函数的语法如下：
-#+BEGIN_SRC emacs-lisp
-defun name args [doc] [declare] [interactive] body. . .
-#+END_SRC
-** 检查一个函数是否定义
-检查一个变量是否绑定到函数， *fboundp symbol* , 还有一个函数 *(functionp OBJECT)*
-#+BEGIN_SRC emacs-lisp
-(fboundp 'info)                         ; t
-(fboundp 'setq)                         ; t
-(fboundp 'xyz)                          ; nil
-(functionp (lambda () (message "Anonymous Functions")))   ; t
-(fboundp (lambda () (message "Anonymous Functions")))     ; *** Eval error ***
-#+END_SRC
-** 函数参数
-有些参数是可选的，当用户没有传是，设置一个默认值，下面是一个例子：
-```elisp
-(defun piece-meal/fun-option-parameter (a &optional b)
-  (when (null b)
-    (message "paramete b is not provided")
-    (setq b "ddd"))    ;; set to default value
-  (message "a=%s, b=%s" a b))
-```
-** 函数调用
-函数的调用有两种方式，**funcall**和**apply**
-*** funcall
-funcall它的语法如下：
-#+BEGIN_SRC emacs-lisp
-funcall function &rest arguments
-#+END_SRC
-因为funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算。
-注意参数 *function* 必须为一个Lisp函数或者原生函数，不能为Special Forms或者宏(可以为lamda匿名函数)。
-*** apply
-apply的语法如下：
-#+BEGIN_SRC emacs-lisp
-apply function &rest arguments
-#+END_SRC
-它与funcall功能类似，唯一不同的是它的arguments是一个列表对象。
-* org 实践
-** org-capture.el
-Org 8.0 以后版本采用org-capture.el取代原有的org-remember.el
-* magit 实践
-** magit模式简介
-  magit是emacs下版本管理的强大武器
-** 常用命令
-  + *magit-dispatch-popup* 命令分发器，在spacemacs里绑定到 *M-m g m*
-  + *magit-diff* 相当于git diff, 当进入diff-buffer后按 /g/ 更新之
-  + *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
-  + *magit-checkout* 切换分支
-  + *magit-branch-and-checkout* 从当前分支切一个新的分支
-** 分支操作
-  常用的分支操作如下：
-  + (magit-branch-delete) *b k* 删除一个或多个（本地）分支
-  + (magit-branch-rename) *b r* 对当前Branch进行重命名
-  + (magit-get-current-branch) 获取当前分支名
 * org 实践
 ** org模式简介
   Emacs的org-mode可用于记笔记、管理自己的待办事项(TODO lists)，同时，也可用于管理项目。它是一个高效的纯文本编辑系统。
@@ -442,7 +311,137 @@ Org 8.0 以后版本采用org-capture.el取代原有的org-remember.el
   Org文件支持导出多种格式的目标文件，如ASCII文件、HTML文件(用于发布为Web)、PDF文档等。
 *** 导出的Dispatcher
    任何导出命令都有一个前缀按键，我们称之为Dispatcher，为 *C-c C-e*
-* 值得介绍的优秀包
+** org-capture.el
+  Org 8.0 以后版本采用org-capture.el取代原有的org-remember.el
+* 书签
+** emacs的书签功能
+  emacs的书签用于记录你在文件中的阅读位置。它有点类似寄存器，跟寄存器一样，因为它也能记录位置位置。
+  但同寄存器有两点不一样：1. 它有比较长的名字; 2. 当emacs关闭的时候，它会自动持久化到
+  磁盘。
+*** 设置一个书签
+   当我们阅读一个很长的文档，没能一口气读完时。我们希望记住当前文档的最后阅读的位置，以便下次再用emacs
+   阅读的时候能快速地定位到。那么，我们设置一个书签，通过
+   *bookmark-set* 对应快捷键为 *C-x r m*
+*** 列出保存的书签
+   *bookmark-bmenu-list* 对应快捷键为 *C-x r l* ，它将打开一个*Bookmark List*的buffer同时
+   列出所有保存的书签。
+**** 书签列表*Bookmark List*
+    在*Bookmark List*这个buffer里，有以下快捷键可以使用：
+    - a 显示当前书签的标注信息;
+    - A 在另一个buffer中显示所有书签的所有标注信息;
+    - d 标记书签，以便用来删除 (x – 执行删除);
+    - e 编辑当前书签的标注信息;
+    - m 标记书签，以便用于进一步显示和其他操作 (v – 访问这个书签);
+    - o 选中当前书签，并显示在另一个window中;
+    - C-o 在另一个window中切换到当前这个书签;
+    - r 重命名当前书签;
+    - w 将当前书签的位置显示在minibuffer里。
+*** 跳转到一个书签
+   使用 *bookmark-jump* 函数，可以跳转到一个特定的书签，它绑定的快捷键为 *C-x r b* 。
+   如果你的emacs中安装了[[https://github.com/emacs-helm/helm][helm]] 这个插件，你也可以使用 *helm-bookmarks* 这个命令
+   来快速查找书签，并跳转到书签位置。
+**** helm-bookmarks
+    通过helm-bookmarks命令来查找并跳转书签如下图：
+    [[./images/bookmark.png]]
+**** 修改默认排序
+    书签查找和跳转的时候，默认的书签排序是按字母排序的。如果想将最近访问的书签放在最前面，
+    将下面代码添加到你的emacs配置文件中。
+    #+NAME: 修改默认排序
+    #+BEGIN_SRC emacs-lisp
+(defadvice bookmark-jump (after bookmark-jump activate)
+  (let ((latest (bookmark-get-bookmark bookmark)))
+    (setq bookmark-alist (delq latest bookmark-alist))
+    (add-to-list 'bookmark-alist latest)))
+    #+END_SRC
+*** 删除一个书签
+   删除一个书签对应的命令为 *bookmark-delete* 。
+*** 保存书签
+   最新版本emacs（老版本的书签保存在 *~/.emacs.bmk* ），
+   在退出的时候会自动保存书签。如果想手动保存书签的话，可以采用
+   *bookmark-save* 这个函数命令。默认的情况，emacs会将书签保存在 *bookmark-default-file*
+   变量对应的文件中。在我的机器中，对应的文件如下：
+   #+NAME: 书签文件路径
+   #+BEGIN_SRC emacs-lisp
+ELISP> bookmark-default-file
+"/Users/aborn/.emacs.d/.cache/bookmarks"
+ELISP>
+   #+END_SRC
+*** 其他设置
+   有一个变量 *bookmark-save-flag* 。如果这个变量的值为一个数值，它表示修改（或新增）
+   多少次书签后，emacs会自动保存书签到磁盘。当这个变量的值被设置为1时，每次对bookmark的改
+   动，emacs就会自动保存内容到磁盘相应位置（这样可以防止emacs突然crash时bookmark的丢失）。
+   如果这个值设置为nil，表示emacs不会主动保存bookmark，除非用户手动调用
+   *M-x bookmark-save* 。
+*** bookmark+
+   [[https://www.emacswiki.org/emacs/bookmark+.el][bookmark+]] 是对bookmark的一个扩展的包。它有更多的功能：
+   1. 原始的bookmark只能对文件位置记录，bookmark+对孤立的buffer(没有关联文件的buffer)也能保存书签;
+   2. 支持对书签进行打tag;
+   3. 对文档的某个区域保存为书签，而不仅仅是某个位置;
+   4. 记录了每个书签的访问次数，及最后一次的访问时间，可以基于它们排序;
+   5. 多个书签可以有相同的名字;
+   6. 可以对函数、变量等加书签。
+   更多功能请参考: https://www.emacswiki.org/emacs/BookmarkPlus#Bookmark%2b
+* dired 实践
+** dired文件管理
+  dired的全称为Directory Edit，即目录编辑，是一个非常老的模式。是Emacs下的一个文件管理神器!
+  进入当前文件的dired文件管理，*M-x dired* 。
+*** 常用命令
+**** 光标移动命令
+    + *n* 下移
+    + *p* 上移
+**** 文件操作
+    + *C* 拷贝文件，dired-recursive-copies变量决定了拷贝的类型,一般为top
+    + *D* 删除文件，类似的有一个 dired-recursive-deletes 变量可以控制递归删除
+    + *R* 重命名或者移动文件
+    + *D* 删除文件或者目录
+    + *+* 创建目录
+    + *Z* gzip压缩文件
+    + *w* 复制文件名(C-u 则复制相对于dired当前目录的相对目录)
+    + *A* 对文件进行正则表达式搜索，会在第一个匹配的地方停下，然后使用M-, 搜索下一个匹配。
+**** 其他命令
+    + *RET* 打开文件或者目录
+    + *g*   刷新当前dired buffer
+    + *k*   隐藏不想显示出来的文件
+    + *q*   退出
+*** 标记与操作
+   dired可以对多个文件进行标记，然后进行批量操作。一个典型的是采用 *d* 对当前文件打上删除标记，
+   然后使用 *x* 命令来删除所有标记的文件.
+**** 标记操作命令
+    + m 以星标记当前文件
+    + * * 标记所有可执行文件
+    + * @ 标记所有符号链接
+    + * / 标记所有目录(不包括 . 和 .. )
+    + * s 标记所有文件(不包括 . 和 .. )
+    + * . 标记具有给定扩展名的文件
+    + % m REGEXP <RET> 或 * % REGEXP <RET> 标记所有匹配到给定的正则表达式 的文件。
+    + % g REGEXP <RET> 标记所有文件 内容 匹配到给定的正则表达式的文件。
+**** 其他标记相关命令
+    + u 去除当前行的标记
+    + U 去除所有标记
+*** 批量执行Shell命令
+   在dired模式下，可以对标记的文件批量执行shell命令（如果没有标记文件，则对当前文件执行shell），
+   运行命令 *dired-do-shell-command* (绑定的快捷键为 *!* )，相应的它有一个对应的异步操作
+   的命令 *dired-do-async-shell-command* (绑定的快捷键为 *&* )。
+*** dired的扩展
+**** diredful
+    [[https://github.com/thamer/diredful][diredful]] 可使得不同的文件显示不同的颜色,是一个非常好的扩展
+**** dired-icon
+    [[https://gitlab.com/xuhdev/dired-icon][dired-icon]] 根据文件类型显示相应icon
+* magit 实践
+** magit模式简介
+  magit是emacs下版本管理的强大武器
+** 常用命令
+  + *magit-dispatch-popup* 命令分发器，在spacemacs里绑定到 *M-m g m*
+  + *magit-diff* 相当于git diff, 当进入diff-buffer后按 /g/ 更新之
+  + *magit-status* 相当于git status, 进入status-buffer后按s添加文件或文件夹到本地仓库
+  + *magit-checkout* 切换分支
+  + *magit-branch-and-checkout* 从当前分支切一个新的分支
+** 分支操作
+  常用的分支操作如下：
+  + (magit-branch-delete) *b k* 删除一个或多个（本地）分支
+  + (magit-branch-rename) *b r* 对当前Branch进行重命名
+  + (magit-get-current-branch) 获取当前分支名
+* 包管理
 ** Emacs的Package-Mode
   当通过*M-x list-package*命令打开一个*Package*的Buffer,它有如下命令:
   1. i 标识安装 （u 取消标识）
