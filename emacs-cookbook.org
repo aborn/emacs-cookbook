@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-04-06 22:04
+#+DATE: 2018-04-13 12:50
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -227,6 +227,97 @@ ELISP>
     [[https://github.com/thamer/diredful][diredful]] 可使得不同的文件显示不同的颜色,是一个非常好的扩展
 *** dired-icon
     [[https://gitlab.com/xuhdev/dired-icon][dired-icon]] 根据文件类型显示相应icon
+
+
+* 文件及访问
+  文件是操作系统永久保存数据的单元，为了编辑文件，我们必要告诉Emacs去读取一个文件，并将文件的内
+  容保存在一个Buffer里，这样Buffer与文件就关联在一起。下面介绍与文件访问相关的函数，由于历史原
+  因这些函数的命令都是以 *find-* 开头的，不是以 *visit-*开头。
+
+** 打开文件
+   如果想在buffer里打开一个文件，其命令是 *find-file* (C-x C-f)。当文件已经在buffer中存在时，
+   这个命令返回文件对应的buffer。如果当前没有buffer对应文件，则，创建一个buffer，并将其文件
+   内容读到buffer中，并返回这个buffer。字义如下:
+
+   #+BEGIN_SRC emacs-lisp
+   find-file filename &optional wildcards
+   #+END_SRC
+
+   这个函数有一个对应的hook变量，叫 *find-file-hook* 它的值是一个函数列表。这些函数在文件被
+   打开后依次执行。
+
+** 文件保存
+   文件被载入到buffer后，我们可以对其进行修改；修改完了后，将内容保存回文件，其对应的函数为：
+
+   #+BEGIN_SRC emacs-lisp
+   save-buffer &optional backup-option
+   #+END_SRC
+
+   文件保存对应有两个hook变量，为： *before-save-hook* 和 *after-save-hook* 分别表示保
+   存前的hook函数列表和保存后的hook函数列表。与之类似的还有一个函数 *write-file*
+
+   #+BEGIN_SRC emacs-lisp
+   write-file  filename &optional confirm
+   #+END_SRC
+   这个函数的功能是将当前buffer的内容写入到filename对应的文件中，并将当前buffer与这个文件进
+   行关联
+
+* 文件基本信息函数
+  下面介绍一些与文件基本信息相关的函数
+
+  1. 文件是否存在
+
+  #+BEGIN_SRC emacs-lisp
+  file-exists-p  lename
+  #+END_SRC
+  与之类似的有: *file-readable-p* 、 *file-executable-p* 、 *file-writable-p* 、
+  *file-directory-p* 这几个函数。
+
+* 文件与目录
+  判断文件是否在一个目录下，怎么做?
+
+  #+BEGIN_SRC emacs-lisp
+  file-in-directory-p  file dir
+  #+END_SRC
+
+  如果file是一个在目录dir或者dir子目录下的文件，则返回t。如果file与dir处于同一目录，也返回t。
+  如果想列出一个目录下的所有文件，那就要用到 *directory-files* 这个函数，其定义如下：
+
+  #+BEGIN_SRC emacs-lisp
+  directory-files directory &optional full-name match-regexp nosort
+  #+END_SRC
+
+  这个函数按字母顺序返回目录 directory 下的所有文件。参数 full-name 不为nil时，则返回每个文
+  件的绝对路径，否则返回相对路径。match-regexp 如果不是nil，该函数返回只与match-regexp相匹
+  配的文件列表。nosort如果不为nil，则不按字母排序。
+
+* 文件名
+  下面介绍一些与文件名操作有关的函数
+
+  #+BEGIN_SRC emacs-lisp
+  file-name-directory  lename
+  #+END_SRC
+
+  *file-name-directory* 返回的文件名里的目录部分，如果文件名里没有包含目录部分，则返回nil。
+  与这个函数对应的一个函数为 *file-name-nondirectory* ，它返回非目录部分。
+
+** 文件名扩展
+   *expand-file-name* 这个函数将文件名转成绝对文件名：
+
+   #+BEGIN_SRC emacs-lisp
+   expand-file-name filename &optional directory
+   #+END_SRC
+
+   如果directory参数存在，将filename作为其相对路径，否则使用 *default-directory* 变量。
+   这个函数在写elisp代码时经常用到，下面是一些例子:
+
+   #+BEGIN_SRC emacs-lisp
+   (expand-file-name "foo")
+   ⇒ "/xcssun/users/rms/lewis/foo"
+   (expand-file-name "../foo")
+   ⇒ "/xcssun/users/rms/foo"
+   (expand-file-name "foo" "/usr/spool/") ⇒ "/usr/spool/foo"
+   #+END_SRC
 
 
 * 什么是函数？
@@ -468,6 +559,7 @@ Org 8.0 以后版本采用org-capture.el取代原有的org-remember.el
   3. d 标识删除 （x 执行删除操作）
   4. U 标识要更新的package
   5. ~ 标识所有废弃包
+  6. M-x package-autoremove 删除那些无用的旧包
 
 
 * 包列表

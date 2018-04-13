@@ -71,6 +71,14 @@
   件的绝对路径，否则返回相对路径。match-regexp 如果不是nil，该函数返回只与match-regexp相匹
   配的文件列表。nosort如果不为nil，则不按字母排序。
 
+** 创建、复制和删除目录
+   对目录的创建、复制和删除都有相关的处理函数，下面一一介绍：
+
+   #+BEGIN_SRC emacs-lisp
+   make-directory dirname &optional parents
+   #+END_SRC
+   *make-directory* 创建一个目录名为dirname的目录
+
 * 文件名
   下面介绍一些与文件名操作有关的函数
 
