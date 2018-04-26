@@ -10,6 +10,11 @@
 -----
 
 
+* Lisp的数据类型
+  Lisp的对象至少属于一种数据类型。Emacs里最基础的数据类型称之为原始类型（primitive type）,
+  这些原始类型包括整型、浮点、cons、符号(symbol)、字符串、数组、哈希表（hash-table）、subr、
+  二进制编码函数(byte-code function)，再加上一些特殊的类型，如buffer。
+
 * 列表
   列表是由零个或者多个元素组成的序列，列表中的每个元素都可由任意的对象组成。
 
