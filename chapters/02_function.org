@@ -70,7 +70,23 @@
   有些与函数看起来很像的类型，它们也接受参数，同时计算出结果。但在Elisp里，他们不被当成函数，下
   面给出简单介绍：
 
-** lambda 表达式
+** lambda表达式
+   lambda表达式是用lisp编写的函数对象，通常称之为匿名函数，它的定义如下：
+   #+BEGIN_SRC emacs-lisp
+   (lambda (arg-variables...)
+           [documentation-string]
+           [interactive-declaration]
+           body-forms...)
+   #+END_SRC
+   第一个元素为lambda，表示这个列表代表一个函数。
+
+   下面是一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (lambda (x)
+       "Return the hyperbolic cosine of X."
+       (* 0.5 (+ (exp x) (exp (- x)))))
+   #+END_SRC
+   上面的表达式被计算成一个函数对象。
 
 ** 内建函数(primitive)
    是用C语言写的，可被调用的函数；
