@@ -51,7 +51,7 @@
    funcall它的语法如下：
 
    #+BEGIN_SRC emacs-lisp
-funcall function &rest arguments
+   funcall function &rest arguments
    #+END_SRC
 
    因为funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算。
@@ -61,7 +61,19 @@ funcall function &rest arguments
    apply的语法如下：
 
    #+BEGIN_SRC emacs-lisp
-apply function &rest arguments
+   apply function &rest arguments
    #+END_SRC
 
    它与funcall功能类似，唯一不同的是它的arguments是一个列表对象。
+
+* 特殊类型(special forms)和宏
+  有些与函数看起来很像的类型，它们也接受参数，同时计算出结果。但在Elisp里，他们不被当成函数，下
+  面给出简单介绍：
+
+** lambda 表达式
+
+** 内建函数(primitive)
+   是用C语言写的，可被调用的函数；
+
+** special form
+   一种类型的内建函数，如if, and 和while
