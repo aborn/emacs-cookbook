@@ -35,12 +35,14 @@
 ** 函数参数
    有些参数是可选的，当用户没有传时，设置一个默认值，下面是一个例子：
    #+BEGIN_SRC emacs-lisp
-   (defun piece-meal/fun-option-parameter (a &optional b &rest e)
+   (defun cookbook/fun-option-parameter (a &optional b &rest e)
      (when (null b)
        (message "paramete b is not provided")
        (setq b "ddd"))    ;; set to default value
      (message "a=%s, b=%s" a b))
    #+END_SRC
+   函数cookbook/fun-option-parameter中，a为必传参数，b为可选择参数，e为其余参数，当实际传
+   入的参数大于2时，其他参数将组成一个list绑定到e上。
 
 * 函数调用
   函数的调用有两种方式, *funcall* 和 *apply*
