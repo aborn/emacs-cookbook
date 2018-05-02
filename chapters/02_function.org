@@ -43,7 +43,7 @@
    #+END_SRC
 
 * 函数调用
-  函数的调用有两种方式，**funcall**和**apply**
+  函数的调用有两种方式, *funcall* 和 *apply*
 
 ** funcall
    funcall它的语法如下：

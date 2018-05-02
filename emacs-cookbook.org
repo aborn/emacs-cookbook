@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-04-13 23:16
+#+DATE: 2018-05-02 13:10
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -9,6 +9,14 @@
 
 -----
 * 基本数据类型
+** Lisp的数据类型
+  Lisp的对象至少属于一种数据类型。Emacs里最基础的数据类型称之为原始类型（primitive type）,
+  这些原始类型包括整型、浮点、cons、符号(symbol)、字符串、数组、哈希表（hash-table）、subr、
+  二进制编码函数(byte-code function)，再加上一些特殊的类型，如buffer。同时，每种原始类型都
+  有一个对应的函数去校验对象是否属于其类型。
+** 符号(symbol)
+  符号类型是一种命名对象，可以用作变量及函数名，其值为属性列表(plist)。一个以冒号开头的符号类型
+  称之为keyword symbol，它常用于常量类型。
 ** 列表
   列表是由零个或者多个元素组成的序列，列表中的每个元素都可由任意的对象组成。
 *** 关联列表alist (Association Lists)
@@ -76,47 +84,47 @@
    *(setq nums (sort nums ’<))*
 * 函数
 ** 什么是函数？
-函数是有传入参数的可计算的规则。计算的结果为函数返回值。大部分计算机语言里，
-函数是有一个名字的。从严格意义来说，lisp函数是没有名字的。注意：函数也是一个lisp对象，把这个对象关联到一个symbol,
-这个symbol就是函数名
+  函数是有传入参数的可计算的单元。每个函数的计算结果为函数返回值。大部分计算机语言里，每个函数有
+  其自己函数名。从严格意义来说，lisp函数是没有名字的。lisp函数其本质是一个对象，该对象可关联到
+  一个标识符（本书把Symbol翻译成标识符）,这个标识符就是函数名。
 ** 函数定义
-定义一个函数的语法如下：
-#+BEGIN_SRC emacs-lisp
-defun name args [doc] [declare] [interactive] body. . .
-#+END_SRC
-** 检查一个函数是否定义
-检查一个变量是否绑定到函数， *fboundp symbol* , 还有一个函数 *(functionp OBJECT)*
-#+BEGIN_SRC emacs-lisp
-(fboundp 'info)                         ; t
-(fboundp 'setq)                         ; t
-(fboundp 'xyz)                          ; nil
-(functionp (lambda () (message "Anonymous Functions")))   ; t
-(fboundp (lambda () (message "Anonymous Functions")))     ; *** Eval error ***
-#+END_SRC
-** 函数参数
-有些参数是可选的，当用户没有传是，设置一个默认值，下面是一个例子：
-```elisp
-(defun piece-meal/fun-option-parameter (a &optional b)
-  (when (null b)
-    (message "paramete b is not provided")
-    (setq b "ddd"))    ;; set to default value
-  (message "a=%s, b=%s" a b))
-```
+  定义一个函数的语法如下：
+  #+BEGIN_SRC emacs-lisp
+  defun name args [doc] [declare] [interactive] body. . .
+  #+END_SRC
+*** 检查一个函数是否定义
+   检查一个变量是否绑定到函数， *fboundp symbol* , 还有一个函数 *(functionp OBJECT)*
+   #+BEGIN_SRC emacs-lisp
+   (fboundp 'info)                         ; t
+   (fboundp 'setq)                         ; t
+   (fboundp 'xyz)                          ; nil
+   (functionp (lambda () (message "Anonymous Functions")))   ; t
+   (fboundp (lambda () (message "Anonymous Functions")))     ; *** Eval error ***
+   #+END_SRC
+*** 函数参数
+   有些参数是可选的，当用户没有传时，设置一个默认值，下面是一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (defun piece-meal/fun-option-parameter (a &optional b &rest e)
+     (when (null b)
+       (message "paramete b is not provided")
+       (setq b "ddd"))    ;; set to default value
+     (message "a=%s, b=%s" a b))
+   #+END_SRC
 ** 函数调用
-函数的调用有两种方式，**funcall**和**apply**
+  函数的调用有两种方式，**funcall**和**apply**
 *** funcall
-funcall它的语法如下：
-#+BEGIN_SRC emacs-lisp
+   funcall它的语法如下：
+   #+BEGIN_SRC emacs-lisp
 funcall function &rest arguments
-#+END_SRC
-因为funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算。
-注意参数 *function* 必须为一个Lisp函数或者原生函数，不能为Special Forms或者宏(可以为lamda匿名函数)。
+   #+END_SRC
+   因为funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算。
+   注意参数 *function* 必须为一个Lisp函数或者原生函数，不能为Special Forms或者宏(可以为lamda匿名函数)。
 *** apply
-apply的语法如下：
-#+BEGIN_SRC emacs-lisp
+   apply的语法如下：
+   #+BEGIN_SRC emacs-lisp
 apply function &rest arguments
-#+END_SRC
-它与funcall功能类似，唯一不同的是它的arguments是一个列表对象。
+   #+END_SRC
+   它与funcall功能类似，唯一不同的是它的arguments是一个列表对象。
 * 文件
 ** 文件及访问
   文件是操作系统永久保存数据的单元，为了编辑文件，我们必要告诉Emacs去读取一个文件，并将文件的内
