@@ -59,7 +59,13 @@
 
    这里funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算，对funcall
    来说它不知道具体的求值过程。同时请注意第一个参数 *function* 必须为一个Lisp函数或者原生函数，
-   不能为Special Forms和宏(可以为lamda匿名函数)。
+   不能为特殊表达式(Special Forms)和宏，但可以为匿名函数（lambda表达式）。
+
+   下面为一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (setq f 'list)        ;; ⇒ list
+   (funcall f 'x 'y 'z)  ;; ⇒ (x y z)
+   #+END_SRC
 
 ** apply
    apply的语法如下：
