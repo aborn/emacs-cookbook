@@ -81,6 +81,22 @@
    (apply '+ 1 2 '(3 4))  ;; ⇒ 10
    #+END_SRC
 
+** 映射函数(Mapping Functions)
+   一将映射函数操作是指对一个列表或者集合逐个执行指定函数，这节介绍几个常的映射函数：mapcar,
+   mapc, 和 mapconcat。
+
+   #+BEGIN_SRC emacs-lisp
+   mapcar function sequence
+   #+END_SRC
+   这个函数功能有与javascript里的array.map操作类型，对 *sequence* 里的每个元素执行function
+   操作，返回操作结果列表。这个函数应用非常广泛，以下几个应用举例：
+   #+BEGIN_SRC emacs-lisp
+   (mapcar 'car '((a b) (c d) (e f)))   ;; ⇒ (a c e)
+   (mapcar '1+ [1 2 3])                 ;; ⇒ (2 3 4)
+   (mapcar 'string "abc")               ;; ⇒ ("a" "b" "c")
+   #+END_SRC
+
+
 * 特殊表达式(Special Forms)和宏
   有些与函数看起来很像的类型，它们也接受参数，同时计算出结果。但在Elisp里，他们不被当成函数，下
   面给出简单介绍：
