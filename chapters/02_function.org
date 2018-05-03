@@ -95,6 +95,13 @@
    (mapcar '1+ [1 2 3])                 ;; ⇒ (2 3 4)
    (mapcar 'string "abc")               ;; ⇒ ("a" "b" "c")
    #+END_SRC
+   *mapc* 与 *mapcar* 调用方式一样，唯一不同的点是它始终返回的是 *sequence* 。
+
+   #+BEGIN_SRC emacs-lisp
+   mapconcat function sequence separator
+   #+END_SRC
+   *mapconcat* 对 *sequence* 里的每个元素调用 *function* 最后将结果拼接成一个字符串作为返
+   回值，采用separator作为拼接符。
 
 
 * 特殊表达式(Special Forms)和宏
