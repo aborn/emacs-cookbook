@@ -68,15 +68,20 @@
    #+END_SRC
 
 ** apply
-   apply的语法如下：
-
+   apply的定义如下：
    #+BEGIN_SRC emacs-lisp
    apply function &rest arguments
    #+END_SRC
 
-   它与funcall功能类似，唯一不同的是它的arguments是一个列表对象。
+   apply与funcall作用一样，唯独有一点不一样：它的arguments是一个对象列表，每个对象作为单独的
+   参数传入，如下例子:
+   #+BEGIN_SRC emacs-lisp
+   (setq f 'list)         ;; ⇒ list
+   (apply f 'x 'y 'z)     ;; Wrong type argument: listp, z
+   (apply '+ 1 2 '(3 4))  ;; ⇒ 10
+   #+END_SRC
 
-* 特殊类型(special forms)和宏
+* 特殊表达式(Special Forms)和宏
   有些与函数看起来很像的类型，它们也接受参数，同时计算出结果。但在Elisp里，他们不被当成函数，下
   面给出简单介绍：
 
