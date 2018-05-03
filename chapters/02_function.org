@@ -48,6 +48,7 @@
   最通用的函数的调用方式是对list进行求值，如对list *(concat "a" "b")* 进行求值，相当于用参
   数"a"和"b"调用函数concat。这种方式用在你清楚程序上下文中调用哪个函数，传递哪个参数。但有时候
   你需要在运行时才决定调用哪个函数，这时需要另外有两种方式进行处理即 *funcall* 和 *apply* 。
+  其中apply一般用在运行时行决定传递多少个参数的情况。
 
 ** funcall
    funcall它的语法如下：
@@ -56,8 +57,9 @@
    funcall function &rest arguments
    #+END_SRC
 
-   因为funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算。
-   注意参数 *function* 必须为一个Lisp函数或者原生函数，不能为Special Forms或者宏(可以为lamda匿名函数)。
+   这里funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算，对funcall
+   来说它不知道具体的求值过程。同时请注意第一个参数 *function* 必须为一个Lisp函数或者原生函数，
+   不能为Special Forms和宏(可以为lamda匿名函数)。
 
 ** apply
    apply的语法如下：
