@@ -143,7 +143,23 @@
 
 * 获取函数单元内容
   当我们把一个标识符(Symbol)定义为函数，其本质是将函数对象存储在标签符号对应的函数单元（标识符
-  还有一个变量单元用于存储变量）
+  还有一个变量单元用于存储变量）,下面是介绍函数单元处理方法:
+
+** symbol-function
+   定义如下：
+
+   #+BEGIN_SRC emacs-lisp
+   symbol-function symbol
+   #+END_SRC
+   这个函数返回标识符symbol对应的函数对象，它不校验返回的函数是否为合法的函数。如果symbol的函数
+   单元为空，返回nil。
+
+** fboundp
+   用于判断symbol对应的函数单元是否为nil
+   #+BEGIN_SRC emacs-lisp
+   fboundp symbol
+   #+END_SRC
+   当symbol在函数单元有一个对象时返回t，否则返回nil。
 
 * 特殊表达式(Special Forms)和宏
   有些与函数看起来很像的类型，它们也接受参数，同时计算出结果。但在Elisp里，他们不被当成函数，下
