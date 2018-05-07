@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-02 13:10
+#+DATE: 2018-05-07 19:53
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -87,7 +87,7 @@
   函数是有传入参数的可计算的单元。每个函数的计算结果为函数返回值。大部分计算机语言里，每个函数有
   其自己函数名。从严格意义来说，lisp函数是没有名字的。lisp函数其本质是一个对象，该对象可关联到
   一个标识符（本书把Symbol翻译成标识符）,这个标识符就是函数名。
-** 函数定义
+** 定义函数
   定义一个函数的语法如下：
   #+BEGIN_SRC emacs-lisp
   defun name args [doc] [declare] [interactive] body. . .
@@ -104,27 +104,101 @@
 *** 函数参数
    有些参数是可选的，当用户没有传时，设置一个默认值，下面是一个例子：
    #+BEGIN_SRC emacs-lisp
-   (defun piece-meal/fun-option-parameter (a &optional b &rest e)
+   (defun cookbook/fun-option-parameter (a &optional b &rest e)
      (when (null b)
        (message "paramete b is not provided")
        (setq b "ddd"))    ;; set to default value
      (message "a=%s, b=%s" a b))
    #+END_SRC
+   函数cookbook/fun-option-parameter中，a为必传参数，b为可选择参数，e为其余参数，当实际传
+   入的参数大于2时，其他参数将组成一个list绑定到e上。
 ** 函数调用
-  函数的调用有两种方式，**funcall**和**apply**
+  最通用的函数的调用方式是对list进行求值，如对list *(concat "a" "b")* 进行求值，相当于用参
+  数"a"和"b"调用函数concat。这种方式用在你清楚程序上下文中调用哪个函数、传递哪个参数。但有时候
+  你需要在程序运行时才决定调用哪个函数。针对这种情况，Emacs Lisp提供了另外两种方式 *funcall*
+  和 *apply* 。其中apply一般用在运行时行决定传递多少个参数的情况。
 *** funcall
    funcall它的语法如下：
    #+BEGIN_SRC emacs-lisp
-funcall function &rest arguments
+   funcall function &rest arguments
    #+END_SRC
-   因为funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算。
-   注意参数 *function* 必须为一个Lisp函数或者原生函数，不能为Special Forms或者宏(可以为lamda匿名函数)。
-*** apply
-   apply的语法如下：
+   这里funcall本身是一个函数，因此funcall在调用前，它的所有参数都将事先做求值运算，对funcall
+   来说它不知道具体的求值过程。同时请注意第一个参数 *function* 必须为一个Lisp函数或者原生函数，
+   不能为特殊表达式(Special Forms)和宏，但可以为匿名函数（lambda表达式）。
+   下面为一个例子：
    #+BEGIN_SRC emacs-lisp
-apply function &rest arguments
+   (setq f 'list)        ;; ⇒ list
+   (funcall f 'x 'y 'z)  ;; ⇒ (x y z)
    #+END_SRC
-   它与funcall功能类似，唯一不同的是它的arguments是一个列表对象。
+*** apply
+   apply的定义如下：
+   #+BEGIN_SRC emacs-lisp
+   apply function &rest arguments
+   #+END_SRC
+   apply与funcall作用一样，唯独有一点不一样：它的arguments是一个对象列表，每个对象作为单独的
+   参数传入，如下例子:
+   #+BEGIN_SRC emacs-lisp
+   (setq f 'list)         ;; ⇒ list
+   (apply f 'x 'y 'z)     ;; Wrong type argument: listp, z
+   (apply '+ 1 2 '(3 4))  ;; ⇒ 10
+   #+END_SRC
+*** 映射函数(Mapping Functions)
+   映射函数操作是指对一个列表或者集合逐个执行指定函数，这节介绍几个常的映射函数：mapcar,
+   mapc, 和 mapconcat。
+   #+BEGIN_SRC emacs-lisp
+   mapcar function sequence
+   #+END_SRC
+   这个函数功能有与javascript里的array.map操作类型，对 *sequence* 里的每个元素执行function
+   操作，返回操作结果列表。这个函数应用非常广泛，以下几个应用举例：
+   #+BEGIN_SRC emacs-lisp
+   (mapcar 'car '((a b) (c d) (e f)))   ;; ⇒ (a c e)
+   (mapcar '1+ [1 2 3])                 ;; ⇒ (2 3 4)
+   (mapcar 'string "abc")               ;; ⇒ ("a" "b" "c")
+   #+END_SRC
+   *mapc* 与 *mapcar* 调用方式一样，唯一不同的点是它始终返回的是 *sequence* 。
+   #+BEGIN_SRC emacs-lisp
+   mapconcat function sequence separator
+   #+END_SRC
+   *mapconcat* 对 *sequence* 里的每个元素调用 *function* 最后将结果拼接成一个字符串作为返
+   回值，采用separator作为拼接符。
+** 匿名函数
+  在elisp里有三种方式可以定义匿名函数： *lambda* 宏、 *function* 特殊表达式、 *#'* 可读语
+  法。
+*** lambda宏
+   它的定义如下：
+   #+BEGIN_SRC emacs-lisp
+   lambda args [doc] [interactive] body. . .
+   #+END_SRC
+   这个宏返回一个匿名函数，实际上这个宏是自引用(self-quoting)。
+   #+BEGIN_SRC emacs-lisp
+   (lambda (x) (* x x))  ;; ⇒ (lambda (x) (* x x))
+   #+END_SRC
+   下面是另一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (lambda (x)
+       "Return the hyperbolic cosine of X."
+       (* 0.5 (+ (exp x) (exp (- x)))))
+   #+END_SRC
+   上面的表达式被计算成一个函数对象。
+*** function特殊表达式
+   定义如下：
+   #+BEGIN_SRC emacs-lisp
+   function function-object
+   #+END_SRC
+   这是一个特殊表达式(Special Forms)，表示对 *function-object* 不作求值操作。其实在实际使
+   用中我们往往采用它的简写 *#'* ，因此下面三个是等价的：
+   #+BEGIN_SRC emacs-lisp
+   (lambda (x) (* x x))
+   (function (lambda (x) (* x x)))
+   #'(lambda (x) (* x x))
+   #+END_SRC
+** 特殊表达式(Special Forms)和宏
+  有些与函数看起来很像的类型，它们也接受参数，同时计算出结果。但在Elisp里，他们不被当成函数，下
+  面给出简单介绍：
+*** 内建函数(primitive)
+   是用C语言写的，可被调用的函数；
+*** special form
+   一种类型的内建函数，如if, and 和while
 * 文件
 ** 文件及访问
   文件是操作系统永久保存数据的单元，为了编辑文件，我们必要告诉Emacs去读取一个文件，并将文件的内
