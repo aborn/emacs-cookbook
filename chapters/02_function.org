@@ -103,28 +103,47 @@
    *mapconcat* 对 *sequence* 里的每个元素调用 *function* 最后将结果拼接成一个字符串作为返
    回值，采用separator作为拼接符。
 
+* 匿名函数
+  在elisp里有三种方式可以定义匿名函数： *lambda* 宏、 *function* 特殊表达式、 *#'* 可读语
+  法。
+** lambda宏
+   它的定义如下：
 
-* 特殊表达式(Special Forms)和宏
-  有些与函数看起来很像的类型，它们也接受参数，同时计算出结果。但在Elisp里，他们不被当成函数，下
-  面给出简单介绍：
-
-** lambda表达式
-   lambda表达式是用lisp编写的函数对象，通常称之为匿名函数，它的定义如下：
    #+BEGIN_SRC emacs-lisp
-   (lambda (arg-variables...)
-           [documentation-string]
-           [interactive-declaration]
-           body-forms...)
+   lambda args [doc] [interactive] body. . .
    #+END_SRC
-   第一个元素为lambda，表示这个列表代表一个函数。
 
-   下面是一个例子：
+   这个宏返回一个匿名函数，实际上这个宏是自引用(self-quoting)。
+   #+BEGIN_SRC emacs-lisp
+   (lambda (x) (* x x))  ;; ⇒ (lambda (x) (* x x))
+   #+END_SRC
+
+   下面是另一个例子：
    #+BEGIN_SRC emacs-lisp
    (lambda (x)
        "Return the hyperbolic cosine of X."
        (* 0.5 (+ (exp x) (exp (- x)))))
    #+END_SRC
    上面的表达式被计算成一个函数对象。
+
+** function特殊表达式
+   定义如下：
+
+   #+BEGIN_SRC emacs-lisp
+   function function-object
+   #+END_SRC
+   这是一个特殊表达式(Special Forms)，表示对 *function-object* 不作求值操作。其实在实际使
+   用中我们往往采用它的简写 *#'* ，因此下面三个是等价的：
+
+   #+BEGIN_SRC emacs-lisp
+   (lambda (x) (* x x))
+   (function (lambda (x) (* x x)))
+   #'(lambda (x) (* x x))
+   #+END_SRC
+
+* 特殊表达式(Special Forms)和宏
+  有些与函数看起来很像的类型，它们也接受参数，同时计算出结果。但在Elisp里，他们不被当成函数，下
+  面给出简单介绍：
 
 ** 内建函数(primitive)
    是用C语言写的，可被调用的函数；
