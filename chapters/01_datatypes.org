@@ -44,7 +44,7 @@
 *** defmacro
     定义标识符为宏，创建一个宏对象并前对象保存在函数单元里。
 
-** 标识类型操作函数
+** 标识符操作函数
    常见的与标识类型相关的函数有 *make-symbol* 和 *intern*
 
 *** make-symbol
@@ -54,6 +54,10 @@
     这个函数返回一个新的标识对象，它的名字是 *name* (必须为字符串)
 
 *** intern
+    #+BEGIN_SRC emacs-lisp
+    intern name &optional obarray
+    #+END_SRC
+    这个函数返回一个被绑定的名字为 *name* 的标识对象。
 
 ** 标识类型属性
 
