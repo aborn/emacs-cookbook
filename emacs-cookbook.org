@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-08 23:54
+#+DATE: 2018-05-09 00:03
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -150,9 +150,11 @@
   #+BEGIN_SRC emacs-lisp
   (progn a b c ...)
   #+END_SRC
-  它的执行结构是最后一句的结果。与之类似有另一个特殊表达式 *(prog1 form1 forms. . .)* 它也
-  是顺序执行，不过它的返回值是form1的返回值。
+  它的执行结构是最后一句的结果。与之类似有另一个特殊表达式 *(prog1 form1 forms...)* 它也
+  是顺序执行，不过它的返回值是form1的返回值。同时还有一个特殊表达式 *(prog2 form1 form2 forms...)*
+  它效果也是一样，不过它返回的是form2的值。
 ** 条件语句
+  ELisp提供四种条件语句：if、when、unless和cond
 * 函数
 ** 什么是函数？
   函数是有传入参数的可计算的单元。每个函数的计算结果为函数返回值。大部分计算机语言里，每个函数有
