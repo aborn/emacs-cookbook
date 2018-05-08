@@ -57,7 +57,9 @@
     #+BEGIN_SRC emacs-lisp
     intern name &optional obarray
     #+END_SRC
-    这个函数返回一个被绑定的名字为 *name* 的标识对象。
+    这个函数返回一个被绑定的名字为 *name* 的标识对象。如果标识符号不在变量 *obarray* 对应的
+    对象数组(obarray）里，创建一个新的，并加入到对象对象数组里。当无obarray参数时，采用全局的
+    对象数组obarray。
 
 ** 标识类型属性
 
