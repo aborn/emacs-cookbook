@@ -19,7 +19,9 @@
   #+BEGIN_SRC emacs-lisp
   (progn a b c ...)
   #+END_SRC
-  它的执行结构是最后一句的结果。与之类似有另一个特殊表达式 *(prog1 form1 forms. . .)* 它也
-  是顺序执行，不过它的返回值是form1的返回值。
+  它的执行结构是最后一句的结果。与之类似有另一个特殊表达式 *(prog1 form1 forms...)* 它也
+  是顺序执行，不过它的返回值是form1的返回值。同时还有一个特殊表达式 *(prog2 form1 form2 forms...)*
+  它效果也是一样，不过它返回的是form2的值。
 
 * 条件语句
+  ELisp提供四种条件语句
