@@ -61,7 +61,15 @@
     对象数组(obarray）里，创建一个新的，并加入到对象对象数组里。当无obarray参数时，采用全局的
     对象数组obarray。
 
-** 标识类型属性
+** 标识符属性
+   标识符属性记录了标识符的额外信息，下面的函数是对标签符属性进行操作：
+
+*** get symbol property
+    获取标识符属性为property的属性值，属性不存在返回nil
+
+*** put symbol property value
+    设置标识符属性property的值为value，如果之前存在相同的属性名，其值将被覆盖。这个函数返回
+    value。
 
 * 列表
   列表是由零个或者多个元素组成的序列，列表中的每个元素都可由任意的对象组成。
@@ -75,7 +83,14 @@
    #+END_SRC
 
    关联列表可以用来记录key-value这样的map结构；对每个元素做car操作拿到key，做cdr操作即拿到
-   相关系的value。
+   相关系的value。下面是一些例子：
+
+   #+BEGIN_SRC emacs-lisp
+   (put 'fly 'verb 'transitive)              ;; ⇒'transitive
+   (put 'fly 'noun '(a buzzing little bug))  ;; ⇒ (a buzzing little bug)
+   (get 'fly 'verb)       ;; ⇒ transitive
+   (symbol-plist 'fly)    ;; ⇒ (verb transitive noun (a buzzing little bug))
+   #+END_SRC
 
 *** 关联列表操作
     + (assoc key alist) 获取列表第一个key所关联的值；下面是一个例子：
