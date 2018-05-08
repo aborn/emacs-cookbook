@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-08 13:13
+#+DATE: 2018-05-08 23:54
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -49,7 +49,7 @@
     #+BEGIN_SRC emacs-lisp
     intern name &optional obarray
     #+END_SRC
-    这个函数返回一个被绑定的名字为 *name* 的标识对象。如果标识符号不在变量 *obarray* 对应的
+    这个函数返回一个被绑定的名字为 *name* 的标识对象。如果标识符不在变量 *obarray* 对应的
     对象数组(obarray）里，创建一个新的，并加入到对象对象数组里。当无obarray参数时，采用全局的
     对象数组obarray。
 *** 标识符属性
@@ -140,6 +140,19 @@
    #+END_SRC
    注意这里的nums排序后，的car与原来list的car是一样的。所以一般采用重新赋值的方式
    *(setq nums (sort nums ’<))*
+* 控制结构
+** 控制结构
+  Lisp程序由一系列表达式结成，Lisp解释器解释并执行这些表达式。在执行这些表达式过程中用到了控制
+  结构，Lisp里的控制结构都是特殊表达式（Special Forms）。最简单的控制结构是顺序执行，也是符合
+  人的书写和线性习惯。其他控制结构有：条件语句、迭代。
+** 顺序结构
+  顺序结构是最简单的控件结构，如果想自己定义顺序结构，可以采用 *progn* 这个特殊表达式:
+  #+BEGIN_SRC emacs-lisp
+  (progn a b c ...)
+  #+END_SRC
+  它的执行结构是最后一句的结果。与之类似有另一个特殊表达式 *(prog1 form1 forms. . .)* 它也
+  是顺序执行，不过它的返回值是form1的返回值。
+** 条件语句
 * 函数
 ** 什么是函数？
   函数是有传入参数的可计算的单元。每个函数的计算结果为函数返回值。大部分计算机语言里，每个函数有

@@ -19,5 +19,7 @@
   #+BEGIN_SRC emacs-lisp
   (progn a b c ...)
   #+END_SRC
+  它的执行结构是最后一句的结果。与之类似有另一个特殊表达式 *(prog1 form1 forms. . .)* 它也
+  是顺序执行，不过它的返回值是form1的返回值。
 
 * 条件语句
