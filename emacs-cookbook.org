@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-07 19:53
+#+DATE: 2018-05-08 13:13
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -14,9 +14,67 @@
   这些原始类型包括整型、浮点、cons、符号(symbol)、字符串、数组、哈希表（hash-table）、subr、
   二进制编码函数(byte-code function)，再加上一些特殊的类型，如buffer。同时，每种原始类型都
   有一个对应的函数去校验对象是否属于其类型。
-** 符号(symbol)
-  符号类型是一种命名对象，可以用作变量及函数名，其值为属性列表(plist)。一个以冒号开头的符号类型
-  称之为keyword symbol，它常用于常量类型。
+** 标识类型(Symbols)
+  标识类型是一种有唯一名的（命名）对象。它常用于变量及函数名。判断一个对象是否为标识类型用
+  *symbolp object* 方法。
+*** 标识类型的组成
+   每个标识对象有四部分组成，每部分称之为单元，每个单元指向其他对象。
+**** 名字
+    即标识对象名，获取标识对象名函数为(symbol-name symbol)
+**** 变量值
+    当标识对象作为变量时的值
+**** 函数
+    标识函数定义，函数单元可保存另一个标识对象、或者keymap、或者一个键盘宏
+**** 属性列表
+    标识对象的属性列表(plist)，获取属性列表函数为(symbol-plist symbol)
+    注意，其中 *名字* 为字符串类型，不可改变，其他三个组成部分可被赋值为任意lisp对象。
+    其值为属性列表(plist)。一个以冒号开头的符号类型称之为keyword symbol，它常用于常量类型。
+*** 定义标识类型
+   定义标识对象是一种特殊的lisp表达式，它表示将标识类型用于特殊用途。
+**** defvar 和 devconst
+    它们是一种特殊表达式（Special Forms），它定义一个标识作为全局变量。实际应用中往往使用
+    *setq*，它可以将任意变量值绑定到标识对象。
+**** defun
+    用于定义函数，它的作用是创建一个lambda表达式，并将其存储在标识对象的函数单元里。
+**** defmacro
+    定义标识符为宏，创建一个宏对象并前对象保存在函数单元里。
+*** 标识符操作函数
+   常见的与标识类型相关的函数有 *make-symbol* 和 *intern*
+**** make-symbol
+    #+BEGIN_SRC emacs-lisp
+    make-symbol name
+    #+END_SRC
+    这个函数返回一个新的标识对象，它的名字是 *name* (必须为字符串)
+**** intern
+    #+BEGIN_SRC emacs-lisp
+    intern name &optional obarray
+    #+END_SRC
+    这个函数返回一个被绑定的名字为 *name* 的标识对象。如果标识符号不在变量 *obarray* 对应的
+    对象数组(obarray）里，创建一个新的，并加入到对象对象数组里。当无obarray参数时，采用全局的
+    对象数组obarray。
+*** 标识符属性
+   标识符属性记录了标识符的额外信息，下面的函数是对标签符属性进行操作：
+**** get symbol property
+    获取标识符属性为property的属性值，属性不存在返回nil
+**** put symbol property value
+    设置标识符属性property的值为value，如果之前存在相同的属性名，其值将被覆盖。这个函数返回
+    value。下面是一些例子：
+    #+BEGIN_SRC emacs-lisp
+    (put 'fly 'verb 'transitive)              ;; ⇒'transitive
+    (put 'fly 'noun '(a buzzing little bug))  ;; ⇒ (a buzzing little bug)
+    (get 'fly 'verb)       ;; ⇒ transitive
+    (symbol-plist 'fly)    ;; ⇒ (verb transitive noun (a buzzing little bug))
+    #+END_SRC
+**** 标准标识符属性
+    下面列的一些标准标识符属性用于emacs的特殊用途
+***** :advertised-binding
+     用于函数的key的绑定
+***** interactive-form
+     用于交互函数，不要手工设置它，通过 *interactive* 特殊表达式来设置它
+***** disabled
+     如果不为nil，对应的函数不能作为命令
+***** theme-face
+     用于主题设置
 ** 列表
   列表是由零个或者多个元素组成的序列，列表中的每个元素都可由任意的对象组成。
 *** 关联列表alist (Association Lists)
@@ -192,6 +250,22 @@
    (function (lambda (x) (* x x)))
    #'(lambda (x) (* x x))
    #+END_SRC
+** 获取函数单元内容
+  当我们把一个标识符(Symbol)定义为函数，其本质是将函数对象存储在标签符号对应的函数单元（标识符
+  还有一个变量单元用于存储变量）,下面是介绍函数单元处理方法:
+*** symbol-function
+   定义如下：
+   #+BEGIN_SRC emacs-lisp
+   symbol-function symbol
+   #+END_SRC
+   这个函数返回标识符symbol对应的函数对象，它不校验返回的函数是否为合法的函数。如果symbol的函数
+   单元为空，返回nil。
+*** fboundp
+   用于判断symbol对应的函数单元是否为nil
+   #+BEGIN_SRC emacs-lisp
+   fboundp symbol
+   #+END_SRC
+   当symbol在函数单元有一个对象时返回t，否则返回nil。
 ** 特殊表达式(Special Forms)和宏
   有些与函数看起来很像的类型，它们也接受参数，同时计算出结果。但在Elisp里，他们不被当成函数，下
   面给出简单介绍：
