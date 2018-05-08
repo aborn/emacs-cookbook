@@ -24,4 +24,4 @@
   它效果也是一样，不过它返回的是form2的值。
 
 * 条件语句
-  ELisp提供四种条件语句
+  ELisp提供四种条件语句：if、when、unless和cond
