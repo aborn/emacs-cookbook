@@ -66,3 +66,24 @@
    (cond ((eq a 'hack) 'foo)
          (t "default"))           ;; ⇒ "default"
    #+END_SRC
+
+* 迭代语句
+  迭代在程序语言里表示重复执行某段代码，举例来说，如果你想对list的每个元素重复执行相同的计算，这
+  就是一个迭代过程。
+
+** while
+   while的定义如下：
+   #+BEGIN_SRC emacs-lisp
+   (while condition forms...)
+   #+END_SRC
+   while首先对condition进行求值操作，如果结果不是nil，则执行forms里语句；接下来再次对condition
+   进行求值，如果不是nil，则执行forms里的语句；这个过程不断重复直到condition的求值为nil。
+
+   #+BEGIN_SRC emacs-lisp
+   (setq num 0) ;; ⇒0
+   (while (< num 4)
+     (princ (format "Iteration %d." num))
+     (setq num (1+ num)))
+   #+END_SRC
+
+** dolist
