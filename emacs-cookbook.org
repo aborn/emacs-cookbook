@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-09 00:03
+#+DATE: 2018-05-09 22:10
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -155,6 +155,22 @@
   它效果也是一样，不过它返回的是form2的值。
 ** 条件语句
   ELisp提供四种条件语句：if、when、unless和cond
+*** if
+   if语句跟其他语言的if语言类似，它的结构如下：
+   #+BEGIN_SRC emacs-lisp
+   (if condition then-form else-forms...)
+   #+END_SRC
+   这里有一点要引起注意的是当condition为nil,并且没有给定else-forms时，if返回的是nil。
+*** when
+   when是if的变体，是当没有else-forms的特殊情况：
+   #+BEGIN_SRC emacs-lisp
+   (when condition then-forms. . .)
+   #+END_SRC
+*** unless
+   unless也是if的一个变体，是当没有then-form的特殊情况：
+   #+BEGIN_SRC emacs-lisp
+   (unless condition forms...)
+   #+END_SRC
 * 函数
 ** 什么是函数？
   函数是有传入参数的可计算的单元。每个函数的计算结果为函数返回值。大部分计算机语言里，每个函数有
