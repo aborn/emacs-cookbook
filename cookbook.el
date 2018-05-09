@@ -160,11 +160,25 @@
                            (concat item "\n")))
                      (split-string content "\n" t))))
 
+(defun cookbook-is-begin-of-line? ()
+  "check current position if begin of line."
+  (let* ((cpoint (point))
+         (bline nil)
+         (eline nil))
+    (save-excursion
+      (beginning-of-line)
+      (setq bline (point))
+      (end-of-line)
+      (setq eline (point)))
+    (and (equal cpoint bline)
+         (equal cpoint eline))))
+
 (defun cookbook-insert-code-format ()
   "Insert code format"
   (interactive)
   (let* ((cpoint (point)))
-    (insert "\n")
+    (unless (cookbook-is-begin-of-line?)
+      (insert "\n"))
     (insert "#+BEGIN_SRC emacs-lisp\n")
     (setq cpoint (point))
     (insert "\n#+END_SRC\n")
