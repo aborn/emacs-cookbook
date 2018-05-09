@@ -160,5 +160,15 @@
                            (concat item "\n")))
                      (split-string content "\n" t))))
 
+(defun cookbook-insert-code-format ()
+  "Insert code format"
+  (interactive)
+  (let* ((cpoint (point)))
+    (insert "\n")
+    (insert "#+BEGIN_SRC emacs-lisp\n")
+    (setq cpoint (point))
+    (insert "\n#+END_SRC\n")
+    (goto-char cpoint)))
+
 (provide 'cookbook)
 ;;; cookbook.el ends here
