@@ -45,3 +45,24 @@
    #+BEGIN_SRC emacs-lisp
    (unless condition forms...)
    #+END_SRC
+
+** cond
+   cond是一种选择条件语句，每一个条件语句必须是一个列表，其中列表的头(car clause)是条件，列表
+   的其他部分是执行语句。cond的执行过程是按顺序执行，对每个条件语句clause，先对条件部分进行求值，
+   如果条件的执行结果不是nil，说明条件满足，则接下来执行条件语句的主体部分，最后返回主体部分的执
+   行结果作为cond的结果，其他部分的条件语句则被忽略。
+
+   #+BEGIN_SRC emacs-lisp
+   (cond ((numberp x) x)
+         ((stringp x) x)
+         ((bufferp x)
+          (setq temporary-hack x) ; multiple body-forms
+          (buffer-name x))        ; in one clause
+         ((symbolp x) (symbol-value x)))
+   #+END_SRC
+   有时候当前面所有的条件语句都没有“命中”时，可以采用t进行默认处理，下面是一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (setq a 5)
+   (cond ((eq a 'hack) 'foo)
+         (t "default"))           ;; ⇒ "default"
+   #+END_SRC
