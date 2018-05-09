@@ -100,9 +100,14 @@
          (setq value (cons elt value)))))
    #+END_SRC
 
-
 ** dotimes
    dotimes的定义如下：
    #+BEGIN_SRC emacs-lisp
    dotimes (var count [result]) body...
+   #+END_SRC
+   它的作用与dolist很类似，它从0(包含)到count(不包含)执行body语句，将当前的值绑定到var，返回
+   result作为结果。下面是一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (dotimes (i 100)
+            (insert "I will not obey absurd orders\n"))
    #+END_SRC
