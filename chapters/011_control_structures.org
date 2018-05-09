@@ -35,7 +35,13 @@
    这里有一点要引起注意的是当condition为nil,并且没有给定else-forms时，if返回的是nil。
 
 ** when
-   when是if的变体
+   when是if的变体，是当没有else-forms的特殊情况：
    #+BEGIN_SRC emacs-lisp
    (when condition then-forms. . .)
+   #+END_SRC
+
+** unless
+   unless也是if的一个变体，是当没有then-form的特殊情况：
+   #+BEGIN_SRC emacs-lisp
+   (unless condition forms...)
    #+END_SRC
