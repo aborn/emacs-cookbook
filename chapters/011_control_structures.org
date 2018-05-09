@@ -87,3 +87,22 @@
    #+END_SRC
 
 ** dolist
+   dolist的定义如下:
+   #+BEGIN_SRC emacs-lisp
+   dolist (var list [result]) body...
+   #+END_SRC
+   dolist对list里的每个元素执行body里的语操作，这里绑定list里的每个元素到var作为局部变量。
+   最后返回result，当result省略时，返回nil。下面是一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (defun reverse (list)
+      (let (value)
+       (dolist (elt list value)
+         (setq value (cons elt value)))))
+   #+END_SRC
+
+
+** dotimes
+   dotimes的定义如下：
+   #+BEGIN_SRC emacs-lisp
+   dotimes (var count [result]) body...
+   #+END_SRC
