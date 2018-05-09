@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-09 22:10
+#+DATE: 2018-05-09 23:54
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -170,6 +170,65 @@
    unless也是if的一个变体，是当没有then-form的特殊情况：
    #+BEGIN_SRC emacs-lisp
    (unless condition forms...)
+   #+END_SRC
+*** cond
+   cond是一种选择条件语句，每一个条件语句必须是一个列表，其中列表的头(car clause)是条件，列表
+   的其他部分是执行语句。cond的执行过程是按顺序执行，对每个条件语句clause，先对条件部分进行求值，
+   如果条件的执行结果不是nil，说明条件满足，则接下来执行条件语句的主体部分，最后返回主体部分的执
+   行结果作为cond的结果，其他部分的条件语句则被忽略。
+   #+BEGIN_SRC emacs-lisp
+   (cond ((numberp x) x)
+         ((stringp x) x)
+         ((bufferp x)
+          (setq temporary-hack x) ; multiple body-forms
+          (buffer-name x))        ; in one clause
+         ((symbolp x) (symbol-value x)))
+   #+END_SRC
+   有时候当前面所有的条件语句都没有“命中”时，可以采用t进行默认处理，下面是一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (setq a 5)
+   (cond ((eq a 'hack) 'foo)
+         (t "default"))           ;; ⇒ "default"
+   #+END_SRC
+** 迭代语句
+  迭代在程序语言里表示重复执行某段代码，举例来说，如果你想对list的每个元素重复执行相同的计算，这
+  就是一个迭代过程。
+*** while
+   while的定义如下：
+   #+BEGIN_SRC emacs-lisp
+   (while condition forms...)
+   #+END_SRC
+   while首先对condition进行求值操作，如果结果不是nil，则执行forms里语句；接下来再次对condition
+   进行求值，如果不是nil，则执行forms里的语句；这个过程不断重复直到condition的求值为nil。
+   #+BEGIN_SRC emacs-lisp
+   (setq num 0) ;; ⇒0
+   (while (< num 4)
+     (princ (format "Iteration %d." num))
+     (setq num (1+ num)))
+   #+END_SRC
+*** dolist
+   dolist的定义如下:
+   #+BEGIN_SRC emacs-lisp
+   dolist (var list [result]) body...
+   #+END_SRC
+   dolist对list里的每个元素执行body里的语操作，这里绑定list里的每个元素到var作为局部变量。
+   最后返回result，当result省略时，返回nil。下面是一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (defun reverse (list)
+      (let (value)
+       (dolist (elt list value)
+         (setq value (cons elt value)))))
+   #+END_SRC
+*** dotimes
+   dotimes的定义如下：
+   #+BEGIN_SRC emacs-lisp
+   dotimes (var count [result]) body...
+   #+END_SRC
+   它的作用与dolist很类似，它从0(包含)到count(不包含)执行body语句，将当前的值绑定到var，返回
+   result作为结果。下面是一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (dotimes (i 100)
+            (insert "I will not obey absurd orders\n"))
    #+END_SRC
 * 函数
 ** 什么是函数？
