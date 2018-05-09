@@ -25,3 +25,17 @@
 
 * 条件语句
   ELisp提供四种条件语句：if、when、unless和cond
+
+** if
+   if语句跟其他语言的if语言类似，它的结构如下：
+
+   #+BEGIN_SRC emacs-lisp
+   (if condition then-form else-forms...)
+   #+END_SRC
+   这里有一点要引起注意的是当condition为nil,并且没有给定else-forms时，if返回的是nil。
+
+** when
+   when是if的变体
+   #+BEGIN_SRC emacs-lisp
+   (when condition then-forms. . .)
+   #+END_SRC
