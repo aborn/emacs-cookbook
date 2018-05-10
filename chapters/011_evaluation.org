@@ -1,0 +1,13 @@
+#+TITLE: 求值
+#+AUTHOR: aborn
+#+DATE: 2018-05-10
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
+
+-----
+
+* 求值
+  Lisp解释器会对表达式进行求值操作
