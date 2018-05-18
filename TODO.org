@@ -2,6 +2,7 @@
 
 -----
 * to-do-list
+** 生成pdf文档时，校验pdf是否比org新，如果新，不要生成pdf(说明原org没发生变化)
 ** try/catch机制介绍
    http://www.gnu.org/software/emacs/manual/html_node/elisp/Handling-Errors.html
    https://www.gnu.org/software/emacs/manual/html_node/elisp/Catch-and-Throw.html
