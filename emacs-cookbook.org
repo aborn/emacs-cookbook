@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-15 13:13
+#+DATE: 2018-05-18 12:38
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -166,6 +166,13 @@
   (quote object)
   #+END_SRC
   它返回object，但不对object进行求值操作。它提供了一种简写方式，即“'”， *'object* 。
+** 反引号
+  反引号(backquote `)可用于列表，它与引用唯一的区别的，它允许对列表中部分元素进行求值。采用逗
+  号(,)来标识那些元素需要进行求值，下面是一些例子：
+  #+BEGIN_SRC emacs-lisp
+  `(a list of ,(+ 2 3) elements)  ;; ⇒ (a list of 5 elements)
+  `(1 2 (3 ,(+ 4 5)))             ;; ⇒ (1 2 (3 9))
+  #+END_SRC
 * 控制结构
 ** 控制结构
   Lisp程序由一系列表达式结成，Lisp解释器解释并执行这些表达式。在执行这些表达式过程中用到了控制
