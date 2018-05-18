@@ -1,0 +1,16 @@
+#+TITLE: 变量
+#+AUTHOR: aborn
+#+DATE: 2018-05-18
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
+
+-----
+
+* 变量
+  变量在程序中是一种标识符，代表具体某个值。在Lisp中，每个变量都通过符号类型来表达。变量的名称就
+  是符号类型名，变量的值是保存在符号类型的值单元(value cell)。
+
+* 全局变量
