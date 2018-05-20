@@ -79,10 +79,7 @@
   (interactive)
   (let* ((files (cookbook-chapter-org-files)))
     (mapc #'(lambda (x)
-              (let* ((src-file x)
-                     (dest-file (concat
-                                 (substring x 0 (- (length x) 3))
-                                 "pdf")))
+              (let* ((src-file x))
                 (cookbook-org-to-pdf src-file)))
           files)
     (cookbook-produce)))
@@ -90,8 +87,13 @@
 (defun cookbook-org-to-pdf (src-file)
   "export source file to dest files"
   ;;(message "src-file: %s dest-file:%s" src-file dest-file)
-  (find-file src-file)
-  (org-latex-export-to-pdf))
+  (let* ((dest-file (concat
+                     (substring x 0 (- (length x) 3))
+                     "pdf")))
+    (when (file-newer-than-file-p src-file dest-file)
+      ;; when org file change, do convert.
+      (find-file src-file)
+      (org-latex-export-to-pdf))))
 
 (defun cookbook-header-content ()
   (concat
