@@ -88,7 +88,7 @@
   "export source file to dest files"
   ;;(message "src-file: %s dest-file:%s" src-file dest-file)
   (let* ((dest-file (concat
-                     (substring x 0 (- (length x) 3))
+                     (substring x 0 (- (length src-file) 3))
                      "pdf")))
     (when (file-newer-than-file-p src-file dest-file)
       ;; when org file change, do convert.
