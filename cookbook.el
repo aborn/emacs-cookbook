@@ -82,7 +82,8 @@
               (let* ((src-file x))
                 (cookbook-org-to-pdf src-file)))
           files)
-    (cookbook-produce)))
+    (cookbook-produce)
+    (cookbook-update-readme)))
 
 (defun cookbook-org-to-pdf (src-file)
   "export source file to dest files"
