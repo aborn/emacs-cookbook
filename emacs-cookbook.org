@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-18 12:38
+#+DATE: 2018-05-20 08:43
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -14,8 +14,8 @@
   这些原始类型包括整型、浮点、cons、符号(symbol)、字符串、数组、哈希表（hash-table）、subr、
   二进制编码函数(byte-code function)，再加上一些特殊的类型，如buffer。同时，每种原始类型都
   有一个对应的函数去校验对象是否属于其类型。
-** 标识类型(Symbols)
-  标识类型是一种有唯一名的（命名）对象。它常用于变量及函数名。判断一个对象是否为标识类型用
+** 符号类型(Symbols)
+  符号类型是一种有唯一名的（命名）对象。它常用于变量及函数名。判断一个对象是否为标识类型用
   *symbolp object* 方法。
 *** 标识类型的组成
    每个标识对象有四部分组成，每部分称之为单元，每个单元指向其他对象。
@@ -263,6 +263,11 @@
    (dotimes (i 100)
             (insert "I will not obey absurd orders\n"))
    #+END_SRC
+* 变量
+** 变量
+  变量在程序中是一种标识符，代表具体某个值。在Lisp中，每个变量都通过符号类型来表达。变量的名称就
+  是符号类型名，变量的值是保存在符号类型的值单元(value cell)。
+** 全局变量
 * 函数
 ** 什么是函数？
   函数是有传入参数的可计算的单元。每个函数的计算结果为函数返回值。大部分计算机语言里，每个函数有
@@ -430,6 +435,15 @@
   #+END_SRC
   与之类似的有: *file-readable-p* 、 *file-executable-p* 、 *file-writable-p* 、
   *file-directory-p* 这几个函数。
+***  文件属性
+   这小节介绍与文件属性有关的一些函数，如文件的所属人、所属组、文件大小、文件的最新读取和修改时
+   间等。
+   1. 文件新旧比较
+      #+BEGIN_SRC emacs-lisp
+      file-newer-than-file-p filename1 filename2
+      #+END_SRC
+   当filename1比filename2新时，该函数返回t。如果filename1不存在，则返回nil。如果filename1
+   存在，但filename2不存在，则返回t。
 ** 文件与目录
   判断文件是否在一个目录下，怎么做?
   #+BEGIN_SRC emacs-lisp
