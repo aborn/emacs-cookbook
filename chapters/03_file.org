@@ -53,6 +53,17 @@
   与之类似的有: *file-readable-p* 、 *file-executable-p* 、 *file-writable-p* 、
   *file-directory-p* 这几个函数。
 
+**  文件属性
+   这小节介绍与文件属性有关的一些函数，如文件的所属人、所属组、文件大小、文件的最新读取和修改时
+   间等。
+   1. 文件新旧比较
+      #+BEGIN_SRC emacs-lisp
+      file-newer-than-file-p filename1 filename2
+      #+END_SRC
+   当filename1比filename2新时，该函数返回t。如果filename1不存在，则返回nil。如果filename1
+   存在，但filename2不存在，则返回t。
+
+
 * 文件与目录
   判断文件是否在一个目录下，怎么做?
 
