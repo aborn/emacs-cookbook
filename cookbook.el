@@ -186,5 +186,33 @@
     (insert "\n#+END_SRC\n")
     (goto-char cpoint)))
 
+(defun cookbook-extract-readme (readme-file)
+  "Update readme file time-stamp"
+  (let* (content s-end time)
+    (with-temp-buffer
+      (insert-file-contents readme-file)
+      (setq time (format-time-string "%Y-%m-%d"))
+      (setq content (buffer-string))
+      (setq s-end (string-match "** 最新版本" content))
+      (message "%s" time)
+      (when s-end
+        (concat
+         (substring-no-properties
+          content 0 (+ s-end 11))
+         time))
+      )))
+
+(defun cookbook-update-readme ()
+  "Update readme file"
+  (interactive)
+  (let* ((readme-file (expand-file-name "README.org" cookbook-root-dir))
+         (content (cookbook-extract-readme readme-file)))
+    (if content
+        (progn (find-file readme-file)
+               (erase-buffer)
+               (insert content)
+               (save-buffer))
+      (message "errror in update readme.org file"))))
+
 (provide 'cookbook)
 ;;; cookbook.el ends here
