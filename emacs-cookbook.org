@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-20 08:43
+#+DATE: 2018-05-20 10:05
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -427,6 +427,8 @@
    #+END_SRC
    这个函数的功能是将当前buffer的内容写入到filename对应的文件中，并将当前buffer与这个文件进
    行关联
+*** 读取文件内容
+   将文件内容拷贝到当buffer，可以使用 *insert-file-contents* 函数
 ** 文件基本信息函数
   下面介绍一些与文件基本信息相关的函数
   1. 文件是否存在
