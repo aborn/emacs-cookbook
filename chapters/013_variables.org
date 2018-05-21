@@ -14,6 +14,16 @@
   是符号类型名，变量的值是保存在符号类型的值单元(value cell)。
 
 * 全局变量
+  定义全局变量采用 *defvar* 关键字，它定义一个符号类型为变量。
+  #+BEGIN_SRC emacs-lisp
+  defvar symbol [value [doc-string]]
+  #+END_SRC
+
+  还有一种方式，采用 *defconst* 关键字
+  #+BEGIN_SRC emacs-lisp
+  defconst symbol value [doc-string]
+  #+END_SRC
+
 
 * 局部变量
   局部变量一般只用于一段程序，最常用的声明方式是采用 *let* 关键字。
