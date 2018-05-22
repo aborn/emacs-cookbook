@@ -14,7 +14,9 @@
   是符号类型名，变量的值是保存在符号类型的值单元(value cell)。
 
 * 全局变量
-  定义全局变量采用 *defvar* 关键字，它定义一个符号类型为变量。
+  全局变量在任意时间都只有一个值，并且这个变量可使用于整体lisp运行环境。定义全局变量采用
+  *defvar* 关键字，它定义一个符号类型为变量。
+
   #+BEGIN_SRC emacs-lisp
   defvar symbol [value [doc-string]]
   #+END_SRC
