@@ -39,3 +39,6 @@
         (z y))
      (list y z))  ;; ⇒ (1 2)
   #+END_SRC
+
+* Buffer本地变量(Buffer-Local Variables)
+  Buffer本地变量，从字面意思可以看出，这种类型的变量只应用于Buffer中
