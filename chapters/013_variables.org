@@ -59,6 +59,7 @@
         (z y))
      (list y z))  ;; ⇒ (1 2)
   #+END_SRC
+  还有一种局部变量，即函数的调用参数，因为这些参数只用于函数调用阶段。
 
 * Buffer本地变量(Buffer-Local Variables)
   Buffer本地变量，从字面意思可以看出，这种类型的变量只应用于Buffer中。这种机制可以满足对于同一
