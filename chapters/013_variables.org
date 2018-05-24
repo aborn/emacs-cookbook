@@ -46,8 +46,22 @@
   defconst symbol value [doc-string]
    #+END_SRC
 
-* 变量无效
-  当一个符号类型对应的值单元没有被赋值时，称对应的变量为无效的(void)。
+* 变量是无效的
+  当一个符号类型对应的值单元没有被赋值(unassigned)时，称对应的变量为无效的(void)。对于个无效
+  变量进行求值，会抛出 *void-variable error* 。 注意变量为无效的(void)与变量值为nil本质上
+  是不一样的，nil为一种对象，它可以赋值给变量。
+
+  #+BEGIN_SRC emacs-lisp
+  (makunbound symbol)
+  #+END_SRC
+  makunbound清空符号类型里值单元，使得一个变量成为无效的(void)。它返回符号类型。
+
+  #+BEGIN_SRC emacs-lisp
+  (boundp variable)
+  #+END_SRC
+  boundp 当variable不是无效的(nil)时返回t，否则返回nil。
+
+
 
 * 局部变量
   局部变量一般只用于一段程序，最常用的声明方式是采用 *let* 关键字。它的定义格式如下：
