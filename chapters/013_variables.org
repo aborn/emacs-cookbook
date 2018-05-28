@@ -33,17 +33,18 @@
    用来判断一个对象是否为关键字类型(keywords)，即以:开头的符号类型。
 
 ** 定义全局变量
-
-   定义全局变量采用
+   变量的定义主要有三个目的: 首先，它 提示阅读代码人的，该符号变量用于一种特殊用途（这里用于变量）;
+   其次，它提供给Lisp系统，有时候还会赋于初始值和文档；最后，它为编程工具提供信息，如etags，提
+   示它去哪里找到变量定义。定义全局变量采用
    *defvar* 关键字，它定义一个符号类型为变量。
 
    #+BEGIN_SRC emacs-lisp
-  defvar symbol [value [doc-string]]
+     defvar symbol [value [doc-string]]
    #+END_SRC
 
    还有一种方式，采用 *defconst* 关键字
    #+BEGIN_SRC emacs-lisp
-  defconst symbol value [doc-string]
+     defconst symbol value [doc-string]
    #+END_SRC
 
 * 变量是无效的
@@ -60,8 +61,6 @@
   (boundp variable)
   #+END_SRC
   boundp 当variable不是无效的(nil)时返回t，否则返回nil。
-
-
 
 * 局部变量
   局部变量一般只用于一段程序，最常用的声明方式是采用 *let* 关键字。它的定义格式如下：
