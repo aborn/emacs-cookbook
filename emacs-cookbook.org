@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-20 10:05
+#+DATE: 2018-05-28 12:45
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -15,12 +15,12 @@
   二进制编码函数(byte-code function)，再加上一些特殊的类型，如buffer。同时，每种原始类型都
   有一个对应的函数去校验对象是否属于其类型。
 ** 符号类型(Symbols)
-  符号类型是一种有唯一名的（命名）对象。它常用于变量及函数名。判断一个对象是否为标识类型用
+  符号类型是一种有唯一标识的命名对象。它常用于变量及函数名。判断一个对象是否为符号类型用
   *symbolp object* 方法。
-*** 标识类型的组成
-   每个标识对象有四部分组成，每部分称之为单元，每个单元指向其他对象。
+*** 符号类型的组成
+   每个符号类型由四部分组成，每部分称之为单元，每个单元指向其他对象。
 **** 名字
-    即标识对象名，获取标识对象名函数为(symbol-name symbol)
+    即符号标识，获取符号标识名的函数为(symbol-name symbol)
 **** 变量值
     当标识对象作为变量时的值
 **** 函数
@@ -29,8 +29,8 @@
     标识对象的属性列表(plist)，获取属性列表函数为(symbol-plist symbol)
     注意，其中 *名字* 为字符串类型，不可改变，其他三个组成部分可被赋值为任意lisp对象。
     其值为属性列表(plist)。一个以冒号开头的符号类型称之为keyword symbol，它常用于常量类型。
-*** 定义标识类型
-   定义标识对象是一种特殊的lisp表达式，它表示将标识类型用于特殊用途。
+*** 定义符号类型
+   定义符号类型对象是一种特殊的lisp表达式，它表示将标识类型用于特殊用途。
 **** defvar 和 devconst
     它们是一种特殊表达式（Special Forms），它定义一个标识作为全局变量。实际应用中往往使用
     *setq*，它可以将任意变量值绑定到标识对象。
@@ -38,7 +38,7 @@
     用于定义函数，它的作用是创建一个lambda表达式，并将其存储在标识对象的函数单元里。
 **** defmacro
     定义标识符为宏，创建一个宏对象并前对象保存在函数单元里。
-*** 标识符操作函数
+*** 符号类型操作函数
    常见的与标识类型相关的函数有 *make-symbol* 和 *intern*
 **** make-symbol
     #+BEGIN_SRC emacs-lisp
@@ -265,9 +265,64 @@
    #+END_SRC
 * 变量
 ** 变量
-  变量在程序中是一种标识符，代表具体某个值。在Lisp中，每个变量都通过符号类型来表达。变量的名称就
-  是符号类型名，变量的值是保存在符号类型的值单元(value cell)。
+  变量在程序中是一种标识符，其指向某个值，这是一个很通用的编辑概念，不需要做过多解析。在Lisp中，
+  每个变量都通过符号类型来表达。变量名就是对应的符号类型名，变量值是保存在符号类型的值单元(value cell)里。
+  注意在前一章节里，我们介绍到符号类型既可用于变量名也可用于函数名，它们是相互独立不冲突的。
 ** 全局变量
+  全局变量在任意时刻都只有一个值，并且这个变量可使用于整个lisp运行环境。我们经常用 *setq* 这个
+  特殊表达式将一个值绑定到具体某个符号变量中，如下：
+  #+BEGIN_SRC emacs-lisp
+  (setq x '(a b))
+  #+END_SRC
+  这里setq是一个特殊表达式，所以它不会对第一个参数x进行求值，它会对第二个参数进行求值，然后将求
+  得的值绑定到第一个参数对应的变量中。
+*** 不变量
+   在Emacs Lisp中，某些符号类型的求值是其本身。最常见的如nil、t，以及以:开头的符号类型（这些
+   符号类型称之为关键字keywords）。这些特殊的变量不能再进行绑定，同时其值也无法进行修改。
+   #+BEGIN_SRC emacs-lisp
+   (keywordp object)
+   #+END_SRC
+   用来判断一个对象是否为关键字类型(keywords)，即以:开头的符号类型。
+*** 定义全局变量
+   变量的定义主要有三个目的: 首先，它 提示阅读代码人的，该符号变量用于一种特殊用途（这里用于变量）;
+   其次，它提供给Lisp系统，有时候还会赋于初始值和文档；最后，它为编程工具提供信息，如etags，提
+   示它去哪里找到变量定义。定义全局变量采用
+   *defvar* 关键字，它定义一个符号类型为变量。
+   #+BEGIN_SRC emacs-lisp
+     defvar symbol [value [doc-string]]
+   #+END_SRC
+   还有一种方式，采用 *defconst* 关键字
+   #+BEGIN_SRC emacs-lisp
+     defconst symbol value [doc-string]
+   #+END_SRC
+** 变量是无效的
+  当一个符号类型对应的值单元没有被赋值(unassigned)时，称对应的变量为无效的(void)。对于个无效
+  变量进行求值，会抛出 *void-variable error* 。 注意变量为无效的(void)与变量值为nil本质上
+  是不一样的，nil为一种对象，它可以赋值给变量。
+  #+BEGIN_SRC emacs-lisp
+  (makunbound symbol)
+  #+END_SRC
+  makunbound清空符号类型里值单元，使得一个变量成为无效的(void)。它返回符号类型。
+  #+BEGIN_SRC emacs-lisp
+  (boundp variable)
+  #+END_SRC
+  boundp 当variable不是无效的(nil)时返回t，否则返回nil。
+** 局部变量
+  局部变量一般只用于一段程序，最常用的声明方式是采用 *let* 关键字。它的定义格式如下：
+  #+BEGIN_SRC emacs-lisp
+  let (bindings. . . ) forms. . .
+  #+END_SRC
+  这里的let是一个特殊表达式(Special Forms)，它按顺序绑定局部变量。下面是一个例子:
+  #+BEGIN_SRC emacs-lisp
+  (let ((y 1)
+        (z y))
+     (list y z))  ;; ⇒ (1 2)
+  #+END_SRC
+  还有一种局部变量，即函数的调用参数，因为这些参数只用于函数调用阶段。
+** Buffer本地变量(Buffer-Local Variables)
+  Buffer本地变量，从字面意思可以看出，这种类型的变量只应用于Buffer中。这种机制可以满足对于同一
+  个变量在不同的Buffer中的值不一样。
+** 文件本地变量(File-Local Variables)
 * 函数
 ** 什么是函数？
   函数是有传入参数的可计算的单元。每个函数的计算结果为函数返回值。大部分计算机语言里，每个函数有
