@@ -1,0 +1,13 @@
+#+TITLE: 多线程
+#+AUTHOR: aborn
+#+DATE: 2018-05-29
+#+EMAIL: aborn.jiang@gmail.com
+#+LANGUAGE: zh
+#+LATEX_HEADER: \usepackage{xeCJK}
+
+#+SETUPFILE: ~/github/org-html-themes/setup/theme-readtheorg.setup
+
+-----
+
+* 多线程
+  Emacs从26.1版本开始引入了[[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Threads.html][多线程]] 它提供了一种简单（有限）的同步操作。跟其他编程语言一样， 在同一
