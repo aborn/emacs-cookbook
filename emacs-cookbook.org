@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-28 12:45
+#+DATE: 2018-05-29 20:12
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -541,6 +541,10 @@
    ⇒ "/xcssun/users/rms/foo"
    (expand-file-name "foo" "/usr/spool/") ⇒ "/usr/spool/foo"
    #+END_SRC
+* 多线程
+** 多线程
+  Emacs从26.1版本开始引入了[[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Threads.html][多线程]] 它提供了一种简单（有限）的同步操作。跟其他编程语言一样，在同
+  一个Emacs里所有的线程是共享内存的。
 * org 实践
 ** org模式简介
   Emacs的org-mode可用于记笔记、管理自己的待办事项(TODO lists)，同时，也可用于管理项目。它是一个高效的纯文本编辑系统。
@@ -586,9 +590,13 @@
 **** 外部链接
     Org支持的外部链接有很多中形式，如文件、网页、新闻组、电子邮件信息、BBDB数据条目等。
     它们以一个短的标识字符串打头，紧接着是一个冒号，冒号后面没有空格字符。
-**** 链接处理相关命令
-    + org-store-link 保存当前位置的一个链接，以备后面插入使用
-    + org-insert-link 插入链接，绑定的快捷键为C-c C-l，如果光标正在一个链接上，那么C-c C-l的行为是编辑这个链接及其描述
+*** 链接处理相关命令
+   Emacs org提供了很多链接处理相关的函数
+   + org-store-link 保存的一个链接到当前位置，以备后面插入使用，原始绑定的快捷键为 *C-c l*
+   + org-insert-link 插入链接，绑定的快捷键为C-c C-l，如果光标正在一个链接上，那么C-c C-l
+   的行为是编辑这个链接及其描述。
+   + org-open-at-point 打开当前位置的链接。它将在浏览器中打开这个链接，快捷键为 *C-c C-o*
+   其实使用是的 *browse-url-at-point*
 ** 待办事项
   Org模式用来管理自己的TODO list非常方便
 ** 日程表(Agenda View)

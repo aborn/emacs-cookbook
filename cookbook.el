@@ -65,6 +65,7 @@
    `(lambda ()
       ,(async-inject-variables "\\`load-path\\'")
       ,(async-inject-variables "\\`org-latex-pdf-process\\'")
+      ,(async-inject-variables "\\`org-element-use-cache\\'")
       (require 'cookbook)
       (require 'cl-lib)
       (require 'f)
