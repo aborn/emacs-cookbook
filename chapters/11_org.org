@@ -67,6 +67,8 @@
    + org-store-link 保存的一个链接到当前位置，以备后面插入使用，原始绑定的快捷键为 *C-c l*
    + org-insert-link 插入链接，绑定的快捷键为C-c C-l，如果光标正在一个链接上，那么C-c C-l
    的行为是编辑这个链接及其描述。
+   + org-open-at-point 打开当前位置的链接。它将在浏览器中打开这个链接，快捷键为 *C-c C-o*
+   其实使用是的 *browse-url-at-point*
 
 * 待办事项
   Org模式用来管理自己的TODO list非常方便
