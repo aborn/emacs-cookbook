@@ -32,11 +32,21 @@
    (thread-join thread)
    #+END_SRC
 
+** thread-yield
+   执行下一个可执行的线程。
+
 ** 获取线程名
-   可以通过(thread-name thread)函数来获取线程名
+   可以通过(thread-name thread)函数来获取线程名。
 
 ** 线程状态
-   判断一个线程是否还在执行(alive)，可以用(thread-alive-p thread)
+   判断一个线程是否还在执行(alive)，可以用(thread-alive-p thread)。
 
 ** 当前线程
-   (current-thread)返回当前线程
+   (current-thread)返回当前线程。
+
+** 所有线程列表
+   获取当前所有正在运行中的线程(all-threads)。
+
+* 互斥锁
+  [[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Mutexes.html][互斥]]一种排它锁(exclusive lock)，在任何时刻，最多只允许一个线程持有互斥锁。也就是说，当一个线
+  程试图获取一个已经被其他线程持有的互斥锁时，它会引发阻塞，直到该互斥锁被释放为止。
