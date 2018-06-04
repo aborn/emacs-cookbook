@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-05-29 20:12
+#+DATE: 2018-06-04 13:05
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -543,8 +543,43 @@
    #+END_SRC
 * 多线程
 ** 多线程
-  Emacs从26.1版本开始引入了[[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Threads.html][多线程]] 它提供了一种简单（有限）的同步操作。跟其他编程语言一样，在同
-  一个Emacs里所有的线程是共享内存的。
+  Emacs从26.1版本开始引入了[[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Threads.html][多线程]] 。它提供了一种简单（但功能有限）多线程操作。跟其他编程语言一
+  样，在同一个Emacs实例里所有的线程的内存是共享的。每个线程有其自己运行Buffer(Current Buffer)
+  和对应的数据(Match Data)。
+** 基本的线程相关函数
+  下面介绍线程操作相关的[[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Basic-Thread-Functions.html#Basic-Thread-Functions][基本函数]]。
+*** 创建线程
+   我们可以通过 *make-thread* 函数来创建线程并执行对应的task。它的语法如下:
+   #+BEGIN_SRC emacs-lisp
+  (make-thread function &optional name)
+   #+END_SRC
+   创建一个名为name的线程，该线程执行function函数，当函数执行结束后，退出该线程。新线程的Current
+   Buffer继承当前Buffer，这个函数返回一个线程对象。可以通过 *(threadp object)* 来判断一个对
+   象是否为线程对象。
+*** thread-join
+   thread-join，它阻塞当前执行直到线程执行完成，如果线程已经退出，它立刻返回。
+   #+BEGIN_SRC emacs-lisp
+   (thread-join thread)
+   #+END_SRC
+*** thread-yield
+   执行下一个可执行的线程。
+*** 获取线程名
+   可以通过(thread-name thread)函数来获取线程名。
+*** 线程状态
+   判断一个线程是否还在执行(alive)，可以用(thread-alive-p thread)。
+*** 当前线程
+   (current-thread)返回当前线程。
+*** 所有线程列表
+   获取当前所有正在运行中的线程(all-threads)。
+** 互斥锁(Mutexes)
+  [[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Mutexes.html][互斥]]一种排它锁(exclusive lock)，在任何时刻，最多只允许一个线程持有互斥锁。也就是说，当一个线
+  程试图获取一个已经被其他线程持有的互斥锁时，它会引发阻塞，直到该互斥锁被释放为止。
+*** 创建一个互斥锁
+   创建一个互斥锁对象，采用 *make-mutes* 函数，该函数返回一个互斥锁对象，其名字为name。
+   #+BEGIN_SRC emacs-lisp
+   (make-mutex &optional name)
+   #+END_SRC
+   判断一个对象是否为互斥锁使用(mutexp object)。
 * org 实践
 ** org模式简介
   Emacs的org-mode可用于记笔记、管理自己的待办事项(TODO lists)，同时，也可用于管理项目。它是一个高效的纯文本编辑系统。
@@ -593,7 +628,7 @@
 *** 链接处理相关命令
    Emacs org提供了很多链接处理相关的函数
    + org-store-link 保存的一个链接到当前位置，以备后面插入使用，原始绑定的快捷键为 *C-c l*
-   + org-insert-link 插入链接，绑定的快捷键为C-c C-l，如果光标正在一个链接上，那么C-c C-l
+   + org-insert-link 插入链接，绑定的快捷键为C-c C-l，如果光标正在一个链接上，那么这个命令
    的行为是编辑这个链接及其描述。
    + org-open-at-point 打开当前位置的链接。它将在浏览器中打开这个链接，快捷键为 *C-c C-o*
    其实使用是的 *browse-url-at-point*
