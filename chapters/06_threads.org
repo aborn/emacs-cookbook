@@ -47,6 +47,13 @@
 ** 所有线程列表
    获取当前所有正在运行中的线程(all-threads)。
 
-* 互斥锁
+* 互斥锁(Mutexes)
   [[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Mutexes.html][互斥]]一种排它锁(exclusive lock)，在任何时刻，最多只允许一个线程持有互斥锁。也就是说，当一个线
   程试图获取一个已经被其他线程持有的互斥锁时，它会引发阻塞，直到该互斥锁被释放为止。
+
+** 创建一个互斥锁
+   创建一个互斥锁对象，采用 *make-mutes* 函数，该函数返回一个互斥锁对象，其名字为name。
+   #+BEGIN_SRC emacs-lisp
+   (make-mutex &optional name)
+   #+END_SRC
+   判断一个对象是否为互斥锁使用(mutexp object)。
