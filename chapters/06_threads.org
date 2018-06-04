@@ -13,3 +13,30 @@
   Emacs从26.1版本开始引入了[[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Threads.html][多线程]] 。它提供了一种简单（但功能有限）多线程操作。跟其他编程语言一
   样，在同一个Emacs实例里所有的线程的内存是共享的。每个线程有其自己运行Buffer(Current Buffer)
   和对应的数据(Match Data)。
+
+* 基本的线程相关函数
+  下面介绍线程操作相关的[[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Basic-Thread-Functions.html#Basic-Thread-Functions][基本函数]]。
+
+** 创建线程
+   我们可以通过 *make-thread* 函数来创建线程并执行对应的task。它的语法如下:
+   #+BEGIN_SRC emacs-lisp
+  (make-thread function &optional name)
+   #+END_SRC
+   创建一个名为name的线程，该线程执行function函数，当函数执行结束后，退出该线程。新线程的Current
+   Buffer继承当前Buffer，这个函数返回一个线程对象。可以通过 *(threadp object)* 来判断一个对
+   象是否为线程对象。
+
+** thread-join
+   thread-join，它阻塞当前执行直到线程执行完成，如果线程已经退出，它立刻返回。
+   #+BEGIN_SRC emacs-lisp
+   (thread-join thread)
+   #+END_SRC
+
+** 获取线程名
+   可以通过(thread-name thread)函数来获取线程名
+
+** 线程状态
+   判断一个线程是否还在执行(alive)，可以用(thread-alive-p thread)
+
+** 当前线程
+   (current-thread)返回当前线程
