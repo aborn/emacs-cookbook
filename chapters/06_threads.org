@@ -64,3 +64,9 @@
    #+END_SRC
    这个操作会引发阻塞，直到当前线程获取互斥锁为止。与之相对的有(mutex-unlock mutex)释放互斥
    锁操作。
+
+** with-mutex
+   #+BEGIN_SRC emacs-lisp
+   (with-mutex mutex body)
+   #+END_SRC
+   这是一个宏操作，它首先获取一个互斥锁，然后执行body里的行为，最后释放互斥锁。
