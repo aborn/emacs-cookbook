@@ -57,3 +57,10 @@
    (make-mutex &optional name)
    #+END_SRC
    判断一个对象是否为互斥锁使用(mutexp object)。
+
+** 获取/释放互斥锁
+   #+BEGIN_SRC emacs-lisp
+  （mutex-unlock mutex）
+   #+END_SRC
+   这个操作会引发阻塞，直到当前线程获取互斥锁为止。与之相对的有(mutex-unlock mutex)释放互斥
+   锁操作。
