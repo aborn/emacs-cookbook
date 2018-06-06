@@ -12,7 +12,7 @@
 * 多线程
   Emacs从26.1版本开始引入了[[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Threads.html][多线程]] 。它提供了一种简单（但功能有限）多线程操作。跟其他编程语言一
   样，在同一个Emacs实例里所有的线程的内存是共享的。每个线程有其自己运行Buffer(Current Buffer)
-  和对应的数据(Match Data)。
+  和对应的数据(Match Data)。注意：下面的文档都是参考Emacs的草案手册。
 
 * 基本的线程相关函数
   下面介绍线程操作相关的[[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Basic-Thread-Functions.html#Basic-Thread-Functions][基本函数]]。
