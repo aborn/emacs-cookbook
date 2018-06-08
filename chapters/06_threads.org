@@ -98,3 +98,16 @@
    #+BEGIN_SRC emacs-lisp
    (condition-wait cond)
    #+END_SRC
+   等待另一个线程去触发条件 *cond* （它是一个条件变量）。这个函数也会阻塞主流程直到条件被触发
+   为止。condition-wait 在等待时会释放与之关联的互斥锁，允许其他线程去获取这个互斥锁从而触发
+   条件变量。
+
+** 条件通知
+   #+BEGIN_SRC emacs-lisp
+   (condition-notify cond &optional all)
+   #+END_SRC
+   通知 *cond* 条件变量
+
+** 其他函数
+   1. (condition-name cond) 返回条件变量名
+   2. (condition-mutex cond) 返回与条件变量相关联的互斥锁
