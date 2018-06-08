@@ -106,7 +106,8 @@
    #+BEGIN_SRC emacs-lisp
    (condition-notify cond &optional all)
    #+END_SRC
-   通知 *cond* 条件变量
+   通知 *cond* 条件变量。一般情况下，一个等待线程被condition-notify被唤醒，当all不是nil时，
+   所有等待cond的线程都将收到唤醒通知。
 
 ** 其他函数
    1. (condition-name cond) 返回条件变量名
