@@ -72,10 +72,29 @@
    这是一个宏操作，它首先获取一个互斥锁，然后执行body里的行为，最后释放互斥锁。
 
 * 条件变量(Condition Variables)
-  [[http:https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Condition-Variables.html][条件变量]] 提供线程阻塞直到某个事件发生的机制。线程可以等待一个条件变量，直到别的线程通知这个条件
+  [[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Condition-Variables.html][条件变量]] 提供线程阻塞直到某个事件发生的机制。线程可以等待一个条件变量，直到别的线程触发这个条件
   才唤醒。条件变量在某些情况下往往与互斥机制相关联。下面是一个例子：
   #+BEGIN_SRC emacs-lisp
   (with-mutex mutex
     (while (not global-variable)
       (condition-wait cond-var)))
   #+END_SRC
+  这里互斥锁保证了原子性。
+  #+BEGIN_SRC emacs-lisp
+  (with-mutex mutex
+    (setq global-variable (some-computation))
+    (condition-notify cond-var))
+  #+END_SRC
+
+** 创建条件变量
+   创建条件变量的函数如下：
+   #+BEGIN_SRC emacs-lisp
+   (make-condition-variable mutex &optional name)
+   #+END_SRC
+   创建一个与互斥锁mutex的条件变量，其名字为name。判断一个对象是否为条件变量使用
+   (condition-variable-p object)
+
+** 条件等待
+   #+BEGIN_SRC emacs-lisp
+   (condition-wait cond)
+   #+END_SRC
