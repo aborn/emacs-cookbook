@@ -42,8 +42,16 @@
    这个函数的功能是将当前buffer的内容写入到filename对应的文件中，并将当前buffer与这个文件进
    行关联
 
-** 读取文件内容
-   将文件内容拷贝到当buffer，可以使用 *insert-file-contents* 函数
+** 读取文件内容(Reading from Files)
+   将文件内容复制到buffer，可以使用 *insert-file-contents* 函数，注意在Lisp代码里不要使用
+   *insert-file* 命令，因为它会设置mark标识。
+
+   #+BEGIN_SRC emacs-lisp
+   (insert-file-contents filename &optional visit beg end replace)
+   #+END_SRC
+   这个函数在当前buffer的位置插入文件 *filename* 的内容，它返回一个list，它包含一个文件名和
+   数据长度信息。
+
 
 * 文件基本信息函数
   下面介绍一些与文件基本信息相关的函数
