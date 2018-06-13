@@ -75,6 +75,8 @@
    #+BEGIN_SRC emacs-lisp
    (with-temp-file file body)
    #+END_SRC
+   *with-temp-file* 是一个宏操作，它将创建一个临时buffer作为当前buffer，在这个buffer里对
+   body进行求值，最后将这个buffer的内容写入到文件 *file* 里。
 
 * 文件基本信息函数
   下面介绍一些与文件基本信息相关的函数
