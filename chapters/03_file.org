@@ -50,8 +50,17 @@
    (insert-file-contents filename &optional visit beg end replace)
    #+END_SRC
    这个函数在当前buffer的位置插入文件 *filename* 的内容，它返回一个list，它包含一个文件名和
-   数据长度信息。
+   数据长度信息。如果文件不存在，则会抛出错误异常!
 
+** 往文件里写内容(Writing to Files)
+   将buffer里的内容（或者部分内容）直接写入到一个文件，可以采用 *append-to-file* 和 *write-region*
+   函数。注意这里不要写入正在访问的文件，否则会出现异常情况：
+
+   #+BEGIN_SRC emacs-lisp
+   (append-to-file start end filename)
+   #+END_SRC
+   这个函数的作用是将当前buffer里的部分内容（从start到end部分内容）追加到文件 *filename* 的
+   后面。如果是在lisp中使用，这个函数完全等价于 (write-region start end filename t)。
 
 * 文件基本信息函数
   下面介绍一些与文件基本信息相关的函数
