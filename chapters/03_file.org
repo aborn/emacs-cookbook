@@ -62,6 +62,20 @@
    这个函数的作用是将当前buffer里的部分内容（从start到end部分内容）追加到文件 *filename* 的
    后面。如果是在lisp中使用，这个函数完全等价于 (write-region start end filename t)。
 
+   #+BEGIN_SRC emacs-lisp
+   (write-region start end filename &optional append visit lockname mustbenew)
+   #+END_SRC
+   这个函数的作用与append-to-file类似，不过其参数更多。
+   1. 当start为nil时，这个函数写入的是当前buffer所有内容，这时end参数没有用;
+   2. 当start为string时，这个函数写入的内容是string的内容，这时end参数失效;
+   3. 当append不是nil时，表示往现有文件里进行追加，当append是一个数字时，表示从当前文件开始到
+   append的位置开始写入。
+   4. 当mustbenew不为nil时，当覆盖已有文件时，会询问用户，并获得用户确定后再操作。
+
+   #+BEGIN_SRC emacs-lisp
+   (with-temp-file file body)
+   #+END_SRC
+
 * 文件基本信息函数
   下面介绍一些与文件基本信息相关的函数
 
