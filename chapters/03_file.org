@@ -68,8 +68,7 @@
    这个函数的作用与append-to-file类似，不过其参数更多。
    1. 当start为nil时，这个函数写入的是当前buffer所有内容，这时end参数没有用;
    2. 当start为string时，这个函数写入的内容是string的内容，这时end参数失效;
-   3. 当append不是nil时，表示往现有文件里进行追加，当append是一个数字时，表示从当前文件开始到
-   append的位置开始写入。
+   3. 当append不是nil时，表示往现有文件里进行追加，当append是一个数字时，表示从当前文件开始到append的位置开始写入。
    4. 当mustbenew不为nil时，当覆盖已有文件时，会询问用户，并获得用户确定后再操作。
 
    #+BEGIN_SRC emacs-lisp
