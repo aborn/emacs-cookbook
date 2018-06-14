@@ -94,6 +94,17 @@
   *file-locked-p* 这个函数用来检查文件是否被锁。当文件没有被锁，则返回nil；如果被Emacs进程
   锁了，则返回t，当被其他job锁了，则返回使用都信息。
 
+  #+BEGIN_SRC emacs-lisp
+  (lock-buffer &optional filename)
+  #+END_SRC
+  如果当前buffer被修改过，这个函数锁定当前buffer所关联的文件。与之相对应的操作有解锁，可以使用
+  (unlock-buffer) 这个函数。
+
+  #+BEGIN_SRC emacs-lisp
+  (ask-user-about-lock file other-user)
+  #+END_SRC
+  当一个用户修改正在被另一个用户锁定的文件时，询问用户。该函数的返回值（即用户的选择），决定Emacs
+  接下来该如何执行。
 
 * 文件基本信息函数
   下面介绍一些与文件基本信息相关的函数
