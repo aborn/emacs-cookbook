@@ -49,8 +49,8 @@
    #+BEGIN_SRC emacs-lisp
    (insert-file-contents filename &optional visit beg end replace)
    #+END_SRC
-   这个函数在当前buffer的位置插入文件 *filename* 的内容，它返回一个list，它包含一个文件名和
-   数据长度信息。如果文件不存在，则会抛出错误异常!
+   这个函数在当前buffer的位置插入文件 *filename* 的内容，它返回一个它包含一个文件名和数据长度
+   信息的列表。如果文件不存在(或不可读)，则会抛出错误异常!
 
 ** 往文件里写内容(Writing to Files)
    将buffer里的内容（或者部分内容）直接写入到一个文件，可以采用 *append-to-file* 和 *write-region*
