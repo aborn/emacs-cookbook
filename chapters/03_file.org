@@ -84,6 +84,17 @@
    会把这个临时buffer关闭，恢复到执行with-temp-file之前的当前buffer。它将body的最后执行结
    果作为with-temp-file的返回结果。
 
+* 文件锁
+  当多个用户同时修改一个文件里，这时候需要文件锁。Emacs里的文件锁是保存在同一目录下的一个文件，
+  它有一个特殊的名字.
+
+  #+BEGIN_SRC emacs-lisp
+  (file-locked-p filename)
+  #+END_SRC
+  *file-locked-p* 这个函数用来检查文件是否被锁。当文件没有被锁，则返回nil；如果被Emacs进程
+  锁了，则返回t，当被其他job锁了，则返回使用都信息。
+
+
 * 文件基本信息函数
   下面介绍一些与文件基本信息相关的函数
 
