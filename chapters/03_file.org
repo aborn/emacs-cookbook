@@ -50,7 +50,12 @@
    (insert-file-contents filename &optional visit beg end replace)
    #+END_SRC
    这个函数在当前buffer的位置插入文件 *filename* 的内容，它返回一个它包含一个文件名和数据长度
-   信息的列表。如果文件不存在(或不可读)，则会抛出错误异常!
+   信息的列表。如果文件不存在(或不可读)，则会抛出错误异常!当这个函数执行后会调用 *after-insert-file-functions*
+   列表里的函数。一般情况下，在这个列表里的函数其中有一个是用来检测文件内容的编码。与这个函数类似
+   的一个函数为(insert-file-contents-literally filename &optional visit beg end [Function] replace)
+   ，它们唯一的区别的后者不内容进行格式化、不对字符做转换。
+
+   如果参数visit不是nil时，执行这个函数后会将当前buffer设置为未修改（unmodified）状态。
 
 ** 往文件里写内容(Writing to Files)
    将buffer里的内容（或者部分内容）直接写入到一个文件，可以采用 *append-to-file* 和 *write-region*
