@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-06-15 13:13
+#+DATE: 2018-06-15 20:29
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -544,51 +544,74 @@
    #+END_SRC
    与之类似的有: *file-readable-p* 、 *file-executable-p* 、 *file-writable-p* 、
    *file-directory-p* *file-symlink-p* 这几个函数。
-***  文件属性
+*** 文件新旧比较
+   #+BEGIN_SRC emacs-lisp
+   (file-newer-than-file-p filename1 filename2)
+   #+END_SRC
+   当filename1比filename2新时，该函数返回t。如果filename1不存在，则返回nil。如果filename1
+   存在，但filename2不存在，则返回t。
+*** 文件模式
+   #+BEGIN_SRC emacs-lisp
+   (file-modes filename)
+   #+END_SRC
+   这个函数返回文件的属性，跟linux里的chmod命令相对应，它返回的是一个整数：它包含了文件的读、
+   写和可执行权限。
+   #+BEGIN_SRC emacs-lisp
+   (file-modes "~/junk/diffs")   ;; ⇒ 492 ; Decimal integer.
+   #+END_SRC
+*** 文件属性
    这小节介绍与文件属性有关的一些函数，如文件的所属人、所属组、文件大小、文件的最新读取和修改时
    间等。
-**** 文件新旧比较
-    #+BEGIN_SRC emacs-lisp
-      (file-newer-than-file-p filename1 filename2)
-    #+END_SRC
-    当filename1比filename2新时，该函数返回t。如果filename1不存在，则返回nil。如果filename1
-    存在，但filename2不存在，则返回t。
-**** 文件模式
-    #+BEGIN_SRC emacs-lisp
-    (file-modes filename)
-    #+END_SRC
-    这个函数返回文件的属性，跟linux里的chmod命令相对应，它返回的是一个整数：它包含了文件的读、
-    写和可执行权限。
-    #+BEGIN_SRC emacs-lisp
-    (file-modes "~/junk/diffs")   ;; ⇒ 492 ; Decimal integer.
-    #+END_SRC
-**** 获取文件属性
-    #+BEGIN_SRC emacs-lisp
-    (file-attributes filename &optional id-format)
-    #+END_SRC
-    这个函数返回文件对应的属性列表，下面是一个调用示例：
-    #+BEGIN_SRC emacs-lisp
-    (file-attributes "~/tree.txt")
-    ;; 返回如下
-    (nil 1 501 20
-         (23331 5030 438781 943000)
-         (23331 4821 822935 764000)
-         (23331 4821 822935 764000)
-         10496 "-rw-r--r--" t 8602715307 16777220)
-    #+END_SRC
-    属性列表按顺序说明如下：
-    0. t 表示目录，字符串表示符号链接，nil 为文本文件；
-    1. 这个文件有多少名字与之关联，一般为1，当有符号链接时不一样；
-    2. 文件的UID;
-    3. 文件的GID;
-    4. 文件最近accessTime，有4个元素的列表(sec-high sec-low microsec picosec);
-    5. 文件最后修改时间；
-    6. 文件状态最后被修改时间；主要是用chmod来改变文件模式;
-    7. 文件大小，单位byte;
-    8. 文件模式；
-    9. 未使用值，主要用来做向下兼容；
-    10. 文件的inode编码；
-    11. 设备的文件系统码；
+   #+BEGIN_SRC emacs-lisp
+   (file-attributes filename &optional id-format)
+   #+END_SRC
+   这个函数返回文件对应的属性列表，下面是一个调用示例：
+   #+BEGIN_SRC emacs-lisp
+   (file-attributes "~/tree.txt")
+   ;; 返回如下
+   (nil 1 501 20
+        (23331 5030 438781 943000)
+        (23331 4821 822935 764000)
+        (23331 4821 822935 764000)
+        10496 "-rw-r--r--" t 8602715307 16777220)
+   #+END_SRC
+   属性列表按顺序说明如下：
+   0. t 表示目录，字符串表示符号链接，nil 为文本文件；
+   1. 这个文件有多少名字与之关联，一般为1，当有符号链接时不一样；
+   2. 文件的UID;
+   3. 文件的GID;
+   4. 文件最近accessTime，有4个元素的列表(sec-high sec-low microsec picosec);
+   5. 文件最后修改时间；
+   6. 文件状态最后被修改时间；主要是用chmod来改变文件模式;
+   7. 文件大小，单位byte;
+   8. 文件模式；
+   9. 未使用值，主要用来做向下兼容；
+   10. 文件的inode编码；
+   11. 设备的文件系统码；
+** 文件查找
+*** locate-file
+   #+BEGIN_SRC emacs-lisp
+   (locate-file filename path &optional suffixes predicate)
+   #+END_SRC
+   *locate-file* 这个函数用来查找在path目录下文件名为filename的文件，如果找到则返回绝对文件
+   名。注意第二个参数path必需为目录列表，像 *exec-path* 对应的列表一平。下面是一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (locate-file "03_file.org" '("/Users/aborn/github/emacs-cookbook/chapters/"))
+   ;; "/Users/aborn/github/emacs-cookbook/chapters/03_file.org"
+   (locate-file "03_file" '("/Users/aborn/github/emacs-cookbook/chapters/") '(".tex" ".org"))
+   ;; "/Users/aborn/github/emacs-cookbook/chapters/03_file.tex"
+   #+END_SRC
+   可选参数 suffixes 为后缀列表，查找所有后缀，以第一个查到为准。
+*** executable-find
+   #+BEGIN_SRC emacs-lisp
+   (executable-find program)
+   #+END_SRC
+   executable-find用于查找可执行文件，查找所有 *exec-path* 目录下的可执行文件（以及查找所
+   有后缀为exec-suffixes列表里的可执行文件），下面是一个例子:
+   #+BEGIN_SRC emacs-lisp
+   (executable-find "emacs")
+   ;; "/usr/local/bin/emacs"
+   #+END_SRC
 ** 文件与目录
   判断文件是否在一个目录下，怎么做?
   #+BEGIN_SRC emacs-lisp
