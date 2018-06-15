@@ -115,7 +115,7 @@
   (file-exists-p filename)
   #+END_SRC
   与之类似的有: *file-readable-p* 、 *file-executable-p* 、 *file-writable-p* 、
-  *file-directory-p* 这几个函数。
+  *file-directory-p* *file-symlink-p* 这几个函数。
 
 **  文件属性
    这小节介绍与文件属性有关的一些函数，如文件的所属人、所属组、文件大小、文件的最新读取和修改时
