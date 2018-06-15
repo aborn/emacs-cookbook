@@ -109,13 +109,13 @@
 * 文件基本信息函数
   下面介绍一些与文件基本信息相关的函数
 
-  1. 文件是否存在
-
-  #+BEGIN_SRC emacs-lisp
+** 文件是否存在
+   判断一个文件是否存在采用 *file-exists-p* 这个函数:
+   #+BEGIN_SRC emacs-lisp
   (file-exists-p filename)
-  #+END_SRC
-  与之类似的有: *file-readable-p* 、 *file-executable-p* 、 *file-writable-p* 、
-  *file-directory-p* *file-symlink-p* 这几个函数。
+   #+END_SRC
+   与之类似的有: *file-readable-p* 、 *file-executable-p* 、 *file-writable-p* 、
+   *file-directory-p* *file-symlink-p* 这几个函数。
 
 **  文件属性
    这小节介绍与文件属性有关的一些函数，如文件的所属人、所属组、文件大小、文件的最新读取和修改时
@@ -184,8 +184,19 @@
 
    #+BEGIN_SRC emacs-lisp
    (expand-file-name "foo")
-   ⇒ "/xcssun/users/rms/lewis/foo"
+   ;; ⇒ "/xcssun/users/rms/lewis/foo"
    (expand-file-name "../foo")
-   ⇒ "/xcssun/users/rms/foo"
+   ;; ⇒ "/xcssun/users/rms/foo"
    (expand-file-name "foo" "/usr/spool/") ⇒ "/usr/spool/foo"
+   #+END_SRC
+
+   与expand-file-name相似的函数还有 *file-truename* 这个函数
+   #+BEGIN_SRC emacs-lisp
+   (file-truename filename)
+   #+END_SRC
+   下面是一些例子
+   #+BEGIN_SRC emacs-lisp
+   (file-truename "~/tree.txt")       ;;  "/Users/aborn/tree.txt"
+   (file-truename "../tree.txt")      ;; "/Users/tree.txt"
+   (file-truename "../../tree.txt")   ;; "/tree.txt"
    #+END_SRC
