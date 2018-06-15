@@ -172,7 +172,7 @@
   *file-name-directory* 返回的文件名里的目录部分，如果文件名里没有包含目录部分，则返回nil。
   与这个函数对应的一个函数为 *file-name-nondirectory* ，它返回非目录部分。
 
-** 文件名扩展
+** 文件路径
    *expand-file-name* 这个函数将文件名转成绝对文件名：
 
    #+BEGIN_SRC emacs-lisp
