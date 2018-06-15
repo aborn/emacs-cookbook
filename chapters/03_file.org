@@ -139,7 +139,17 @@
     #+BEGIN_SRC emacs-lisp
     (file-attributes filename &optional id-format)
     #+END_SRC
-    这个函数返回文件对应的属性列表
+    这个函数返回文件对应的属性列表，下面是一个调用示例：
+    #+BEGIN_SRC emacs-lisp
+    (file-attributes "~/tree.txt")
+    ;; 返回如下
+    (nil 1 501 20
+         (23331 5030 438781 943000)
+         (23331 4821 822935 764000)
+         (23331 4821 822935 764000)
+         10496 "-rw-r--r--" t 8602715307 16777220)
+    #+END_SRC
+
 
 * 文件与目录
   判断文件是否在一个目录下，怎么做?
