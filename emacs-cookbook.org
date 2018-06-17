@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-06-15 20:29
+#+DATE: 2018-06-17 23:11
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -588,20 +588,50 @@
    9. 未使用值，主要用来做向下兼容；
    10. 文件的inode编码；
    11. 设备的文件系统码；
+** 文件操作
+*** 文件复制和重命名
+   文件重命名函数为 *rename-file*
+   #+BEGIN_SRC emacs-lisp
+   (rename-file filename newname &optional ok-if-already-exists)
+   #+END_SRC
+   复制文件函数为 *copy-file*
+   #+BEGIN_SRC emacs-lisp
+   (copy-file oldname newname &optional ok-if-exists time
+    preserve-uid-gid preserve-extended-attributes)
+   #+END_SRC
+   这个函数的作用是复制老的文件 *oldname* 到新的文件 *newname*, 这里有一点要注意的是如果新的
+   文件名 *newname* 为目录，则复制老的文件到这个目录（文件名保持为 *oldname* 不变）。当参数
+   time不为nil时，则新文件保持与老文件相同的最后修改时间属性信息。
+*** 文件删除
+   文件删除的函数为 *delete-file*
+   #+BEGIN_SRC emacs-lisp
+   (delete-file filename &optional trash)
+   #+END_SRC
+   这里有一点要注意的是如果文件filename为符号链接，这个函数只删除符号链接，不删除原目标文件。
+*** 设置文件属性
+   设置文件属性函数为 *set-file-modes*
+   #+BEGIN_SRC emacs-lisp
+   (set-file-modes filename mode)
+   #+END_SRC
+   这里的mode必须为整数，下面是一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (set-file-modes "a.txt" #o644)
+   #+END_SRC
 ** 文件查找
 *** locate-file
    #+BEGIN_SRC emacs-lisp
    (locate-file filename path &optional suffixes predicate)
    #+END_SRC
    *locate-file* 这个函数用来查找在path目录下文件名为filename的文件，如果找到则返回绝对文件
-   名。注意第二个参数path必需为目录列表，像 *exec-path* 对应的列表一平。下面是一个例子：
+   名。注意第二个参数path必需为目录列表，像 *exec-path* 对应的列表一样。下面是一个例子：
    #+BEGIN_SRC emacs-lisp
    (locate-file "03_file.org" '("/Users/aborn/github/emacs-cookbook/chapters/"))
    ;; "/Users/aborn/github/emacs-cookbook/chapters/03_file.org"
    (locate-file "03_file" '("/Users/aborn/github/emacs-cookbook/chapters/") '(".tex" ".org"))
    ;; "/Users/aborn/github/emacs-cookbook/chapters/03_file.tex"
    #+END_SRC
-   可选参数 suffixes 为后缀列表，查找所有后缀，以第一个查到为准。
+   可选参数 suffixes 为后缀列表，查找所有后缀，以第一个查到为准。注意，这里的文件查找只会查找
+   path目录，不会查找其子目录。
 *** executable-find
    #+BEGIN_SRC emacs-lisp
    (executable-find program)
@@ -632,12 +662,20 @@
    #+END_SRC
    *make-directory* 创建一个目录名为dirname的目录
 ** 文件名
-  下面介绍一些与文件名操作有关的函数
-  #+BEGIN_SRC emacs-lisp
+  我们知道大部分操作系统，文件名由两部分组成：文件名和路径，任何一个文件都在某个具体路径下。下面
+  介绍一些与之相关的函数操作。
+*** 文件名、路径、文件后缀
+   #+BEGIN_SRC emacs-lisp
   (file-name-directory filename)
-  #+END_SRC
-  *file-name-directory* 返回的文件名里的目录部分，如果文件名里没有包含目录部分，则返回nil。
-  与这个函数对应的一个函数为 *file-name-nondirectory* ，它返回非目录部分。
+   #+END_SRC
+   *file-name-directory* 返回的文件名里的目录部分，如果文件名里没有包含目录部分，则返回nil。
+   与这个函数对应的一个函数为 *file-name-nondirectory* ，它返回非目录部分。时常，我们想获取
+   文件的后缀，采用如下函数：
+   #+BEGIN_SRC emacs-lisp
+   (file-name-extension filename &optional period)
+   #+END_SRC
+   这里有一点要引起注意，如果一个文件名以点号(.)开始，如.emacs，file-name-extension返回的后
+   缀不是.emacs，而是nil。
 *** 文件路径
    *expand-file-name* 这个函数将文件名转成绝对文件名：
    #+BEGIN_SRC emacs-lisp
