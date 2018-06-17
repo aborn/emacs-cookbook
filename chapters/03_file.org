@@ -163,6 +163,21 @@
    9. 未使用值，主要用来做向下兼容；
    10. 文件的inode编码；
    11. 设备的文件系统码；
+* 文件操作
+** 改变文件名和属性
+   文件重命名函数为 *rename-file*
+   #+BEGIN_SRC emacs-lisp
+   (rename-file filename newname &optional ok-if-already-exists)
+   #+END_SRC
+
+   复制文件函数为 *copy-file*
+   #+BEGIN_SRC emacs-lisp
+   (copy-file oldname newname &optional ok-if-exists time
+    preserve-uid-gid preserve-extended-attributes)
+   #+END_SRC
+   这个函数的作用是复制老的文件 *oldname* 到新的文件 *newname*, 这里有一点要注意的是如果新的
+   文件名 *newname* 为目录，则复制老的文件到这个目录（文件名保持为 *oldname* 不变）。当参数
+   time不为nil时，则新文件保持与老文件相同的最后修改时间属性信息。
 
 * 文件查找
 ** locate-file
