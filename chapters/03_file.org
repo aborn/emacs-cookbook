@@ -163,6 +163,7 @@
    9. 未使用值，主要用来做向下兼容；
    10. 文件的inode编码；
    11. 设备的文件系统码；
+
 * 文件操作
 ** 文件复制和重命名
    文件重命名函数为 *rename-file*
@@ -185,6 +186,16 @@
    (delete-file filename &optional trash)
    #+END_SRC
    这里有一点要注意的是如果文件filename为符号链接，这个函数只删除符号链接，不删除原目标文件。
+
+** 设置文件属性
+   设置文件属性函数为 *set-file-modes*
+   #+BEGIN_SRC emacs-lisp
+   (set-file-modes filename mode)
+   #+END_SRC
+   这里的mode必须为整数，下面是一个例子：
+   #+BEGIN_SRC emacs-lisp
+   (set-file-modes "a.txt" #o644)
+   #+END_SRC
 
 * 文件查找
 ** locate-file
