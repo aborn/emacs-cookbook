@@ -164,7 +164,7 @@
    10. 文件的inode编码；
    11. 设备的文件系统码；
 * 文件操作
-** 改变文件名和属性
+** 文件复制和重命名
    文件重命名函数为 *rename-file*
    #+BEGIN_SRC emacs-lisp
    (rename-file filename newname &optional ok-if-already-exists)
@@ -178,6 +178,13 @@
    这个函数的作用是复制老的文件 *oldname* 到新的文件 *newname*, 这里有一点要注意的是如果新的
    文件名 *newname* 为目录，则复制老的文件到这个目录（文件名保持为 *oldname* 不变）。当参数
    time不为nil时，则新文件保持与老文件相同的最后修改时间属性信息。
+
+** 文件删除
+   文件删除的函数为 *delete-file*
+   #+BEGIN_SRC emacs-lisp
+   (delete-file filename &optional trash)
+   #+END_SRC
+   这里有一点要注意的是如果文件filename为符号链接，这个函数只删除符号链接，不删除原目标文件。
 
 * 文件查找
 ** locate-file
