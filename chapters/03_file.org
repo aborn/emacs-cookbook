@@ -170,14 +170,15 @@
    (locate-file filename path &optional suffixes predicate)
    #+END_SRC
    *locate-file* 这个函数用来查找在path目录下文件名为filename的文件，如果找到则返回绝对文件
-   名。注意第二个参数path必需为目录列表，像 *exec-path* 对应的列表一平。下面是一个例子：
+   名。注意第二个参数path必需为目录列表，像 *exec-path* 对应的列表一样。下面是一个例子：
    #+BEGIN_SRC emacs-lisp
    (locate-file "03_file.org" '("/Users/aborn/github/emacs-cookbook/chapters/"))
    ;; "/Users/aborn/github/emacs-cookbook/chapters/03_file.org"
    (locate-file "03_file" '("/Users/aborn/github/emacs-cookbook/chapters/") '(".tex" ".org"))
    ;; "/Users/aborn/github/emacs-cookbook/chapters/03_file.tex"
    #+END_SRC
-   可选参数 suffixes 为后缀列表，查找所有后缀，以第一个查到为准。
+   可选参数 suffixes 为后缀列表，查找所有后缀，以第一个查到为准。注意，这里的文件查找只会查找
+   path目录，不会查找其子目录。
 
 ** executable-find
    #+BEGIN_SRC emacs-lisp
