@@ -196,6 +196,7 @@
    #+BEGIN_SRC emacs-lisp
    (set-file-modes "a.txt" #o644)
    #+END_SRC
+   如果想获取默认的文件权限属性，可使用(default-file-modes)来获取，它返回的是一个整数。
 
 * 文件查找
 ** locate-file
