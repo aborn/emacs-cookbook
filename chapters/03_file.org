@@ -322,3 +322,10 @@
    (substitute-in-file-name "$HOME/bin")
    ;; "/Users/aborn/bin"
    #+END_SRC
+
+** 目录文件列表
+   目录是一种特殊的文件，它包含其他文件（或文件夹）在其中。如果想获取目录下的所有文件（像ls命令
+   一样），可使用 *directory-files* 这个函数：
+   #+BEGIN_SRC emacs-lisp
+   (directory-files directory &optional full-name match-regexp nosort)
+   #+END_SRC
