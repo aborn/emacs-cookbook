@@ -261,13 +261,24 @@
    #+END_SRC
 
    *file-name-directory* 返回的文件名里的目录部分，如果文件名里没有包含目录部分，则返回nil。
-   与这个函数对应的一个函数为 *file-name-nondirectory* ，它返回非目录部分。时常，我们想获取
-   文件的后缀，采用如下函数：
+   与这个函数对应的一个函数为 *file-name-nondirectory* ，它返回非目录部分。如果想获取文件的
+   后缀，采用如下函数：
    #+BEGIN_SRC emacs-lisp
    (file-name-extension filename &optional period)
    #+END_SRC
    这里有一点要引起注意，如果一个文件名以点号(.)开始，如.emacs，file-name-extension返回的后
    缀不是.emacs，而是nil。
+
+   #+BEGIN_SRC emacs-lisp
+   (file-name-sans-versions filename &optional keep-backup-version)
+   #+END_SRC
+   *file-name-sans-versions* 这个函数返回不包含任何版本、备份号等信息的"纯"文件名，下面是
+   一些例子：
+   #+BEGIN_SRC emacs-lisp
+   (file-name-sans-versions "~rms/foo.~1~")   ;;  ⇒ "~rms/foo"
+   (file-name-sans-versions "~rms/foo~")      ;;  ⇒ "~rms/foo"
+   (file-name-sans-versions "~rms/foo")       ;;  ⇒ "~rms/foo"
+   #+END_SRC
 
 ** 文件路径
    *expand-file-name* 这个函数将文件名转成绝对文件名：
