@@ -311,3 +311,14 @@
 
    特别说明： *default-directory* 是一个Buffer的本地变量（Buffer-Local Variable），仅对
    当前Buffer有效，且它是一个绝对路径(但可以以~开头)。
+
+   有时候，有程序里路径是含有环境变量的(Bash里是以$开头的)，如想将这些环境变量转成其相应的值，
+   则可使用 *substitute-in-file-name* 这个函数:
+   #+BEGIN_SRC emacs-lisp
+   (substitute-in-file-name filename)
+   #+END_SRC
+   如下例子：
+   #+BEGIN_SRC emacs-lisp
+   (substitute-in-file-name "$HOME/bin")
+   ;; "/Users/aborn/bin"
+   #+END_SRC
