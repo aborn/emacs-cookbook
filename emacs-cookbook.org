@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-06-17 23:11
+#+DATE: 2018-06-20 10:00
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -617,6 +617,7 @@
    #+BEGIN_SRC emacs-lisp
    (set-file-modes "a.txt" #o644)
    #+END_SRC
+   如果想获取默认的文件权限属性，可使用(default-file-modes)来获取，它返回的是一个整数。
 ** 文件查找
 *** locate-file
    #+BEGIN_SRC emacs-lisp
@@ -661,21 +662,31 @@
    (make-directory dirname &optional parents)
    #+END_SRC
    *make-directory* 创建一个目录名为dirname的目录
-** 文件名
+** 文件名与文件路径
   我们知道大部分操作系统，文件名由两部分组成：文件名和路径，任何一个文件都在某个具体路径下。下面
   介绍一些与之相关的函数操作。
 *** 文件名、路径、文件后缀
    #+BEGIN_SRC emacs-lisp
-  (file-name-directory filename)
+   (file-name-directory filename)
    #+END_SRC
    *file-name-directory* 返回的文件名里的目录部分，如果文件名里没有包含目录部分，则返回nil。
-   与这个函数对应的一个函数为 *file-name-nondirectory* ，它返回非目录部分。时常，我们想获取
-   文件的后缀，采用如下函数：
+   与这个函数对应的一个函数为 *file-name-nondirectory* ，它返回非目录部分。如果想获取文件的
+   后缀，采用如下函数：
    #+BEGIN_SRC emacs-lisp
    (file-name-extension filename &optional period)
    #+END_SRC
    这里有一点要引起注意，如果一个文件名以点号(.)开始，如.emacs，file-name-extension返回的后
    缀不是.emacs，而是nil。
+   #+BEGIN_SRC emacs-lisp
+   (file-name-sans-versions filename &optional keep-backup-version)
+   #+END_SRC
+   *file-name-sans-versions* 这个函数返回不包含任何版本、备份号等信息的"纯"文件名，下面是
+   一些例子：
+   #+BEGIN_SRC emacs-lisp
+   (file-name-sans-versions "~rms/foo.~1~")   ;;  ⇒ "~rms/foo"
+   (file-name-sans-versions "~rms/foo~")      ;;  ⇒ "~rms/foo"
+   (file-name-sans-versions "~rms/foo")       ;;  ⇒ "~rms/foo"
+   #+END_SRC
 *** 文件路径
    *expand-file-name* 这个函数将文件名转成绝对文件名：
    #+BEGIN_SRC emacs-lisp
@@ -700,6 +711,50 @@
    (file-truename "../tree.txt")      ;; "/Users/tree.txt"
    (file-truename "../../tree.txt")   ;; "/tree.txt"
    #+END_SRC
+   特别说明： *default-directory* 是一个Buffer的本地变量（Buffer-Local Variable），仅对
+   当前Buffer有效，且它是一个绝对路径(但可以以~开头)。
+   有时候，有程序里路径是含有环境变量的(Bash里是以$开头的)，如想将这些环境变量转成其相应的值，
+   则可使用 *substitute-in-file-name* 这个函数:
+   #+BEGIN_SRC emacs-lisp
+   (substitute-in-file-name filename)
+   #+END_SRC
+   如下例子：
+   #+BEGIN_SRC emacs-lisp
+   (substitute-in-file-name "$HOME/bin")
+   ;; "/Users/aborn/bin"
+   #+END_SRC
+*** 目录文件列表
+   目录是一种特殊的文件，它可以包含其他文件或文件夹。获取目录下所有文件列表（像ls命令一样），可
+   以使用 *directory-files* 这个函数：
+   #+BEGIN_SRC emacs-lisp
+   (directory-files directory &optional full-name match-regexp nosort)
+   #+END_SRC
+   这个函数返回directory下所有文件列表(包括目录)，默认是按字母顺序排列。参数full-name不是nil
+   时，返回的是包含路径的绝对文件名，默认是返回相对文件名。参数match-regexp不是nil时，只返回与
+   match-regexp正则表达式相匹配的文件名。参数nosort不为nil时，这个函数不对文件列表进行排序，
+   可用于对文件顺序不关系的场景（这时可最快获取返回结果）。这个函数只返回当前目录下的所有文件，
+   如果想递归获取所有的文件列表，可采用 *directory-files-recursively* 函数：
+   #+BEGIN_SRC emacs-lisp
+   (directory-files-recursively directory regexp &optional include-directories)
+   #+END_SRC
+   这个函数递归的搜索在目录directory及其子目录下所有文件名与regexp相匹配的文件，返回文件的绝
+   对路径列表。默认情况下返回的文件名是深度优先排序，也就是说子目录的文件名排序在其父目录之前，
+   处于同一级目录的文件是按字母排序。当include-directories不为nil时，目录文件也包括其搜索
+   结果中。
+** 文件格式转换
+  Emacs将文件从磁盘载入到buffer中，或者将buffer中内容写入到磁盘中，需要经过许多步骤。如
+  *insert-file-contents* 读取文件内容到buffer，*write-region* 写入一个buffer到文件。
+*** 大概流程
+   对于 *insert-file-contents* 过程：
+   1. 初始化，从文件中插入字节到buffer；
+   2. 解码，根据文件编码进行解码操作；
+   3. 按 *format-alist* 进行的格式化列表对其进行格式化；
+   4. 调用所有在 *after-insert-file-functions* 列表中的函数。
+   对于 *write-region* 过程：
+   1. 初始化，调用 *write-region-annotate-functions* 列表中的函数；
+   2. 按 *format-alist* 定义的格式化列表对其进行格式化处理；
+   3. 按适当编码格式对其进行编码成字节；
+   4. 用字节修改其文件。
 * 多线程
 ** 多线程
   Emacs从26.1版本开始引入了[[https://www.gnu.org/software/emacs/draft/manual/html_node/elisp/Threads.html][多线程]] 。它提供了一种简单（但功能有限）多线程操作。跟其他编程语言一
