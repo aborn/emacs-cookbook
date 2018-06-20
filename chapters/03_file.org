@@ -343,3 +343,20 @@
    对路径列表。默认情况下返回的文件名是深度优先排序，也就是说子目录的文件名排序在其父目录之前，
    处于同一级目录的文件是按字母排序。当include-directories不为nil时，目录文件也包括其搜索
    结果中。
+
+* 文件格式转换
+  Emacs将文件从磁盘载入到buffer中，或者将buffer中内容写入到磁盘中，需要经过许多步骤。如
+  *insert-file-contents* 读取文件内容到buffer，*write-region* 写入一个buffer到文件。
+
+** 大概流程
+   对于 *insert-file-contents* 过程：
+   1. 初始化，从文件中插入字节到buffer；
+   2. 解码，根据文件编码进行解码操作；
+   3. 按 *format-alist* 进行的格式化列表对其进行格式化；
+   4. 调用所有在 *after-insert-file-functions* 列表中的函数。
+
+   对于 *write-region* 过程：
+   1. 初始化，调用 *write-region-annotate-functions* 列表中的函数；
+   2. 按 *format-alist* 定义的格式化列表对其进行格式化处理；
+   3. 按适当编码格式对其进行编码成字节；
+   4. 用字节修改其文件。
