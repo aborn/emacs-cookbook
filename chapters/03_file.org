@@ -324,8 +324,11 @@
    #+END_SRC
 
 ** 目录文件列表
-   目录是一种特殊的文件，它包含其他文件（或文件夹）在其中。如果想获取目录下的所有文件（像ls命令
-   一样），可使用 *directory-files* 这个函数：
+   目录是一种特殊的文件，它可以包含其他文件或文件夹。获取目录下所有文件列表（像ls命令一样），可
+   以使用 *directory-files* 这个函数：
    #+BEGIN_SRC emacs-lisp
    (directory-files directory &optional full-name match-regexp nosort)
    #+END_SRC
+   这个函数返回directory下所有文件列表(包括目录)，默认是按字母顺序排列。参数full-name不是nil
+   时，返回的是包含路径的绝对文件名，默认是返回相对文件名。参数match-regexp不是nil时，只返回与
+   match-regexp正则表达式相匹配的文件名。
