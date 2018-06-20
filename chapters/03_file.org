@@ -326,9 +326,20 @@
 ** 目录文件列表
    目录是一种特殊的文件，它可以包含其他文件或文件夹。获取目录下所有文件列表（像ls命令一样），可
    以使用 *directory-files* 这个函数：
+
    #+BEGIN_SRC emacs-lisp
    (directory-files directory &optional full-name match-regexp nosort)
    #+END_SRC
    这个函数返回directory下所有文件列表(包括目录)，默认是按字母顺序排列。参数full-name不是nil
    时，返回的是包含路径的绝对文件名，默认是返回相对文件名。参数match-regexp不是nil时，只返回与
-   match-regexp正则表达式相匹配的文件名。
+   match-regexp正则表达式相匹配的文件名。参数nosort不为nil时，这个函数不对文件列表进行排序，
+   可用于对文件顺序不关系的场景（这时可最快获取返回结果）。这个函数只返回当前目录下的所有文件，
+   如果想递归获取所有的文件列表，可采用 *directory-files-recursively* 函数：
+
+   #+BEGIN_SRC emacs-lisp
+   (directory-files-recursively directory regexp &optional include-directories)
+   #+END_SRC
+   这个函数递归的搜索在目录directory及其子目录下所有文件名与regexp相匹配的文件，返回文件的绝
+   对路径列表。默认情况下返回的文件名是深度优先排序，也就是说子目录的文件名排序在其父目录之前，
+   处于同一级目录的文件是按字母排序。当include-directories不为nil时，目录文件也包括其搜索
+   结果中。
