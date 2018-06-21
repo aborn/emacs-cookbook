@@ -1117,19 +1117,15 @@
 
 ** Term
 
-*** 'term-char-mode' now makes its buffer read-only.
+*** *term-char-mode* 模式下的buffer默认为只读模式
 
-    The buffer is made read-only to prevent changes from being made by
-    anything other than the process filter; and movements of point away
-    from the process mark are counter-acted so that the cursor is in the
-    correct position after each command.  This is needed to avoid states
-    which are inconsistent with the state of the terminal understood by
-    the inferior process.
+    这个buffer默认设置为只读模式主要防止其他除了程序过滤器之外的任何对其进行修改的行为；并且光
+    标的移动也在有所限制，主要用为了保持每次命令执行后光标都处理“当前”位置。这也是为了在交互式
+    命令中使得emacs更加方便获取其状态。
 
-    New user options 'term-char-mode-buffer-read-only' and
-    'term-char-mode-point-at-process-mark' control these behaviors, and
-    are non-nil by default.  Customize these options to nil if you want
-    the previous behavior.
+    可以通过 *term-char-mode-buffer-read-only* 和
+    *term-char-mode-point-at-process-mark* 这两个变量的值来控制, 其默认值不是nil。如果
+    你想切换到老版本的行为，设置这些值为nil就可以了。
 
 ** Xref
 
