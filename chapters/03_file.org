@@ -348,7 +348,7 @@
   Emacs将文件从磁盘载入到buffer中，或者将buffer中内容写入到磁盘中，需要经过许多步骤。如
   *insert-file-contents* 读取文件内容到buffer，*write-region* 写入一个buffer到文件。
 
-** 大概流程
+** 整体流程
    对于 *insert-file-contents* 过程：
    1. 初始化，从文件中插入字节到buffer；
    2. 解码，根据文件编码进行解码操作；
