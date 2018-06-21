@@ -514,6 +514,7 @@
 
    行号不会显示在所有的minibuffer的窗口以及提示窗口，因为他们不是用于此处。
 
+   Lisp程序可以通过设置 *display-line-numbers-disable* 的文本属性或者
    Lisp programs can disable line-number display for a particular screen
    line by putting the 'display-line-numbers-disable' text property or
    overlay property on the first character of that screen line.  This is
