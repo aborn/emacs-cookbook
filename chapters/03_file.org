@@ -360,3 +360,12 @@
    2. 按 *format-alist* 定义的格式化列表对其进行格式化处理；
    3. 按适当编码格式对其进行编码成字节；
    4. 用字节修改其文件。
+
+** 格式转换
+   从以上整体流程我们可以看得出，其中格式化都使用 *format-alist* 进行处理，这个列表的每一项定
+   义了一种格式转换，它的定义如下：
+
+   #+BEGIN_SRC emacs-lisp
+   (name doc-string regexp from-fn to-fn modify mode-fn preserve)
+   #+END_SRC
+   下面介绍每个参数含义：
