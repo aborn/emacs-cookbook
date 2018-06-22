@@ -1124,7 +1124,7 @@
     命令中使得emacs更加方便获取其状态。
 
     可以通过 *term-char-mode-buffer-read-only* 来控制buffer是否为只读，Emacs 26以后这
-    个值默认设置不为nil，如果想关闭只读，设置其值为ni就行。同理可以通过另一个变量，即:
+    个值默认设置不为nil，如果想关闭只读，设置其值为nil就行。同理可以通过另一个变量，即:
     *term-char-mode-point-at-process-mark* 来控制光标是否可上下移动, 其默认值不是nil。
     如果想让光标能上下移动，设置这个值为nil。
 
