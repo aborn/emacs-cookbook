@@ -514,19 +514,10 @@
 
    行号不会显示在所有的minibuffer的窗口以及提示窗口，因为他们不是用于此处。
 
-   Lisp程序可以通过设置 *display-line-numbers-disable* 的文本属性或者
-   Lisp programs can disable line-number display for a particular screen
-   line by putting the 'display-line-numbers-disable' text property or
-   overlay property on the first character of that screen line.  This is
-   intended for add-on packages that need a finer control of the display.
-
-   Lisp programs that need to know how much screen estate is used up for
-   line-number display in a window can use the new function
-   'line-number-display-width'.
-
-   'linum-mode' and all similar packages are henceforth becoming obsolete.
-   Users and developers are encouraged to switch to this new feature
-   instead.
+   Lisp程序可以通过设置 *display-line-numbers-disable* 的文本属性或者屏幕当前行第一个字符
+   的属性来关闭此功能。做成可配置的包目的是为了更好地做显示控制。Lisp程序想知道多少屏幕宽度被行
+   号所占用，可以通过 *line-number-display-width* 这个函数来获取。 *linum-mode* 和其他
+   类似的包可以废弃，不再使用。Emacs官方推荐使用新的原生方法来显示行号。
 
 ** The new user option 'arabic-shaper-ZWNJ-handling' controls how to
    handle ZWNJ in Arabic text rendering.
