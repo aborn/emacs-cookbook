@@ -9,8 +9,8 @@
 
 -----
 
-* 说明
-  这是Emacs 26.1 版本发布说明的中文翻译版本：
+* 本文档说明
+  这是Emacs 26 版本发布说明的中文翻译版本：
 
   GNU Emacs NEWS -- history of user-visible changes.
 
@@ -519,13 +519,11 @@
    号所占用，可以通过 *line-number-display-width* 这个函数来获取。 *linum-mode* 和其他
    类似的包可以废弃，不再使用。Emacs官方推荐使用新的原生方法来显示行号。
 
-** The new user option 'arabic-shaper-ZWNJ-handling' controls how to
-   handle ZWNJ in Arabic text rendering.
+** 添加'arabic-shaper-ZWNJ-handling'用户选项用来处理Arabic文本渲染中的ZWNJ问题
 
+* Emacs 26.1中编辑操作的变化
 
-* Editing Changes in Emacs 26.1
-
-** New variable 'column-number-indicator-zero-based'.
+** 新加变量 'column-number-indicator-zero-based'.
    Traditionally, in Column Number mode, the displayed column number
    counts from zero starting at the left margin of the window.  This
    behavior is now controlled by 'column-number-indicator-zero-based'.
