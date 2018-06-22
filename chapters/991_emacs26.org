@@ -33,11 +33,8 @@
 * Emacs 26.2 安装变化
 
 ** 使用'--with-xwidgets'参数构建Emacs需要依赖WebKit2
-   To build Emacs with xwidgets support, you will need to install the
-   webkit2gtk-4.0 package; version 2.12 or later is required.
-   (This change was actually made in Emacs 26.1, but was not called out
-   in its NEWS.)
-
+   构建支持xwidgets版本的Emacs，需要先安装webkit2gtk-4.0 包，要求版本在2.12及以上版本。这
+   个改变其实从Emacs 26.1开始的，只不过没有发布文档里提到。
 
 * Startup Changes in Emacs 26.2
 
