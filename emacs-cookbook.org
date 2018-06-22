@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-06-21 09:58
+#+DATE: 2018-06-22 13:03
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -1115,8 +1115,8 @@ ELISP>
 ** 包列表
   1. elisp-slime-nav 写elisp代码时，可用于跳转到函数的定义
 * Emacs 26特性
-** 说明
-  这是Emacs 26.1 版本发布说明的中文翻译版本：
+** 本文档说明
+  这是Emacs 26 版本发布说明的中文翻译版本：
   GNU Emacs NEWS -- history of user-visible changes.
   Copyright (C) 2016-2018 Free Software Foundation, Inc.
   See the end of the file for license conditions.
@@ -1128,9 +1128,8 @@ ELISP>
   in older Emacs versions.
   You can narrow news to a specific version by calling 'view-emacs-news'
   with a prefix argument or by typing C-u C-h C-n.
-** Installation Changes in Emacs 26.2
-  ---
-*** Building Emacs with the '--with-xwidgets' option now requires WebKit2
+** Emacs 26.2 安装变化
+*** 使用'--with-xwidgets'参数构建Emacs需要依赖WebKit2
    To build Emacs with xwidgets support, you will need to install the
    webkit2gtk-4.0 package; version 2.12 or later is required.
    (This change was actually made in Emacs 26.1, but was not called out
@@ -1497,20 +1496,13 @@ ELISP>
    那就是打开全局的 *global-display-line-numbers-mode* 模式。当这些模式打开后，配置
    *display-line-numbers-type* 的值会与 *display-line-numbers* 的值相同。
    行号不会显示在所有的minibuffer的窗口以及提示窗口，因为他们不是用于此处。
-   Lisp programs can disable line-number display for a particular screen
-   line by putting the 'display-line-numbers-disable' text property or
-   overlay property on the first character of that screen line.  This is
-   intended for add-on packages that need a finer control of the display.
-   Lisp programs that need to know how much screen estate is used up for
-   line-number display in a window can use the new function
-   'line-number-display-width'.
-   'linum-mode' and all similar packages are henceforth becoming obsolete.
-   Users and developers are encouraged to switch to this new feature
-   instead.
-*** The new user option 'arabic-shaper-ZWNJ-handling' controls how to
-   handle ZWNJ in Arabic text rendering.
-** Editing Changes in Emacs 26.1
-*** New variable 'column-number-indicator-zero-based'.
+   Lisp程序可以通过设置 *display-line-numbers-disable* 的文本属性或者屏幕当前行第一个字符
+   的属性来关闭此功能。做成可配置的包目的是为了更好地做显示控制。Lisp程序想知道多少屏幕宽度被行
+   号所占用，可以通过 *line-number-display-width* 这个函数来获取。 *linum-mode* 和其他
+   类似的包可以废弃，不再使用。Emacs官方推荐使用新的原生方法来显示行号。
+*** 添加'arabic-shaper-ZWNJ-handling'用户选项用来处理Arabic文本渲染中的ZWNJ问题
+** Emacs 26.1中编辑操作的变化
+*** 新加变量 'column-number-indicator-zero-based'.
    Traditionally, in Column Number mode, the displayed column number
    counts from zero starting at the left margin of the window.  This
    behavior is now controlled by 'column-number-indicator-zero-based'.
@@ -1932,7 +1924,7 @@ ELISP>
     标的移动也在有所限制，主要用为了保持每次命令执行后光标都处理“当前”位置。这也是为了在交互式
     命令中使得emacs更加方便获取其状态。
     可以通过 *term-char-mode-buffer-read-only* 来控制buffer是否为只读，Emacs 26以后这
-    个值默认设置不为nil，如果想关闭只读，设置其值为ni就行。同理可以通过另一个变量，即:
+    个值默认设置不为nil，如果想关闭只读，设置其值为nil就行。同理可以通过另一个变量，即:
     *term-char-mode-point-at-process-mark* 来控制光标是否可上下移动, 其默认值不是nil。
     如果想让光标能上下移动，设置这个值为nil。
 *** Xref
@@ -2478,8 +2470,3 @@ ELISP>
    GNU General Public License for more details.
    You should have received a copy of the GNU General Public License
    along with GNU Emacs.  If not, see <https://www.gnu.org/licenses/>.
-   Local variables:
-   coding: utf-8
-   mode: outline
-   paragraph-separate: "[ 	]*$"
-   end:

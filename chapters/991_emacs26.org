@@ -510,9 +510,8 @@
    显示而占用边距。通过配置Buffer本地变量display-line-numbers去开启这个行号显示项。或者还
    可以通过打开 *display-line-numbers-mode* 这个minor模式也能达到相同效果。还有一种方式，
    那就是打开全局的 *global-display-line-numbers-mode* 模式。当这些模式打开后，配置
-   *display-line-numbers-type* 的值会与 *display-line-numbers* 的值相同。
-
-   行号不会显示在所有的minibuffer的窗口以及提示窗口，因为他们不是用于此处。
+   *display-line-numbers-type* 的值会与 *display-line-numbers* 的值相同。行号不会显示
+   在所有的minibuffer的窗口以及提示窗口，因为他们不是用于此处。
 
    Lisp程序可以通过设置 *display-line-numbers-disable* 的文本属性或者屏幕当前行第一个字符
    的属性来关闭此功能。做成可配置的包目的是为了更好地做显示控制。Lisp程序想知道多少屏幕宽度被行
