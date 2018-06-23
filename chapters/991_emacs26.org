@@ -153,12 +153,11 @@
 ** Emacs在启动的时候遵守X资源"scrollBar"
    这个效果与工具条（tool bar）里的"toolBar"资源类似。
 
-
 * Emacs 26.1的变化
 
-** Option 'buffer-offer-save' can be set to new value, 'always'.  When
-   set to 'always', the command 'save-some-buffers' will always offer
-   this buffer for saving.
+** 'buffer-offer-save' 添加新值
+   'buffer-offer-save' 添加新的选项'always'。当配置为这个值时命令'save-some-buffers'将
+   将这个buffer作为保存项(offer this buffer for saving)。
 
 ** Security vulnerability related to Enriched Text mode is removed.
 
