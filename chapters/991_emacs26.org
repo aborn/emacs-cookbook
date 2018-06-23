@@ -53,7 +53,7 @@
 
 ** VC
 
-   优化了VC对Mercurial的支持。Emacs为了更快的操作速度，尽量避免唤起 *hg*。
+   优化了VC对Mercurial的支持。Emacs为了更快的操作速度，尽量避免唤起 *hg* 。
 
 *** 新vc-hg选项
     新增'vc-hg-parse-hg-data-structures'用来控制vc-hg是否解析直接Mercurial数据结构，或者
@@ -61,6 +61,7 @@
 
     新增'vc-hg-symbolic-revision-styles' controls how versions
     in a Mercurial repository are presented symbolically on the mode line.
+
     The new option 'vc-hg-use-file-version-for-mode-line-version' controls
     whether the version shown on the mode line is that of the visited file
     or of the repository working copy.

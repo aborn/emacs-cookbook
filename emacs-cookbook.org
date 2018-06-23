@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-06-22 13:03
+#+DATE: 2018-06-23 15:55
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -1130,54 +1130,35 @@ ELISP>
   with a prefix argument or by typing C-u C-h C-n.
 ** Emacs 26.2 安装变化
 *** 使用'--with-xwidgets'参数构建Emacs需要依赖WebKit2
-   To build Emacs with xwidgets support, you will need to install the
-   webkit2gtk-4.0 package; version 2.12 or later is required.
-   (This change was actually made in Emacs 26.1, but was not called out
-   in its NEWS.)
-** Startup Changes in Emacs 26.2
-** Changes in Emacs 26.2
-** Editing Changes in Emacs 26.2
-** Changes in Specialized Modes and Packages in Emacs 26.2
+   构建支持xwidgets版本的Emacs，需要先安装webkit2gtk-4.0 包，要求版本在2.12及以上版本。这
+   个改变其实从Emacs 26.1开始的，只不过没有发布文档里提到。
+** Emacs 26.2 在一些特殊模式和包中的变化
 *** Gnus
-   ---
-**** Mailutils movemail will now be used if found at runtime.
-    The default value of mail-source-movemail-program is now "movemail".
-    This ensures that the movemail program from GNU Mailutils will be used
-    if found in 'exec-path', even if it was not found at build time.  To
-    use a different program, customize mail-source-movemail-program to the
-    absolute file name of the desired executable.
-*** Shell mode
-   ---
-**** Shell mode buffers now have 'scroll-conservatively' set to 101.
-    This is so as to better emulate the scrolling behavior of a text
-    terminal when new output is added to the screen buffer.  To get back
-    the previous behavior, reset 'scroll-conservatively' to zero (or any
-    other value you like) in a function and add it to 'shell-mode-hook'.
-    (This change was actually made in Emacs 26.1, but was not called out
-    in its NEWS.)
+   Mailutils movemail will now be used if found at runtime.
+   *mail-source-movemail-program* 这个变量的默认值已经改为 *movemail* 。这样做的目地是
+   确保使用GNU的邮件工作包里的移动邮件程序，如果发现它在exec-path目录里（即使在构建时没有找到）。
+   可以通过定制 *mail-source-movemail-program* 变量的值来切换到其他程序。
+*** Shell模式
+   Shell模式下的Buffer的 *scroll-conservatively* 变量默认值变为101。这样使得在Shell模式
+   下，当有新的输出添加到屏幕时，更好地模拟在文本终端下的滚动行为。重新将 *scroll-conservatively*
+   变量的值设置为0或者任何其他值，就可回退出老版本的行为(可以在shell-mode-hook的函数列表中
+   设置)。这个改变也是从Emacs 26.1就有，不过没有在其文档中提到。
 *** VC
-**** VC support for Mercurial was improved.
-    Emacs now avoids invoking 'hg' as much as possible, for faster operation.
-    (This and the following changes were actually made in Emacs 26.1, but
-    were not called out in its NEWS.)
-    ---
-***** New vc-hg options.
-     The new option 'vc-hg-parse-hg-data-structures' controls whether vc-hg
-     will try parsing the Mercurial data structures directly instead of
-     running 'hg'; it defaults to t (set to nil if you want the pre-26.1
-     behavior).
-     The new option 'vc-hg-symbolic-revision-styles' controls how versions
-     in a Mercurial repository are presented symbolically on the mode line.
-     The new option 'vc-hg-use-file-version-for-mode-line-version' controls
-     whether the version shown on the mode line is that of the visited file
-     or of the repository working copy.
-     ---
-***** Display of Mercurial revisions in the mode-line has changed.
-     Previously, the mode line displayed the local number (1, 2, 3, ...) of
-     the revision.  Starting with Emacs 26.1, the default has changed, and
-     it now shows the global revision number, in the form of its changeset
-     hash value.  To get back the previous behavior, customize the new
-     option 'vc-hg-symbolic-revision-styles' to the value '("{rev}")'.
+   优化了VC对Mercurial的支持。Emacs为了更快的操作速度，尽量避免唤起 *hg*。
+**** 新vc-hg选项
+    新增'vc-hg-parse-hg-data-structures'用来控制vc-hg是否解析直接Mercurial数据结构，或者
+    采用执行hg来替代。默认值为t (老版本值为nil)。
+    新增'vc-hg-symbolic-revision-styles' controls how versions
+    in a Mercurial repository are presented symbolically on the mode line.
+    The new option 'vc-hg-use-file-version-for-mode-line-version' controls
+    whether the version shown on the mode line is that of the visited file
+    or of the repository working copy.
+**** Display of Mercurial revisions in the mode-line has changed.
+    Previously, the mode line displayed the local number (1, 2, 3, ...) of
+    the revision.  Starting with Emacs 26.1, the default has changed, and
+    it now shows the global revision number, in the form of its changeset
+    hash value.  To get back the previous behavior, customize the new
+    option 'vc-hg-symbolic-revision-styles' to the value '("{rev}")'.
 ** New Modes and Packages in Emacs 26.2
 ** Incompatible Lisp Changes in Emacs 26.2
 ** Lisp Changes in Emacs 26.2
@@ -1494,8 +1475,8 @@ ELISP>
    显示而占用边距。通过配置Buffer本地变量display-line-numbers去开启这个行号显示项。或者还
    可以通过打开 *display-line-numbers-mode* 这个minor模式也能达到相同效果。还有一种方式，
    那就是打开全局的 *global-display-line-numbers-mode* 模式。当这些模式打开后，配置
-   *display-line-numbers-type* 的值会与 *display-line-numbers* 的值相同。
-   行号不会显示在所有的minibuffer的窗口以及提示窗口，因为他们不是用于此处。
+   *display-line-numbers-type* 的值会与 *display-line-numbers* 的值相同。行号不会显示
+   在所有的minibuffer的窗口以及提示窗口，因为他们不是用于此处。
    Lisp程序可以通过设置 *display-line-numbers-disable* 的文本属性或者屏幕当前行第一个字符
    的属性来关闭此功能。做成可配置的包目的是为了更好地做显示控制。Lisp程序想知道多少屏幕宽度被行
    号所占用，可以通过 *line-number-display-width* 这个函数来获取。 *linum-mode* 和其他
