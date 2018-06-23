@@ -30,13 +30,13 @@
   with a prefix argument or by typing C-u C-h C-n.
 
 
-* Emacs 26.2 安装变化
+* Emacs 26.2安装变化
 
 ** 使用'--with-xwidgets'参数构建Emacs需要依赖WebKit2
    构建支持xwidgets版本的Emacs，需要先安装webkit2gtk-4.0 包，要求版本在2.12及以上版本。这
    个改变其实从Emacs 26.1开始的，只不过没有发布文档里提到。
 
-* Emacs 26.2 在一些特殊模式和包中的变化
+* Emacs 26.2中特殊模式和包的变化
 
 ** Gnus
 
@@ -69,13 +69,12 @@
     了变化，当前显示的是全局的修改版本值，格式为修改的hash值。如果想恢复到之前的显示，只需要修
     改变量 *vc-hg-symbolic-revision-styles* 的值为 *("{rev}")* 。
 
-* Emacs 26.1 安装变化
+* Emacs 26.1安装变化
 
-** By default libgnutls is now required when building Emacs.
-   Use 'configure --with-gnutls=no' to build even when GnuTLS is missing.
+** 默认情况下编译Emacs需要libgnutls这个库
+   采用 *configure --with-gnutls=no* 这个选项已经废弃。
 
-** GnuTLS version 2.12.2 or later is now required, instead of merely
-   version 2.6.6 or later.
+** GnuTLS版本需要2.12.2或者更高版本
 
 ** The new option 'configure --with-mailutils' causes Emacs to rely on
    GNU Mailutils to retrieve email.  It is recommended, and is the
@@ -129,8 +128,8 @@
    When it is 'no', the shared game directory and the auxiliary program
    update-game-score are no longer needed and are not installed.
 
-** Emacs no longer works on IRIX.  We expect that Emacs users are not
-   affected by this, as SGI stopped supporting IRIX in December 2013.
+** Emacs对IRIX系统做支持
+   We expect that Emacs users are not affected by this, as SGI stopped supporting IRIX in December 2013.
 
 
 * Emacs 26.1 启动的变化
