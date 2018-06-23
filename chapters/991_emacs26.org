@@ -128,7 +128,7 @@
    When it is 'no', the shared game directory and the auxiliary program
    update-game-score are no longer needed and are not installed.
 
-** Emacs对IRIX系统做支持
+** Emacs不再对IRIX系统做支持
    We expect that Emacs users are not affected by this, as SGI stopped supporting IRIX in December 2013.
 
 
