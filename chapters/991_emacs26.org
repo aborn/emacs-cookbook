@@ -129,16 +129,14 @@
    update-game-score are no longer needed and are not installed.
 
 ** Emacs不再对IRIX系统做支持
-   We expect that Emacs users are not affected by this, as SGI stopped supporting IRIX in December 2013.
+   我们希望这部分Emacs用户不会因此受到影响，因为SGI从2013年12份开始已经停止了对IRIX的支持。
 
+* Emacs 26.1启动的变化
 
-* Emacs 26.1 启动的变化
-
-** New option '--fg-daemon'.  This is the same as '--daemon', except
-   it runs in the foreground and does not fork.  This is intended for
-   modern init systems such as systemd, which manage many of the traditional
-   aspects of daemon behavior themselves.  '--bg-daemon' is now an alias
-   for '--daemon'.
+** 新增 '--fg-daemon'选项
+   这个选项跟'--daemon'类似, 只有一点不一样的那就是它是运行在前台并且不是fork的。这个选项的
+   目的是用于现在启动系统，如systemd，它管理许多传统的常住行为(daemon behavior)。同时，这个
+   '--bg-daemon' 选项是 '--daemon' 的别名。
 
 ** New option '--module-assertions'.
    When given this option, Emacs will perform expensive correctness
