@@ -133,12 +133,12 @@
 
 * Emacs 26.1启动的变化
 
-** 新增 '--fg-daemon'选项
+** 新增'--fg-daemon'选项
    这个选项跟'--daemon'类似, 只有一点不一样的那就是它是运行在前台并且不是fork的。这个选项的
    目的是用于现在启动系统，如systemd，它管理许多传统的常住行为(daemon behavior)。同时，这个
    '--bg-daemon' 选项是 '--daemon' 的别名。
 
-** New option '--module-assertions'.
+** 新增'--module-assertions'选项
    When given this option, Emacs will perform expensive correctness
    checks when dealing with dynamic modules.  This is intended for module
    authors that wish to verify that their module conforms to the module
@@ -150,8 +150,8 @@
    required capabilities are found in terminfo.  See the FAQ node
    "(efaq) Colors on a TTY" for more information.
 
-** Emacs now obeys the X resource "scrollBar" at startup.
-   The effect is similar to that of "toolBar" resource on the tool bar.
+** Emacs在启动的时候遵守X资源"scrollBar"
+   这个效果与工具条（tool bar）里的"toolBar"资源类似。
 
 
 * Emacs 26.1的变化
