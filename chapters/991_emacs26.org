@@ -576,14 +576,14 @@
    state to take effect (making a frame visible, for example).
 
 
-* Changes in Specialized Modes and Packages in Emacs 26.1
+* Emacs 26.1中特殊模式和包的变化
 
-** Emacs 26.1 comes with Org v9.1.6.
-   See the file ORG-NEWS for user-visible changes in Org.
+** Emacs 26.1采用Org 9.1.6版本.
+   具体变化可查看ORG-NEWS文件
 
-** New function 'cl-generic-p'.
+** 新函数cl-generic-p
 
-** Dired
+** Dired的变化
 
 *** You can answer 'all' in 'dired-do-delete' to delete recursively all
     remaining directories without more prompts.
@@ -1084,9 +1084,9 @@
     the *xref* buffer hadn't been necessary in the first place.
 
 
-* New Modes and Packages in Emacs 26.1
+* Emacs 26.1新的模式和包
 
-** New Elisp data-structure library 'radix-tree'.
+** 新的Elisp数据结构库radix-tree
 
 ** New library 'xdg' with utilities for some XDG standards and specs.
 
@@ -1111,7 +1111,7 @@
    password manager password-store (http://passwordstore.org).
 
 
-* Incompatible Lisp Changes in Emacs 26.1
+* Emacs 26.1中不兼容的Lisp部分说明
 
 ** 'password-data' is now a hash-table so that 'password-read' can use
    any object for the 'key' argument.
@@ -1322,7 +1322,7 @@
    utilize swap memory usually.
 
 
-* Lisp Changes in Emacs 26.1
+* Emacs 26.1中Lisp的变化
 
 ** The function 'assoc' now takes an optional third argument TESTFN.
    This argument, when non-nil, is used for comparison instead of
@@ -1518,7 +1518,7 @@
 
 ** 'format-time-string' now formats '%q' to the calendar quarter.
 
-** New built-in function 'mapcan'.
+** 新的内置函数mapcan
    It avoids unnecessary consing (and garbage collection).
 
 ** 'car' and 'cdr' compositions 'cXXXr' and 'cXXXXr' are now part of Elisp.
@@ -1554,24 +1554,24 @@
 ** New error type 'user-search-failed' like 'search-failed' but
    avoids debugger like 'user-error'.
 
-** The function 'line-number-at-pos' now takes a second optional
-   argument 'absolute'.  If this parameter is nil, the default, this
+** 函数line-number-at-pos的变化
+   函数line-number-at-pos支持传递第二个可选参数absolute。 如果这个参数为nil, 默认行为, this
    function keeps on returning the line number taking potential narrowing
    into account.  If this parameter is non-nil, the function ignores
    narrowing and returns the absolute line number.
 
-** The function 'color-distance' now takes a second optional argument
-   'metric'.  When non-nil, it should be a function of two arguments that
-   accepts two colors and returns a number.
+** 函数color-distance的调整
+   函数color-distance在新版本支持第二个可选参数 *metric* 。当这个参数不为nil时，它将接收两
+   个参数（两个颜色值）返回一个距离值。
 
-** Changes in Frame and Window Handling
+** Frame和Window操作
 
-*** Resizing a frame no longer runs 'window-configuration-change-hook'.
-    'window-size-change-functions' should be used instead.
+*** 调整frame大小方式的改变
+    请使用 *window-size-change-functions* 代替老的 *window-configuration-change-hook* 。
 
-*** The new function 'frame-size-changed-p' can tell whether a frame has
-    been resized since the last time 'window-size-change-functions' has been
-    run.
+*** Frame大小是否被调整
+    判断Frame是否被调整可使用新函数 *frame-size-changed-p* 。这里的大小是否被调整过是从上
+    一次调用 *window-size-change-functions* 算起。
 
 *** The function 'frame-geometry' now also returns the width of a
     frame's outer border.
