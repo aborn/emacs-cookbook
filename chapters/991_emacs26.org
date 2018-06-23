@@ -36,25 +36,14 @@
    构建支持xwidgets版本的Emacs，需要先安装webkit2gtk-4.0 包，要求版本在2.12及以上版本。这
    个改变其实从Emacs 26.1开始的，只不过没有发布文档里提到。
 
-* Startup Changes in Emacs 26.2
-
-
-* Changes in Emacs 26.2
-
-
-* Editing Changes in Emacs 26.2
-
-
-* Changes in Specialized Modes and Packages in Emacs 26.2
+* Emacs 26.2 在一些特殊模式和包中的变化
 
 ** Gnus
 
    Mailutils movemail will now be used if found at runtime.
-   The default value of mail-source-movemail-program is now "movemail".
-   This ensures that the movemail program from GNU Mailutils will be used
-   if found in 'exec-path', even if it was not found at build time.  To
-   use a different program, customize mail-source-movemail-program to the
-   absolute file name of the desired executable.
+   *mail-source-movemail-program* 这个变量的默认值已经改为 *movemail* 。这样做的目地是
+   确保使用GNU的邮件工作包里的移动邮件程序，如果发现它在exec-path目录里（即使在构建时没有找到）。
+   可以通过定制 *mail-source-movemail-program* 变量的值来切换到其他程序。
 
 ** Shell模式
    Shell模式下的Buffer的 *scroll-conservatively* 变量默认值变为101。这样使得在Shell模式
@@ -64,17 +53,13 @@
 
 ** VC
 
-   VC support for Mercurial was improved.
-   Emacs now avoids invoking 'hg' as much as possible, for faster operation.
-   (This and the following changes were actually made in Emacs 26.1, but
-   were not called out in its NEWS.)
+   优化了VC对Mercurial的支持。Emacs为了更快的操作速度，尽量避免唤起 *hg*。
 
-*** New vc-hg options.
-    The new option 'vc-hg-parse-hg-data-structures' controls whether vc-hg
-    will try parsing the Mercurial data structures directly instead of
-    running 'hg'; it defaults to t (set to nil if you want the pre-26.1
-    behavior).
-    The new option 'vc-hg-symbolic-revision-styles' controls how versions
+*** 新vc-hg选项
+    新增'vc-hg-parse-hg-data-structures'用来控制vc-hg是否解析直接Mercurial数据结构，或者
+    采用执行hg来替代。默认值为t (老版本值为nil)。
+
+    新增'vc-hg-symbolic-revision-styles' controls how versions
     in a Mercurial repository are presented symbolically on the mode line.
     The new option 'vc-hg-use-file-version-for-mode-line-version' controls
     whether the version shown on the mode line is that of the visited file
