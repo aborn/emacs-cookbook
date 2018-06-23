@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-06-23 15:55
+#+DATE: 2018-06-23 16:12
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -1144,26 +1144,18 @@ ELISP>
    变量的值设置为0或者任何其他值，就可回退出老版本的行为(可以在shell-mode-hook的函数列表中
    设置)。这个改变也是从Emacs 26.1就有，不过没有在其文档中提到。
 *** VC
-   优化了VC对Mercurial的支持。Emacs为了更快的操作速度，尽量避免唤起 *hg*。
+   优化了VC对Mercurial的支持。Emacs为了更快的操作速度，尽量避免唤起 *hg* 。
 **** 新vc-hg选项
     新增'vc-hg-parse-hg-data-structures'用来控制vc-hg是否解析直接Mercurial数据结构，或者
     采用执行hg来替代。默认值为t (老版本值为nil)。
-    新增'vc-hg-symbolic-revision-styles' controls how versions
-    in a Mercurial repository are presented symbolically on the mode line.
-    The new option 'vc-hg-use-file-version-for-mode-line-version' controls
-    whether the version shown on the mode line is that of the visited file
-    or of the repository working copy.
-**** Display of Mercurial revisions in the mode-line has changed.
-    Previously, the mode line displayed the local number (1, 2, 3, ...) of
-    the revision.  Starting with Emacs 26.1, the default has changed, and
-    it now shows the global revision number, in the form of its changeset
-    hash value.  To get back the previous behavior, customize the new
-    option 'vc-hg-symbolic-revision-styles' to the value '("{rev}")'.
-** New Modes and Packages in Emacs 26.2
-** Incompatible Lisp Changes in Emacs 26.2
-** Lisp Changes in Emacs 26.2
-** Changes in Emacs 26.2 on Non-Free Operating Systems
-** Installation Changes in Emacs 26.1
+    新增'vc-hg-symbolic-revision-styles'用来控制在mode line模式下版本的展示样式。
+    新增'vc-hg-use-file-version-for-mode-line-version'用来控制将版本展示在mode
+    line里是那些已经访问过的文件还是那整体工作仓库的拷贝。
+**** Mercurial版本在mode-line的显示变化
+    老版本，mode-line显示的是本地修改的版本数值 (1, 2, 3, ...)。从26.1版本开始，默认显示做
+    了变化，当前显示的是全局的修改版本值，格式为修改的hash值。如果想恢复到之前的显示，只需要修
+    改变量 *vc-hg-symbolic-revision-styles* 的值为 *("{rev}")* 。
+** Emacs 26.1 安装变化
 *** By default libgnutls is now required when building Emacs.
    Use 'configure --with-gnutls=no' to build even when GnuTLS is missing.
 *** GnuTLS version 2.12.2 or later is now required, instead of merely
@@ -1213,7 +1205,7 @@ ELISP>
    update-game-score are no longer needed and are not installed.
 *** Emacs no longer works on IRIX.  We expect that Emacs users are not
    affected by this, as SGI stopped supporting IRIX in December 2013.
-** Startup Changes in Emacs 26.1
+** Emacs 26.1 启动的变化
 *** New option '--fg-daemon'.  This is the same as '--daemon', except
    it runs in the foreground and does not fork.  This is intended for
    modern init systems such as systemd, which manage many of the traditional
@@ -1231,7 +1223,7 @@ ELISP>
    "(efaq) Colors on a TTY" for more information.
 *** Emacs now obeys the X resource "scrollBar" at startup.
    The effect is similar to that of "toolBar" resource on the tool bar.
-** Changes in Emacs 26.1
+** Emacs 26.1的变化
 *** Option 'buffer-offer-save' can be set to new value, 'always'.  When
    set to 'always', the command 'save-some-buffers' will always offer
    this buffer for saving.
@@ -2393,7 +2385,7 @@ ELISP>
 *** New function 'lgstring-remove-glyph' can be used to modify a
    gstring returned by the underlying layout engine (e.g. m17n-flt,
    uniscribe).
-** Changes in Emacs 26.1 on Non-Free Operating Systems
+** Emacs 26.1 在一些特殊模式和包中的变化
 *** Intercepting hotkeys on Windows 7 and later now works better.
    The new keyboard hooking code properly grabs system hotkeys such as
    'Win-*' and 'Alt-TAB', in a way that Emacs can get at them before the
