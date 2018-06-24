@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-06-23 16:40
+#+DATE: 2018-06-24 09:09
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -1128,11 +1128,11 @@ ELISP>
   in older Emacs versions.
   You can narrow news to a specific version by calling 'view-emacs-news'
   with a prefix argument or by typing C-u C-h C-n.
-** Emacs 26.2 安装变化
+** Emacs 26.2安装变化
 *** 使用'--with-xwidgets'参数构建Emacs需要依赖WebKit2
    构建支持xwidgets版本的Emacs，需要先安装webkit2gtk-4.0 包，要求版本在2.12及以上版本。这
    个改变其实从Emacs 26.1开始的，只不过没有发布文档里提到。
-** Emacs 26.2 在一些特殊模式和包中的变化
+** Emacs 26.2中特殊模式和包的变化
 *** Gnus
    Mailutils movemail will now be used if found at runtime.
    *mail-source-movemail-program* 这个变量的默认值已经改为 *movemail* 。这样做的目地是
@@ -1155,11 +1155,10 @@ ELISP>
     老版本，mode-line显示的是本地修改的版本数值 (1, 2, 3, ...)。从26.1版本开始，默认显示做
     了变化，当前显示的是全局的修改版本值，格式为修改的hash值。如果想恢复到之前的显示，只需要修
     改变量 *vc-hg-symbolic-revision-styles* 的值为 *("{rev}")* 。
-** Emacs 26.1 安装变化
-*** By default libgnutls is now required when building Emacs.
-   Use 'configure --with-gnutls=no' to build even when GnuTLS is missing.
-*** GnuTLS version 2.12.2 or later is now required, instead of merely
-   version 2.6.6 or later.
+** Emacs 26.1安装变化
+*** 默认情况下编译Emacs需要libgnutls这个库
+   采用 *configure --with-gnutls=no* 这个选项已经废弃。
+*** GnuTLS版本需要2.12.2或者更高版本
 *** The new option 'configure --with-mailutils' causes Emacs to rely on
    GNU Mailutils to retrieve email.  It is recommended, and is the
    default if GNU Mailutils is installed.  When --with-mailutils is not
@@ -1203,15 +1202,14 @@ ELISP>
    as this appears to be the most common configuration in practice.
    When it is 'no', the shared game directory and the auxiliary program
    update-game-score are no longer needed and are not installed.
-*** Emacs no longer works on IRIX.  We expect that Emacs users are not
-   affected by this, as SGI stopped supporting IRIX in December 2013.
-** Emacs 26.1 启动的变化
-*** New option '--fg-daemon'.  This is the same as '--daemon', except
-   it runs in the foreground and does not fork.  This is intended for
-   modern init systems such as systemd, which manage many of the traditional
-   aspects of daemon behavior themselves.  '--bg-daemon' is now an alias
-   for '--daemon'.
-*** New option '--module-assertions'.
+*** Emacs不再对IRIX系统做支持
+   我们希望这部分Emacs用户不会因此受到影响，因为SGI从2013年12份开始已经停止了对IRIX的支持。
+** Emacs 26.1启动的变化
+*** 新增'--fg-daemon'选项
+   这个选项跟'--daemon'类似, 只有一点不一样的那就是它是运行在前台并且不是fork的。这个选项的
+   目的是用于现在启动系统，如systemd，它管理许多传统的常住行为(daemon behavior)。同时，这个
+   '--bg-daemon' 选项是 '--daemon' 的别名。
+*** 新增'--module-assertions'选项
    When given this option, Emacs will perform expensive correctness
    checks when dealing with dynamic modules.  This is intended for module
    authors that wish to verify that their module conforms to the module
@@ -1221,12 +1219,12 @@ ELISP>
    Terminal is automatically initialized to use 24-bit colors if the
    required capabilities are found in terminfo.  See the FAQ node
    "(efaq) Colors on a TTY" for more information.
-*** Emacs now obeys the X resource "scrollBar" at startup.
-   The effect is similar to that of "toolBar" resource on the tool bar.
+*** Emacs在启动的时候遵守X资源"scrollBar"
+   这个效果与工具条（tool bar）里的"toolBar"资源类似。
 ** Emacs 26.1的变化
-*** Option 'buffer-offer-save' can be set to new value, 'always'.  When
-   set to 'always', the command 'save-some-buffers' will always offer
-   this buffer for saving.
+*** 'buffer-offer-save' 添加新值
+   'buffer-offer-save' 添加新的选项'always'。当配置为这个值时命令'save-some-buffers'将
+   将这个buffer作为保存项(offer this buffer for saving)。
 *** Security vulnerability related to Enriched Text mode is removed.
 **** Enriched Text mode does not evaluate Lisp in 'display' properties.
     This feature allows saving 'display' properties as part of text.
@@ -2386,51 +2384,40 @@ ELISP>
    gstring returned by the underlying layout engine (e.g. m17n-flt,
    uniscribe).
 ** Emacs 26.1 在一些特殊模式和包中的变化
-*** Intercepting hotkeys on Windows 7 and later now works better.
-   The new keyboard hooking code properly grabs system hotkeys such as
-   'Win-*' and 'Alt-TAB', in a way that Emacs can get at them before the
-   system.  This makes the 'w32-register-hot-key' functionality work
-   again on all versions of MS-Windows starting with Windows 7.  On
-   Windows NT and later you can now register any hotkey combination.  (On
-   Windows 9X, the previous limitations, spelled out in the Emacs manual,
-   still apply.)
-*** 'convert-standard-filename' no longer mirrors slashes on MS-Windows.
-   Previously, on MS-Windows this function converted slash characters in
-   file names into backslashes.  It no longer does that.  If your Lisp
-   program used 'convert-standard-filename' to prepare file names to be
-   passed to subprocesses (which is not the recommended usage of that
-   function), you will now have to mirror slashes in your application
-   code.  One possible way is this:
+*** 在Windows7&以上系统对快捷键的捕获性能更好
+   新的键盘钩子代码(hooking code)更加准捕获系统快捷键如'Win-*'和'Alt-TAB', 通过这种方式，
+   Emacs比系统更早地获取按键事件。这使得'w32-register-hot-key'函数功能违背了所有Windows7
+   开始的原意功能。Windows NT及之后版本可以注册任务快捷键的组合。（在Windows 9X，之前的限制，
+   在Emacs的手册里已经说明了依然需要申请）。
+*** 'convert-standard-filename' 函数的变化
+   在MS-Windows系统中'convert-standard-filename'函数不再将斜线(/)替换成反斜线(\)。老版
+   本在MS-Windows系统中这个函数将文件名里的斜线(/)强制转成反斜线(\)。因为不再这样做，如果你
+   Lisp代码里使用了 *convert-standard-filename* 这个函数去做这个变化，你需要自己手工处理
+   一下这块的代码。如按照如下方式：
+   #+BEGIN_SRC emacs-lisp
    (let ((start 0))
-   (while (string-match "/" file-name start)
-   (aset file-name (match-beginning 0) ?\\)
-   (setq start (match-end 0))))
-*** GUI sessions on MS-Windows now treat SIGINT like Posix platforms do.
-   The effect of delivering a Ctrl-C (SIGINT) signal to a GUI Emacs on
-   MS-Windows is now the same as on Posix platforms -- Emacs saves the
-   session and exits.  In particular, this will happen if you start
-   emacs.exe from the Windows shell, then type Ctrl-C into that shell's
-   window.
-*** 'signal-process' supports SIGTRAP on Windows XP and later.
-   The 'kill' emulation on Windows now maps SIGTRAP to a call to the
-   'DebugBreakProcess' API.  This causes the receiving process to break
-   execution and return control to the debugger.  If no debugger is
-   attached to the receiving process, the call is typically ignored.
-   This is in contrast to the default action on POSIX Systems, where it
-   causes the receiving process to terminate with a core dump if no
-   debugger has been attached to it.
-*** 'set-mouse-position' and 'set-mouse-absolute-pixel-position' work
-   on macOS.
-*** Emacs can now be run as a GUI application from the command line on
-   macOS.
-*** 'ns-appearance' and 'ns-transparent-titlebar' change the appearance
-   of frame decorations on macOS 10.9+.
-*** 'ns-use-thin-smoothing' enables thin font smoothing on macOS 10.8+.
-*** 'process-attributes' on Darwin systems now returns more information.
-*** Mousewheel and trackpad scrolling on macOS 10.7+ now behaves more
-   like the macOS default.  The new variables 'ns-mwheel-line-height',
-   'ns-use-mwheel-acceleration' and 'ns-use-mwheel-momentum' can be used
-   to customize the behavior.
+       (while (string-match "/" file-name start)
+       (aset file-name (match-beginning 0) ?\\)
+       (setq start (match-end 0))))
+   #+END_SRC
+*** MS-Windows平台下的GUI会话像Posix平台一样将被当作SIGINT
+   Ctrl-C (SIGINT)信号在MS-Windows平台GUI的效果与Posix平台一样：Eamcs保存会话然后退出。
+   譬如，如果你在Windows shell里启动emacs.exe程序，然后在shell窗口里按下Ctrl-C，也会产生
+   同样效果。
+*** Windows XP及以后系统'signal-process'支持SIGTRAP
+   在Windows系统下对'kill'的仿真映射到SIGTRAP信号去调用'DebugBreakProcess'接口。这会导致
+   检索程序终止执行，然后把控制权交给调试者(debugger)。如果没有调试者绑定到搜索程序，这个调用
+   将被忽略。这跟POSIX系统的默认行为形成对比，POSIX系统是会终止检索程序的执行（终止前会做一次
+   core dupm）。
+*** macOS系统里的一些小优化
+   1. 修复在macOS系统里'set-mouse-position'和'set-mouse-absolute-pixel-position'命令不生效问题
+   2. 在macOS系统，从命令行中也可打开Emacs GUI程序
+   3. macOS 10.9+ 'ns-appearance'和'ns-transparent-titlebar'改变frame的显示
+   4. macOS 10.8+系统里使用'ns-use-thin-smoothing'开启瘦字段更加柔和
+   5. Darwin系统'process-attributes'返回更多信息
+   6. macOS 10.7+ 鼠标方向键和触摸板的滚动效果表现更加与原生系统相同，新增变量
+   'ns-mwheel-line-height' 、'ns-use-mwheel-acceleration'和'ns-use-mwheel-momentum'
+   用来定制化这些行为。
    ----------------------------------------------------------------------
    This file is part of GNU Emacs.
    GNU Emacs is free software: you can redistribute it and/or modify
