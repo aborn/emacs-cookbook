@@ -1723,29 +1723,26 @@
 
 * Emacs 26.1 在一些特殊模式和包中的变化
 
-** Intercepting hotkeys on Windows 7 and later now works better.
-   The new keyboard hooking code properly grabs system hotkeys such as
-   'Win-*' and 'Alt-TAB', in a way that Emacs can get at them before the
-   system.  This makes the 'w32-register-hot-key' functionality work
-   again on all versions of MS-Windows starting with Windows 7.  On
-   Windows NT and later you can now register any hotkey combination.  (On
-   Windows 9X, the previous limitations, spelled out in the Emacs manual,
-   still apply.)
+** 在Windows7&以上系统对快捷键的捕获性能更好
+   新的键盘钩子代码(hooking code)更加准捕获系统快捷键如'Win-*'和'Alt-TAB', 通过这种方式，
+   Emacs比系统更早地获取按键事件。这使得'w32-register-hot-key'函数功能违背了所有Windows7
+   开始的原意功能。Windows NT及之后版本可以注册任务快捷键的组合。（在Windows 9X，之前的限制，
+   在Emacs的手册里已经说明了依然需要申请）。
 
-** 'convert-standard-filename' no longer mirrors slashes on MS-Windows.
-   Previously, on MS-Windows this function converted slash characters in
-   file names into backslashes.  It no longer does that.  If your Lisp
-   program used 'convert-standard-filename' to prepare file names to be
-   passed to subprocesses (which is not the recommended usage of that
-   function), you will now have to mirror slashes in your application
-   code.  One possible way is this:
+** 'convert-standard-filename' 函数的变化
+   在MS-Windows系统中'convert-standard-filename'函数不再将斜线(/)替换成反斜线(\)。老版
+   本在MS-Windows系统中这个函数将文件名里的斜线(/)强制转成反斜线(\)。因为不再这样做，如果你
+   Lisp代码里使用了 *convert-standard-filename* 这个函数去做这个变化，你需要自己手工处理
+   一下这块的代码。如按照如下方式：
 
+   #+BEGIN_SRC emacs-lisp
    (let ((start 0))
-   (while (string-match "/" file-name start)
-   (aset file-name (match-beginning 0) ?\\)
-   (setq start (match-end 0))))
+       (while (string-match "/" file-name start)
+       (aset file-name (match-beginning 0) ?\\)
+       (setq start (match-end 0))))
+   #+END_SRC
 
-** GUI sessions on MS-Windows now treat SIGINT like Posix platforms do.
+** MS-Windows平台下的GUI会话像Posix平台一样将被当作SIGINT
    The effect of delivering a Ctrl-C (SIGINT) signal to a GUI Emacs on
    MS-Windows is now the same as on Posix platforms -- Emacs saves the
    session and exits.  In particular, this will happen if you start
