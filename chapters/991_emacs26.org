@@ -1743,13 +1743,11 @@
    #+END_SRC
 
 ** MS-Windows平台下的GUI会话像Posix平台一样将被当作SIGINT
-   The effect of delivering a Ctrl-C (SIGINT) signal to a GUI Emacs on
-   MS-Windows is now the same as on Posix platforms -- Emacs saves the
-   session and exits.  In particular, this will happen if you start
-   emacs.exe from the Windows shell, then type Ctrl-C into that shell's
-   window.
+   Ctrl-C (SIGINT)信号在MS-Windows平台GUI的效果与Posix平台一样：Eamcs保存会话然后退出。
+   譬如，如果你在Windows shell里启动emacs.exe程序，然后在shell窗口里按下Ctrl-C，也会产生
+   同样效果。
 
-** 'signal-process' supports SIGTRAP on Windows XP and later.
+** Windows XP及以后系统'signal-process'支持SIGTRAP
    The 'kill' emulation on Windows now maps SIGTRAP to a call to the
    'DebugBreakProcess' API.  This causes the receiving process to break
    execution and return control to the debugger.  If no debugger is
