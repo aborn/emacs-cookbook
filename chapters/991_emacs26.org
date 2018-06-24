@@ -1716,10 +1716,8 @@
    end of the region from those of the secondary selection and vice
    versa.
 
-** New function 'lgstring-remove-glyph' can be used to modify a
-   gstring returned by the underlying layout engine (e.g. m17n-flt,
-   uniscribe).
-
+** 新增函数'lgstring-remove-glyph'
+   这个函数于用修改底层布局引擎（如m17n-flt, uniscribe）返回的gstring。
 
 * Emacs 26.1 在一些特殊模式和包中的变化
 
@@ -1751,7 +1749,7 @@
    在Windows系统下对'kill'的仿真映射到SIGTRAP信号去调用'DebugBreakProcess'接口。这会导致
    检索程序终止执行，然后把控制权交给调试者(debugger)。如果没有调试者绑定到搜索程序，这个调用
    将被忽略。这跟POSIX系统的默认行为形成对比，POSIX系统是会终止检索程序的执行（终止前会做一次
-   core dupm）。
+   core dump）。
 
 ** macOS系统里的一些小优化
    1. 修复在macOS系统里'set-mouse-position'和'set-mouse-absolute-pixel-position'命令不生效问题；
