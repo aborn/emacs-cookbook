@@ -1748,13 +1748,10 @@
    同样效果。
 
 ** Windows XP及以后系统'signal-process'支持SIGTRAP
-   The 'kill' emulation on Windows now maps SIGTRAP to a call to the
-   'DebugBreakProcess' API.  This causes the receiving process to break
-   execution and return control to the debugger.  If no debugger is
-   attached to the receiving process, the call is typically ignored.
-   This is in contrast to the default action on POSIX Systems, where it
-   causes the receiving process to terminate with a core dump if no
-   debugger has been attached to it.
+   在Windows系统下对'kill'的仿真映射到SIGTRAP信号去调用'DebugBreakProcess'接口。这会导致
+   检索程序终止执行，然后把控制权交给调试者(debugger)。如果没有调试者绑定到搜索程序，这个调用
+   将被忽略。这跟POSIX系统的默认行为形成对比，POSIX系统是会终止检索程序的执行（终止前会做一次
+   core dupm）。
 
 ** 'set-mouse-position' and 'set-mouse-absolute-pixel-position' work
    on macOS.
