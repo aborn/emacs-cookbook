@@ -1753,22 +1753,15 @@
    将被忽略。这跟POSIX系统的默认行为形成对比，POSIX系统是会终止检索程序的执行（终止前会做一次
    core dupm）。
 
-** 修复在macOS系统里'set-mouse-position'和'set-mouse-absolute-pixel-position'命令不生效问题
-
-** 在macOS系统，从命令行中也可打开Emacs GUI程序
-
-** 'ns-appearance' and 'ns-transparent-titlebar' change the appearance
-   of frame decorations on macOS 10.9+.
-
-** 'ns-use-thin-smoothing' enables thin font smoothing on macOS 10.8+.
-
-** 'process-attributes' on Darwin systems now returns more information.
-
-** Mousewheel and trackpad scrolling on macOS 10.7+ now behaves more
-   like the macOS default.  The new variables 'ns-mwheel-line-height',
-   'ns-use-mwheel-acceleration' and 'ns-use-mwheel-momentum' can be used
-   to customize the behavior.
-
+** macOS系统里的一些小优化
+   1. 修复在macOS系统里'set-mouse-position'和'set-mouse-absolute-pixel-position'命令不生效问题
+   2. 在macOS系统，从命令行中也可打开Emacs GUI程序
+   3. macOS 10.9+ 'ns-appearance'和'ns-transparent-titlebar'改变frame的显示
+   4. macOS 10.8+系统里使用'ns-use-thin-smoothing'开启瘦字段更加柔和
+   5. Darwin系统'process-attributes'返回更多信息
+   6. macOS 10.7+ 鼠标方向键和触摸板的滚动效果表现更加与原生系统相同，新增变量
+   'ns-mwheel-line-height' 、'ns-use-mwheel-acceleration'和'ns-use-mwheel-momentum'
+   用来定制化这些行为。
 
    ----------------------------------------------------------------------
    This file is part of GNU Emacs.
