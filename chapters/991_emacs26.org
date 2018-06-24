@@ -1753,11 +1753,9 @@
    将被忽略。这跟POSIX系统的默认行为形成对比，POSIX系统是会终止检索程序的执行（终止前会做一次
    core dupm）。
 
-** 'set-mouse-position' and 'set-mouse-absolute-pixel-position' work
-   on macOS.
+** 修复在macOS系统里'set-mouse-position'和'set-mouse-absolute-pixel-position'命令不生效问题
 
-** Emacs can now be run as a GUI application from the command line on
-   macOS.
+** 在macOS系统，从命令行中也可打开Emacs GUI程序
 
 ** 'ns-appearance' and 'ns-transparent-titlebar' change the appearance
    of frame decorations on macOS 10.9+.
