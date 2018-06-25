@@ -1710,11 +1710,9 @@
 ** New pcase pattern 'rx' to match against an rx-style regular expression.
    For details, see the doc string of 'rx--pcase-macroexpander'.
 
-** New functions to set region from secondary selection and vice versa.
-   The new functions 'secondary-selection-to-region' and
-   'secondary-selection-from-region' let you set the beginning and the
-   end of the region from those of the secondary selection and vice
-   versa.
+** 新增区域二次选择函数
+   新增加函数'secondary-selection-to-region'和
+   'secondary-selection-from-region'，满足用户再次设置区间的开始和结束。
 
 ** 新增函数'lgstring-remove-glyph'
    这个函数于用修改底层布局引擎（如m17n-flt, uniscribe）返回的gstring。
