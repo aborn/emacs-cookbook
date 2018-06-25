@@ -1697,18 +1697,16 @@
     dimensions of the largest rectangular area not occupying any text in a
     window's body.
 
-*** The semantics of 'mouse-autoselect-window' has changed slightly.
-    For details see the section "(elisp) Mouse Window Auto-selection" in
-    the ELisp manual.
+*** 函数'mouse-autoselect-window'语义微调
+    详情参考Elisp手册里的"(elisp) Mouse Window Auto-selection"函数。
 
-*** 'select-frame-by-name' now may return a frame on another display
-    if it does not find a suitable one on the current display.
+*** 'select-frame-by-name' 在当前的显示器里无法找到一个匹配的frame，可返回一个在其他显示器上的frame
 
-** 'tcl-auto-fill-mode' is now declared obsolete.  Its functionality
-   can be replicated simply by setting 'comment-auto-fill-only-comments'.
+** 'tcl-auto-fill-mode'已经声明废弃
+   这个函数的功能可通过设置 *comment-auto-fill-only-comments* 来实现。
 
-** New pcase pattern 'rx' to match against an rx-style regular expression.
-   For details, see the doc string of 'rx--pcase-macroexpander'.
+** 新增pcase模式'rx'用于匹配rx风格的正则表达式
+   详情请参考'rx--pcase-macroexpander'函数文档。
 
 ** 新增区域二次选择函数
    新增加函数'secondary-selection-to-region'和
