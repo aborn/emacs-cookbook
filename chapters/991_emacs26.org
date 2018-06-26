@@ -1683,12 +1683,11 @@
 *** New window parameters 'mode-line-format' and 'header-line-format'
     allow the buffer-local formats for this window to be overridden.
 
-*** New command 'window-swap-states' swaps the states of two live
-    windows.
+*** 新增命令window-swap-states
+    这个命令用于交换两个打开的windows的状态(选中和被选中)
 
-*** New functions 'window-pixel-width-before-size-change' and
-    'window-pixel-height-before-size-change' support detecting which
-    window changed size when 'window-size-change-functions' are run.
+*** 新增window-pixel-width-before-size-change和window-pixel-height-before-size-change函数
+    用于当window-size-change-functions运行里，检测哪个窗口大小发生了变化
 
 *** 新增加函数window-lines-pixel-dimensions
     这个函数返回一个窗口文本行的像素大小
