@@ -1690,12 +1690,11 @@
     'window-pixel-height-before-size-change' support detecting which
     window changed size when 'window-size-change-functions' are run.
 
-*** The new function 'window-lines-pixel-dimensions' returns the pixel
-    dimensions of a window's text lines.
+*** 新增加函数window-lines-pixel-dimensions
+    这个函数返回一个窗口文本行的像素大小
 
-*** The new function 'window-largest-empty-rectangle' returns the
-    dimensions of the largest rectangular area not occupying any text in a
-    window's body.
+*** 新增函数 'window-largest-empty-rectangle'
+    这个函数返回在窗口里没有文本的最大矩形区域大小
 
 *** 函数'mouse-autoselect-window'语义微调
     详情参考Elisp手册里的"(elisp) Mouse Window Auto-selection"函数。
