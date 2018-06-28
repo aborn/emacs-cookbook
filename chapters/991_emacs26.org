@@ -1666,16 +1666,16 @@
     assignment of window parameters to the window used for displaying the
     buffer.
 
-*** New function 'display-buffer-reuse-mode-window' is an action function
-    suitable for use in 'display-buffer-alist'.  For example, to avoid
-    creating a new window when opening man pages when there's already one,
-    use
-
+*** 新增函数display-buffer-reuse-mode-window
+    这个函数是一个交互函数，适用在display-buffer-alist。例如，当打开一个帮助手册，为了避免
+    再次创建一个已经存在的窗口，可用这个机制完成。
+    #+BEGIN_SRC emacs-lisp
     (add-to-list 'display-buffer-alist
-    '("\\`\\*Man .*\\*\\'" .
-    (display-buffer-reuse-mode-window
-    (inhibit-same-window . nil)
-    (mode . Man-mode))))
+        '("\\`\\*Man .*\\*\\'" .
+         (display-buffer-reuse-mode-window
+             (inhibit-same-window . nil)
+         (mode . Man-mode))))
+    #+END_SRC
 
 *** 新窗口参数no-delete-other-windows
     防止窗口被delete-other-windows命令删除掉
