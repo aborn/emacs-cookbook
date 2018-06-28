@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-06-26 13:07
+#+DATE: 2018-06-28 13:00
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -2343,19 +2343,20 @@ ELISP>
 **** New 'display-buffer' alist entry 'window-parameters' allows the
     assignment of window parameters to the window used for displaying the
     buffer.
-**** New function 'display-buffer-reuse-mode-window' is an action function
-    suitable for use in 'display-buffer-alist'.  For example, to avoid
-    creating a new window when opening man pages when there's already one,
-    use
+**** 新增函数display-buffer-reuse-mode-window
+    这个函数是一个交互函数，适用在display-buffer-alist。例如，当打开一个帮助手册，为了避免
+    再次创建一个已经存在的窗口，可用这个机制完成。
+    #+BEGIN_SRC emacs-lisp
     (add-to-list 'display-buffer-alist
-    '("\\`\\*Man .*\\*\\'" .
-    (display-buffer-reuse-mode-window
-    (inhibit-same-window . nil)
-    (mode . Man-mode))))
-**** New window parameter 'no-delete-other-windows' prevents that
-    its window gets deleted by 'delete-other-windows'.
-**** New window parameters 'mode-line-format' and 'header-line-format'
-    allow the buffer-local formats for this window to be overridden.
+        '("\\`\\*Man .*\\*\\'" .
+         (display-buffer-reuse-mode-window
+             (inhibit-same-window . nil)
+         (mode . Man-mode))))
+    #+END_SRC
+**** 新窗口参数no-delete-other-windows
+    防止窗口被delete-other-windows命令删除掉
+**** 新窗口参数mode-line-format和'header-line-format
+    这两个参数允许buffer本地(buffer-local)修改进行覆盖。
 **** 新增命令window-swap-states
     这个命令用于交换两个打开的windows的状态(选中和被选中)，这个方法常用于当前只有两个窗口时，
     交换两个窗口的内容。
