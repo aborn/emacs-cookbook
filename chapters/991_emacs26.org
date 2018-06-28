@@ -1677,11 +1677,11 @@
     (inhibit-same-window . nil)
     (mode . Man-mode))))
 
-*** New window parameter 'no-delete-other-windows' prevents that
-    its window gets deleted by 'delete-other-windows'.
+*** 新窗口参数no-delete-other-windows
+    防止窗口被delete-other-windows命令删除掉
 
-*** New window parameters 'mode-line-format' and 'header-line-format'
-    allow the buffer-local formats for this window to be overridden.
+*** 新窗口参数mode-line-format和'header-line-format
+    这两个参数允许buffer本地(buffer-local)修改进行覆盖。
 
 *** 新增命令window-swap-states
     这个命令用于交换两个打开的windows的状态(选中和被选中)，这个方法常用于当前只有两个窗口时，
