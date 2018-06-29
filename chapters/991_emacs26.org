@@ -1569,8 +1569,7 @@
     判断Frame是否被调整可使用新函数 *frame-size-changed-p* 。这里的大小是否被调整过是从上
     一次调用 *window-size-change-functions* 算起。
 
-*** The function 'frame-geometry' now also returns the width of a
-    frame's outer border.
+*** 函数frame-geometry也会返回frame的外边界宽度
 
 *** New frame parameters and changed semantics for older ones:
 
