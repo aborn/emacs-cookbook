@@ -1650,12 +1650,9 @@
     'mark-for-redisplay' which is like any other non-nil value but marks
     WINDOW for redisplay.
 
-*** Support for side windows is now official.  The display action
-    function 'display-buffer-in-side-window' will display its buffer in a
-    side window.  Functions for toggling all side windows on a frame,
-    changing and reversing the layout of side windows and returning the
-    main (major non-side) window of a frame are provided.  For details
-    consult the section "(elisp) Side Windows" in the ELisp manual.
+*** 正式支持对边窗(side windows)
+    显示操作函数display-buffer-in-side-window可将buffer显示在边空上。更从详情请参考ELisp
+    手册里的边窗口部分。
 
 *** 支持原子窗口
     更从详情请参考ELisp手册里的原子窗口部分
