@@ -1657,14 +1657,11 @@
     main (major non-side) window of a frame are provided.  For details
     consult the section "(elisp) Side Windows" in the ELisp manual.
 
-*** Support for atomic windows - rectangular compositions of windows
-    treated by 'split-window', 'delete-window' and 'delete-other-windows'
-    like a single live window - is now official.  For details consult the
-    section "(elisp) Atomic Windows" in the ELisp manual.
+*** 支持原子窗口
+    更从详情请参考ELisp手册里的原子窗口部分
 
-*** New 'display-buffer' alist entry 'window-parameters' allows the
-    assignment of window parameters to the window used for displaying the
-    buffer.
+*** 新增display-buffer列表项window-parameters
+    分配给要展示buffer的窗口参数
 
 *** 新增函数display-buffer-reuse-mode-window
     这个函数是一个交互函数，适用在display-buffer-alist。例如，当打开一个帮助手册，为了避免
