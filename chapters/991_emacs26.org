@@ -1629,8 +1629,7 @@
      initially specified as nil and is not reset to nil when initially
      specifying a minibuffer window.
 
-*** The new function 'frame-list-z-order' returns a list of all frames
-    in Z (stacking) order.
+*** 新增函数frame-list-z-order返回按z(栈)顺序的frame列表
 
 *** 函数'x-focus-frame'不激活它的frame变成可选项
 
