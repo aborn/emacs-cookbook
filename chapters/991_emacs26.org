@@ -1645,9 +1645,8 @@
 *** The new face 'internal-border' specifies the background of a frame's
     internal border.
 
-*** The NORECORD argument of 'select-window' now has a meaningful value
-    'mark-for-redisplay' which is like any other non-nil value but marks
-    WINDOW for redisplay.
+*** select-window函数NORECORD参数增加 *mark-for-redisplay* 选项
+    这个选项类似其他不是nil的值，但它标记窗口（WINDOW）重新显示
 
 *** 正式支持对边窗(side windows)
     显示操作函数display-buffer-in-side-window可将buffer显示在边空上。更从详情请参考ELisp
