@@ -1632,18 +1632,14 @@
 *** The new function 'frame-list-z-order' returns a list of all frames
     in Z (stacking) order.
 
-*** The function 'x-focus-frame' optionally tries to not activate its
-    frame.
+*** 函数'x-focus-frame'不激活它的frame变成可选项
 
-*** The variable 'focus-follows-mouse' has a third meaningful value
-    'auto-raise' to indicate that the window manager automatically raises a
-    frame when the mouse pointer enters it.
+*** 变量focus-follows-mouse增加第三个有意义的值auto-raise
+    这个值用于当鼠标进入frame时，标明窗口管理自动聚焦这个frame。
 
-*** The new function 'frame-restack' puts a frame above or below
-    another on the display.
+*** 新增函数frame-restack，用于调整frame的层级关系
 
-*** The new face 'internal-border' specifies the background of a frame's
-    internal border.
+*** 新增internal-border用于指定frame的外部边界背景
 
 *** select-window函数NORECORD参数增加 *mark-for-redisplay* 选项
     这个选项类似其他不是nil的值，但它标记窗口（WINDOW）重新显示
