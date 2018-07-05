@@ -1587,20 +1587,17 @@
 
 **** 'skip-taskbar' 从任务条(taskbar)中删除frame的图标，同时，可通过'Alt-<TAB>'跳过这个frame
 
-**** 'no-focus-on-map' avoids that a frame gets input focus when mapped.
+**** 'no-focus-on-map' 避免一个规划过的frame获得输入选中
 
-**** 'no-accept-focus' means that a frame does not want to get input
-     focus via the mouse.
+**** 'no-accept-focus' 表示frame不希望通过鼠标获得输入选中
 
-**** 'undecorated' removes the window manager decorations from a frame.
+**** 'undecorated' 从frame中移除窗口管理样式
 
-**** 'override-redirect' tells the window manager to disregard this
-     frame.
+**** 'override-redirect' 让窗口管理忽视当前frame
 
-**** 'width' and 'height' now allow the specification of pixel values
-     and ratios.
+**** 'width' and 'height' 支持按比例指定和按像素值
 
-**** 'left' and 'top' now allow the specification of ratios.
+**** 'left' and 'top' 支持按比例指定
 
 **** 'keep-ratio' preserves size and position of child frames when their
      parent frame is resized.
