@@ -1571,12 +1571,11 @@
 
 *** 函数frame-geometry也会返回frame的外边界宽度
 
-*** New frame parameters and changed semantics for older ones:
+*** 新增部分frame相关参数及老参数一些语义变化
 
-**** 'z-group' positions a frame above or below all others.
+**** 'z-group'将frame置于其他之上或之下
 
-**** 'min-width' and 'min-height' specify the absolute minimum size of a
-     frame.
+**** 'min-width'和'min-height'用于指定frame的绝对最小范围
 
 **** 'parent-frame' makes a frame the child frame of another Emacs
      frame.  The section "(elisp) Child Frames" in the ELisp manual
