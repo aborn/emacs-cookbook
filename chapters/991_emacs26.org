@@ -1577,21 +1577,15 @@
 
 **** 'min-width'和'min-height'用于指定frame的绝对最小范围
 
-**** 'parent-frame' makes a frame the child frame of another Emacs
-     frame.  The section "(elisp) Child Frames" in the ELisp manual
-     describes the intrinsics of that relationship.
+**** 'parent-frame'使得一个frame成为另一个frame的子frame。详情请参数Elisp手册的Elisp子frames部分
 
-**** 'delete-before' triggers deletion of one frame before that of
-     another.
+**** 'delete-before'在删除一个frame前触发删除另一个
 
-**** 'mouse-wheel-frame' specifies another frame whose windows shall be
-     scrolled instead.
+**** 'mouse-wheel-frame'指定另一个frame的窗口可滚动
 
-**** 'no-other-frame' has 'next-frame' and 'previous-frame' skip this
-     frame.
+**** 'no-other-frame' 新增 'next-frame' 和 'previous-frame' 跳过当前frame
 
-**** 'skip-taskbar' removes a frame's icon from the taskbar and has
-     'Alt-<TAB>' skip this frame.
+**** 'skip-taskbar' 从任务条(taskbar)中删除frame的图标，同时，可通过'Alt-<TAB>'跳过这个frame
 
 **** 'no-focus-on-map' avoids that a frame gets input focus when mapped.
 
