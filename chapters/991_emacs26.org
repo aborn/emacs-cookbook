@@ -1599,8 +1599,7 @@
 
 **** 'left' and 'top' 支持按比例指定
 
-**** 'keep-ratio' preserves size and position of child frames when their
-     parent frame is resized.
+**** 'keep-ratio' 当父frame被调整时，保持子frame的大小和位置不变
 
 **** 'no-special-glyphs' suppresses display of truncation and
      continuation glyphs in a frame.
@@ -1611,9 +1610,7 @@
 **** 'fit-frame-to-buffer-margins' and 'fit-frame-to-buffer-sizes'
      handle fitting a frame to its buffer individually.
 
-**** 'drag-internal-border', 'drag-with-header-line',
-     'drag-with-mode-line', 'snap-width', 'top-visible' and 'bottom-visible'
-     allow dragging and resizing frames with the mouse.
+**** drag-internal-border, drag-with-header-line, drag-with-mode-line, snap-width, top-visible and bottom-visible允许通过拖拽来调整frame的大小
 
 **** 'minibuffer' is now set to the default minibuffer window when
      initially specified as nil and is not reset to nil when initially
@@ -1732,7 +1729,7 @@
    6. macOS 10.7+ 鼠标方向键和触摸板的滚动效果表现更加与原生系统相同，新增变量'ns-mwheel-line-height' 、'ns-use-mwheel-acceleration'和'ns-use-mwheel-momentum'用来定制化这些行为。
 
 
-* GNU Emacs协议文件说明原文
+* GNU Emacs协议声明原文
 
   This file is part of GNU Emacs.
 
