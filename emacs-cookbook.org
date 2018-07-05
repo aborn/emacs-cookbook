@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-06-28 13:00
+#+DATE: 2018-07-05 09:51
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -2276,32 +2276,21 @@ ELISP>
 **** Frame大小是否被调整
     判断Frame是否被调整可使用新函数 *frame-size-changed-p* 。这里的大小是否被调整过是从上
     一次调用 *window-size-change-functions* 算起。
-**** The function 'frame-geometry' now also returns the width of a
-    frame's outer border.
-**** New frame parameters and changed semantics for older ones:
-***** 'z-group' positions a frame above or below all others.
-***** 'min-width' and 'min-height' specify the absolute minimum size of a
-     frame.
-***** 'parent-frame' makes a frame the child frame of another Emacs
-     frame.  The section "(elisp) Child Frames" in the ELisp manual
-     describes the intrinsics of that relationship.
-***** 'delete-before' triggers deletion of one frame before that of
-     another.
-***** 'mouse-wheel-frame' specifies another frame whose windows shall be
-     scrolled instead.
-***** 'no-other-frame' has 'next-frame' and 'previous-frame' skip this
-     frame.
-***** 'skip-taskbar' removes a frame's icon from the taskbar and has
-     'Alt-<TAB>' skip this frame.
-***** 'no-focus-on-map' avoids that a frame gets input focus when mapped.
-***** 'no-accept-focus' means that a frame does not want to get input
-     focus via the mouse.
-***** 'undecorated' removes the window manager decorations from a frame.
-***** 'override-redirect' tells the window manager to disregard this
-     frame.
-***** 'width' and 'height' now allow the specification of pixel values
-     and ratios.
-***** 'left' and 'top' now allow the specification of ratios.
+**** 函数frame-geometry也会返回frame的外边界宽度
+**** 新增部分frame相关参数及老参数一些语义变化
+***** 'z-group'将frame置于其他之上或之下
+***** 'min-width'和'min-height'用于指定frame的绝对最小范围
+***** 'parent-frame'使得一个frame成为另一个frame的子frame。详情请参数Elisp手册的Elisp子frames部分
+***** 'delete-before'在删除一个frame前触发删除另一个
+***** 'mouse-wheel-frame'指定另一个frame的窗口可滚动
+***** 'no-other-frame' 新增 'next-frame' 和 'previous-frame' 跳过当前frame
+***** 'skip-taskbar' 从任务条(taskbar)中删除frame的图标，同时，可通过'Alt-<TAB>'跳过这个frame
+***** 'no-focus-on-map' 避免一个规划过的frame获得输入选中
+***** 'no-accept-focus' 表示frame不希望通过鼠标获得输入选中
+***** 'undecorated' 从frame中移除窗口管理样式
+***** 'override-redirect' 让窗口管理忽视当前frame
+***** 'width' and 'height' 支持按比例指定和按像素值
+***** 'left' and 'top' 支持按比例指定
 ***** 'keep-ratio' preserves size and position of child frames when their
      parent frame is resized.
 ***** 'no-special-glyphs' suppresses display of truncation and
@@ -2316,33 +2305,21 @@ ELISP>
 ***** 'minibuffer' is now set to the default minibuffer window when
      initially specified as nil and is not reset to nil when initially
      specifying a minibuffer window.
-**** The new function 'frame-list-z-order' returns a list of all frames
-    in Z (stacking) order.
-**** The function 'x-focus-frame' optionally tries to not activate its
-    frame.
-**** The variable 'focus-follows-mouse' has a third meaningful value
-    'auto-raise' to indicate that the window manager automatically raises a
-    frame when the mouse pointer enters it.
-**** The new function 'frame-restack' puts a frame above or below
-    another on the display.
-**** The new face 'internal-border' specifies the background of a frame's
-    internal border.
-**** The NORECORD argument of 'select-window' now has a meaningful value
-    'mark-for-redisplay' which is like any other non-nil value but marks
-    WINDOW for redisplay.
-**** Support for side windows is now official.  The display action
-    function 'display-buffer-in-side-window' will display its buffer in a
-    side window.  Functions for toggling all side windows on a frame,
-    changing and reversing the layout of side windows and returning the
-    main (major non-side) window of a frame are provided.  For details
-    consult the section "(elisp) Side Windows" in the ELisp manual.
-**** Support for atomic windows - rectangular compositions of windows
-    treated by 'split-window', 'delete-window' and 'delete-other-windows'
-    like a single live window - is now official.  For details consult the
-    section "(elisp) Atomic Windows" in the ELisp manual.
-**** New 'display-buffer' alist entry 'window-parameters' allows the
-    assignment of window parameters to the window used for displaying the
-    buffer.
+**** 新增函数frame-list-z-order返回按z(栈)顺序的frame列表
+**** 函数'x-focus-frame'不激活它的frame变成可选项
+**** 变量focus-follows-mouse增加第三个有意义的值auto-raise
+    这个值用于当鼠标进入frame时，标明窗口管理自动聚焦这个frame。
+**** 新增函数frame-restack，用于调整frame的层级关系
+**** 新增internal-border用于指定frame的外部边界背景
+**** select-window函数NORECORD参数增加 *mark-for-redisplay* 选项
+    这个选项类似其他不是nil的值，但它标记窗口（WINDOW）重新显示
+**** 正式支持对边窗(side windows)
+    显示操作函数display-buffer-in-side-window可将buffer显示在边空上。更从详情请参考ELisp
+    手册里的边窗口部分。
+**** 支持原子窗口
+    更从详情请参考ELisp手册里的原子窗口部分
+**** 新增display-buffer列表项window-parameters
+    分配给要展示buffer的窗口参数
 **** 新增函数display-buffer-reuse-mode-window
     这个函数是一个交互函数，适用在display-buffer-alist。例如，当打开一个帮助手册，为了避免
     再次创建一个已经存在的窗口，可用这个机制完成。
