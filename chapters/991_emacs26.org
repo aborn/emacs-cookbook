@@ -1524,10 +1524,10 @@
 ** Low-level list functions like 'length' and 'member' now do a better
    job of signaling list cycles instead of looping indefinitely.
 
-** The new functions 'make-nearby-temp-file' and 'temporary-file-directory'
+** 新增加函数make-nearby-temp-file和temporary-file-directory
    can be used for creation of temporary files on remote or mounted directories.
 
-** 在GNU平台操作一个本地文件时，同时另一个进程改变文件系统时，file-attributes函数不再进行死循环；如果不是GNU的平台遇到同样情况，file-attributes尝试去检测死循环，同时返回nil。
+** 在GNU平台操作一个本地文件时，同时另一个进程改变文件系统时，file-attributes函数不再进行死循环；如果不是GNU的平台遇到同样情况，file-attributes尝试去检测死循环，同时返回nil
 
 ** 新函数file-local-name可用于指定远端进程的参数
 
