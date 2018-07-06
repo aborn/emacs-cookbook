@@ -10,3 +10,6 @@
 -----
 
 * Buffer
+
+* 创建Buffer
+  有两个函数可用于创建Buffer，它们是get-buffer-create和generate-new-buffer
