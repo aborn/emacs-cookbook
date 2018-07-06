@@ -1601,20 +1601,15 @@
 
 **** 'keep-ratio' 当父frame被调整时，保持子frame的大小和位置不变
 
-**** 'no-special-glyphs' suppresses display of truncation and
-     continuation glyphs in a frame.
+**** no-special-glyphs在frame中将覆盖截断和连续符号的显示
 
-**** 'auto-hide-function' and 'minibuffer-exit' handle auto hiding of
-     frames and exiting from minibuffer individually.
+**** auto-hide-function和minibuffer-exit分别用于处理自动隐藏frame和从minibuffer中退出
 
-**** 'fit-frame-to-buffer-margins' and 'fit-frame-to-buffer-sizes'
-     handle fitting a frame to its buffer individually.
+**** fit-frame-to-buffer-margins和fit-frame-to-buffer-sizes用于处理frame对其buffer的大小适应
 
 **** drag-internal-border, drag-with-header-line, drag-with-mode-line, snap-width, top-visible and bottom-visible允许通过拖拽来调整frame的大小
 
-**** 'minibuffer' is now set to the default minibuffer window when
-     initially specified as nil and is not reset to nil when initially
-     specifying a minibuffer window.
+**** minibuffer当初始值被指定为nil时，设置为默认的minibuffer窗口
 
 *** 新增函数frame-list-z-order返回按z(栈)顺序的frame列表
 
@@ -1664,11 +1659,9 @@
 *** 新增window-pixel-width-before-size-change和window-pixel-height-before-size-change函数
     用于当window-size-change-functions运行里，检测哪个窗口大小发生了变化
 
-*** 新增加函数window-lines-pixel-dimensions
-    这个函数返回一个窗口文本行的像素大小
+*** 新增函数window-lines-pixel-dimensions用于返回一个窗口文本行的像素大小
 
-*** 新增函数 'window-largest-empty-rectangle'
-    这个函数返回在窗口里没有文本的最大矩形区域大小
+*** 新增函数window-largest-empty-rectangle用于返回在窗口里没有文本区域最大矩形大小
 
 *** 函数'mouse-autoselect-window'语义微调
     详情参考Elisp手册里的"(elisp) Mouse Window Auto-selection"函数。
