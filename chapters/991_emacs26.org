@@ -1547,8 +1547,7 @@
    operating recursively and when some other process deletes the directory
    or its files before 'delete-directory' gets to them.
 
-** New error type 'user-search-failed' like 'search-failed' but
-   avoids debugger like 'user-error'.
+** 新的错误类型user-search-failed，与search-failed类似，但像user-error一样禁止高度机制
 
 ** 函数line-number-at-pos的变化
    函数line-number-at-pos支持传递第二个可选参数absolute。 如果这个参数为nil, 默认行为, this
