@@ -1527,21 +1527,15 @@
 ** The new functions 'make-nearby-temp-file' and 'temporary-file-directory'
    can be used for creation of temporary files on remote or mounted directories.
 
-** On GNU platforms when operating on a local file, 'file-attributes'
-   no longer suffers from a race when called while another process is
-   altering the filesystem.  On non-GNU platforms 'file-attributes'
-   attempts to detect the race, and returns nil if it does so.
+** 在GNU平台操作一个本地文件时，同时另一个进程改变文件系统时，file-attributes函数不再进行死循环；如果不是GNU的平台遇到同样情况，file-attributes尝试去检测死循环，同时返回nil。
 
-** The new function 'file-local-name' can be used to specify arguments
-   of remote processes.
+** 新函数file-local-name可用于指定远端进程的参数
 
-** The new functions 'file-name-quote', 'file-name-unquote' and
-   'file-name-quoted-p' can be used to quote / unquote file names with
-   the prefix "/:".
+** 新增加函数file-name-quote、file-name-unquote和file-name-quoted-p
+   用于对文件名加前缀"/:"进行引用或者取消引用
 
-** The new error 'file-missing', a subcategory of 'file-error', is now
-   signaled instead of 'file-error' if a file operation acts on a file
-   that does not exist.
+** 新增错误类型file-missing作为file-error子类型
+   如果操作不存在的文件，将采用这种错误类型取代之前的file-error这种错误类型
 
 ** delete-directory函数的变化
    当递归操作进行时，同时有其他进程在执行delete-directory前删除了目录或者文件时，不再抛错误异常。
