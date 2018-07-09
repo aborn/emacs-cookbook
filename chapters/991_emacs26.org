@@ -1519,7 +1519,7 @@
 
 ** 'car' and 'cdr' compositions 'cXXXr' and 'cXXXXr' are now part of Elisp.
 
-** 'gensym' is now part of Elisp.
+** gensym已经集成进Elisp一部分
 
 ** Low-level list functions like 'length' and 'member' now do a better
    job of signaling list cycles instead of looping indefinitely.
