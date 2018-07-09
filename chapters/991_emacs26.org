@@ -1498,12 +1498,9 @@
 ** 'make-hash-table' now defaults to a rehash threshold of 0.8125
    instead of 0.8, to avoid rounding glitches.
 
-** New function 'add-variable-watcher' can be used to call a function
-   when a symbol's value is changed.  This is used to implement the new
-   debugger command 'debug-on-variable-change'.
+** 新增函数add-variable-watcher用于当一个变量的值发生变化时的函数调用。用于实现新的调试命令debug-on-variable-change
 
-** 新变量print-escape-control-characters causes 'prin1' and
-   'print' to output control characters as backslash sequences.
+** 新变量print-escape-control-characters改变prin1和print输出控制字符为反斜杠
 
 ** 时间转换函数支持时间区间规划参数，其可为OFFSET或者列表(OFFSET ABBR)整型的OFFSET是相对于UT(Universal Time)时间的东向偏移（单位秒）。字符串ABBR是时间区间的简写。受影响的函数有current-time-string, current-time-zone, decode-time,format-time-string和set-time-zone-rule.
 
