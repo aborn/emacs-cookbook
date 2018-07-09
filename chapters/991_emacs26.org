@@ -1512,17 +1512,15 @@
    'current-time-string', 'current-time-zone', 'decode-time',
    'format-time-string', and 'set-time-zone-rule'.
 
-** 'format-time-string' now formats '%q' to the calendar quarter.
+** format-time-string函数支持%q，用于日历的季度
 
-** 新的内置函数mapcan
-   It avoids unnecessary consing (and garbage collection).
+** 新的内置函数mapcan，避免不必要的链接(consing)和gc操作
 
-** 'car' and 'cdr' compositions 'cXXXr' and 'cXXXXr' are now part of Elisp.
+** car和cdr，以及cXXXr和cXXXXr的结构已经集成为Elisp一部分
 
 ** gensym已经集成进Elisp一部分
 
-** Low-level list functions like 'length' and 'member' now do a better
-   job of signaling list cycles instead of looping indefinitely.
+** 基础列表函数，如length和member，做了相应优化成列表循环
 
 ** 新增加函数make-nearby-temp-file和temporary-file-directory
    can be used for creation of temporary files on remote or mounted directories.
