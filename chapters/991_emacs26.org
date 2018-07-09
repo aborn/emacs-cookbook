@@ -1502,15 +1502,10 @@
    when a symbol's value is changed.  This is used to implement the new
    debugger command 'debug-on-variable-change'.
 
-** New variable 'print-escape-control-characters' causes 'prin1' and
+** 新变量print-escape-control-characters causes 'prin1' and
    'print' to output control characters as backslash sequences.
 
-** Time conversion functions that accept a time zone rule argument now
-   allow it to be OFFSET or a list (OFFSET ABBR), where the integer
-   OFFSET is a count of seconds east of Universal Time, and the string
-   ABBR is a time zone abbreviation.  The affected functions are
-   'current-time-string', 'current-time-zone', 'decode-time',
-   'format-time-string', and 'set-time-zone-rule'.
+** 时间转换函数支持时间区间规划参数，其可为OFFSET或者列表(OFFSET ABBR)整型的OFFSET是相对于UT(Universal Time)时间的东向偏移（单位秒）。字符串ABBR是时间区间的简写。受影响的函数有current-time-string, current-time-zone, decode-time,format-time-string和set-time-zone-rule.
 
 ** format-time-string函数支持%q，用于日历的季度
 
@@ -1522,8 +1517,7 @@
 
 ** 基础列表函数，如length和member，做了相应优化成列表循环
 
-** 新增加函数make-nearby-temp-file和temporary-file-directory
-   can be used for creation of temporary files on remote or mounted directories.
+** 新增加函数make-nearby-temp-file和temporary-file-directory，用于在远端或者所在目录创建临时文件
 
 ** 在GNU平台操作一个本地文件时，同时另一个进程改变文件系统时，file-attributes函数不再进行死循环；如果不是GNU的平台遇到同样情况，file-attributes尝试去检测死循环，同时返回nil
 
