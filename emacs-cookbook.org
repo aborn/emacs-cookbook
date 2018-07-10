@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-07-05 09:51
+#+DATE: 2018-07-10 09:41
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -456,6 +456,10 @@
    是用C语言写的，可被调用的函数；
 *** special form
    一种类型的内建函数，如if, and 和while
+* Buffer
+** Buffer
+** 创建Buffer
+  有两个函数可用于创建Buffer，它们是get-buffer-create和generate-new-buffer
 * 文件
 ** 文件及访问
   文件是操作系统永久保存数据的单元，为了编辑文件，我们必要告诉Emacs去读取一个文件，并将文件的内
@@ -2211,62 +2215,33 @@ ELISP>
    limited integer range) now signal an error if arguments are not
    integral.  For example '(decode-char 'ascii 0.5)' now signals an
    error.
-*** Functions 'string-trim-left', 'string-trim-right' and 'string-trim'
-   now accept optional arguments which specify the regexp of a substring
-   to trim.
-*** The new function 'char-from-name' converts a Unicode name string
-   to the corresponding character code.
-*** New functions 'sxhash-eq' and 'sxhash-eql' return hash codes of a
-   Lisp object suitable for use with 'eq' and 'eql' correspondingly.  If
-   two objects are 'eq' ('eql'), then the result of 'sxhash-eq'
-   ('sxhash-eql') on them will be the same.
-*** Function 'sxhash' has been renamed to 'sxhash-equal' for
-   consistency with the new functions.  For compatibility, 'sxhash'
-   remains as an alias to 'sxhash-equal'.
-*** 'make-hash-table' now defaults to a rehash threshold of 0.8125
-   instead of 0.8, to avoid rounding glitches.
-*** New function 'add-variable-watcher' can be used to call a function
-   when a symbol's value is changed.  This is used to implement the new
-   debugger command 'debug-on-variable-change'.
-*** New variable 'print-escape-control-characters' causes 'prin1' and
-   'print' to output control characters as backslash sequences.
-*** Time conversion functions that accept a time zone rule argument now
-   allow it to be OFFSET or a list (OFFSET ABBR), where the integer
-   OFFSET is a count of seconds east of Universal Time, and the string
-   ABBR is a time zone abbreviation.  The affected functions are
-   'current-time-string', 'current-time-zone', 'decode-time',
-   'format-time-string', and 'set-time-zone-rule'.
-*** 'format-time-string' now formats '%q' to the calendar quarter.
-*** 新的内置函数mapcan
-   It avoids unnecessary consing (and garbage collection).
-*** 'car' and 'cdr' compositions 'cXXXr' and 'cXXXXr' are now part of Elisp.
-*** 'gensym' is now part of Elisp.
-*** Low-level list functions like 'length' and 'member' now do a better
-   job of signaling list cycles instead of looping indefinitely.
-*** The new functions 'make-nearby-temp-file' and 'temporary-file-directory'
-   can be used for creation of temporary files on remote or mounted directories.
-*** On GNU platforms when operating on a local file, 'file-attributes'
-   no longer suffers from a race when called while another process is
-   altering the filesystem.  On non-GNU platforms 'file-attributes'
-   attempts to detect the race, and returns nil if it does so.
-*** The new function 'file-local-name' can be used to specify arguments
-   of remote processes.
-*** The new functions 'file-name-quote', 'file-name-unquote' and
-   'file-name-quoted-p' can be used to quote / unquote file names with
-   the prefix "/:".
-*** The new error 'file-missing', a subcategory of 'file-error', is now
-   signaled instead of 'file-error' if a file operation acts on a file
-   that does not exist.
-*** The function 'delete-directory' no longer signals an error when
-   operating recursively and when some other process deletes the directory
-   or its files before 'delete-directory' gets to them.
-*** New error type 'user-search-failed' like 'search-failed' but
-   avoids debugger like 'user-error'.
+*** 函数string-trim-left, string-trim-right和string-trim接受可选参数指定子串的正则表达式
+*** 新增函数char-from-name，作用于将Unicode编辑的字符串转换为对应的字符码(character code)
+*** 新增函数sxhash-eq和sxhash-eql返回一个Lisp对象的哈希值，其分别用于eq和eql函数。如果两个对象是eq(eql), 则其函数sxhash-eq(sxhash-eql)计算的哈希值也一样。
+*** 函数sxhash被重命名为sxhash-equal，为了兼容sxhash成为sxhash-equal别名
+*** make-hash-table默认的刷新阈值从0.8改成0.8125， 避免舍入的小问题
+*** 新增函数add-variable-watcher用于当一个变量的值发生变化时的函数调用。用于实现新的调试命令debug-on-variable-change
+*** 新变量print-escape-control-characters改变prin1和print输出控制字符为反斜杠
+*** 时间转换函数支持时间区间规划参数，其可为OFFSET或者列表(OFFSET ABBR)整型的OFFSET是相对于UT(Universal Time)时间的东向偏移（单位秒）。字符串ABBR是时间区间的简写。受影响的函数有current-time-string, current-time-zone, decode-time,format-time-string和set-time-zone-rule.
+*** format-time-string函数支持%q，用于日历的季度
+*** 新的内置函数mapcan，避免不必要的链接(consing)和gc操作
+*** car和cdr，以及cXXXr和cXXXXr的结构已经集成为Elisp一部分
+*** gensym已经集成进Elisp一部分
+*** 基础列表函数，如length和member，做了相应优化成列表循环
+*** 新增加函数make-nearby-temp-file和temporary-file-directory，用于在远端或者所在目录创建临时文件
+*** 在GNU平台操作一个本地文件时，同时另一个进程改变文件系统时，file-attributes函数不再进行死循环；如果不是GNU的平台遇到同样情况，file-attributes尝试去检测死循环，同时返回nil
+*** 新函数file-local-name可用于指定远端进程的参数
+*** 新增加函数file-name-quote、file-name-unquote和file-name-quoted-p
+   用于对文件名加前缀"/:"进行引用或者取消引用
+*** 新增错误类型file-missing作为file-error子类型
+   如果操作不存在的文件，将采用这种错误类型取代之前的file-error这种错误类型
+*** delete-directory函数的变化
+   当递归操作进行时，同时有其他进程在执行delete-directory前删除了目录或者文件时，不再抛错误异常。
+*** 新的错误类型user-search-failed，与search-failed类似，但像user-error一样禁止高度机制
 *** 函数line-number-at-pos的变化
-   函数line-number-at-pos支持传递第二个可选参数absolute。 如果这个参数为nil, 默认行为, this
-   function keeps on returning the line number taking potential narrowing
-   into account.  If this parameter is non-nil, the function ignores
-   narrowing and returns the absolute line number.
+   函数line-number-at-pos支持传递第二个可选参数absolute。 如果这个参数为nil, 默认将返回包
+   含收缩（potential narrowing）的行号。如果这个参数不为nil，它将不考虑收缩情况，返回绝对的
+   行号。
 *** 函数color-distance的调整
    函数color-distance在新版本支持第二个可选参数 *metric* 。当这个参数不为nil时，它将接收两
    个参数（两个颜色值）返回一个距离值。
@@ -2291,20 +2266,12 @@ ELISP>
 ***** 'override-redirect' 让窗口管理忽视当前frame
 ***** 'width' and 'height' 支持按比例指定和按像素值
 ***** 'left' and 'top' 支持按比例指定
-***** 'keep-ratio' preserves size and position of child frames when their
-     parent frame is resized.
-***** 'no-special-glyphs' suppresses display of truncation and
-     continuation glyphs in a frame.
-***** 'auto-hide-function' and 'minibuffer-exit' handle auto hiding of
-     frames and exiting from minibuffer individually.
-***** 'fit-frame-to-buffer-margins' and 'fit-frame-to-buffer-sizes'
-     handle fitting a frame to its buffer individually.
-***** 'drag-internal-border', 'drag-with-header-line',
-     'drag-with-mode-line', 'snap-width', 'top-visible' and 'bottom-visible'
-     allow dragging and resizing frames with the mouse.
-***** 'minibuffer' is now set to the default minibuffer window when
-     initially specified as nil and is not reset to nil when initially
-     specifying a minibuffer window.
+***** 'keep-ratio' 当父frame被调整时，保持子frame的大小和位置不变
+***** no-special-glyphs在frame中将覆盖截断和连续符号的显示
+***** auto-hide-function和minibuffer-exit分别用于处理自动隐藏frame和从minibuffer中退出
+***** fit-frame-to-buffer-margins和fit-frame-to-buffer-sizes用于处理frame对其buffer的大小适应
+***** drag-internal-border, drag-with-header-line, drag-with-mode-line, snap-width, top-visible and bottom-visible允许通过拖拽来调整frame的大小
+***** minibuffer当初始值被指定为nil时，设置为默认的minibuffer窗口
 **** 新增函数frame-list-z-order返回按z(栈)顺序的frame列表
 **** 函数'x-focus-frame'不激活它的frame变成可选项
 **** 变量focus-follows-mouse增加第三个有意义的值auto-raise
@@ -2339,10 +2306,8 @@ ELISP>
     交换两个窗口的内容。
 **** 新增window-pixel-width-before-size-change和window-pixel-height-before-size-change函数
     用于当window-size-change-functions运行里，检测哪个窗口大小发生了变化
-**** 新增加函数window-lines-pixel-dimensions
-    这个函数返回一个窗口文本行的像素大小
-**** 新增函数 'window-largest-empty-rectangle'
-    这个函数返回在窗口里没有文本的最大矩形区域大小
+**** 新增函数window-lines-pixel-dimensions用于返回一个窗口文本行的像素大小
+**** 新增函数window-largest-empty-rectangle用于返回在窗口里没有文本区域最大矩形大小
 **** 函数'mouse-autoselect-window'语义微调
     详情参考Elisp手册里的"(elisp) Mouse Window Auto-selection"函数。
 **** 'select-frame-by-name' 在当前的显示器里无法找到一个匹配的frame，可返回一个在其他显示器上的frame
@@ -2388,7 +2353,7 @@ ELISP>
    4. macOS 10.8+系统里使用'ns-use-thin-smoothing'开启瘦字段更加柔和；
    5. Darwin系统'process-attributes'返回更多信息；
    6. macOS 10.7+ 鼠标方向键和触摸板的滚动效果表现更加与原生系统相同，新增变量'ns-mwheel-line-height' 、'ns-use-mwheel-acceleration'和'ns-use-mwheel-momentum'用来定制化这些行为。
-** GNU Emacs协议文件说明原文
+** GNU Emacs协议声明原文
   This file is part of GNU Emacs.
   GNU Emacs is free software: you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
