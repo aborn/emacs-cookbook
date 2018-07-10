@@ -1320,9 +1320,7 @@
 
 * Emacs 26.1中Lisp的变化
 
-** The function 'assoc' now takes an optional third argument TESTFN.
-   This argument, when non-nil, is used for comparison instead of
-   'equal'.
+** 函数assoc接受一个可选的第三位参数TESTFN，当这个参数不为nil时，其用于比较而不是相等
 
 ** New optional argument TESTFN in 'alist-get', 'map-elt' and 'map-put'.
    If non-nil, the argument specifies a function to use for comparison,
