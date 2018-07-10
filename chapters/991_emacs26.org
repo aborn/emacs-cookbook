@@ -1491,12 +1491,9 @@
    two objects are 'eq' ('eql'), then the result of 'sxhash-eq'
    ('sxhash-eql') on them will be the same.
 
-** Function 'sxhash' has been renamed to 'sxhash-equal' for
-   consistency with the new functions.  For compatibility, 'sxhash'
-   remains as an alias to 'sxhash-equal'.
+** 函数sxhash被重命名为sxhash-equal，为了兼容sxhash成为sxhash-equal别名
 
-** 'make-hash-table' now defaults to a rehash threshold of 0.8125
-   instead of 0.8, to avoid rounding glitches.
+** make-hash-table默认的刷新阈值从0.8改成0.8125， 避免舍入的小问题
 
 ** 新增函数add-variable-watcher用于当一个变量的值发生变化时的函数调用。用于实现新的调试命令debug-on-variable-change
 
