@@ -1462,10 +1462,7 @@
    due to internal rounding errors.  For example, '(< most-positive-fixnum
    (+ 1.0 most-positive-fixnum))' now correctly returns t on 64-bit hosts.
 
-** The functions 'ffloor', 'fceiling', 'ftruncate' and 'fround' now
-   accept only floating-point arguments, as per their documentation.
-   Formerly, they quietly accepted integer arguments and sometimes
-   returned nonsensical answers, e.g., '(< N (ffloor N))' could return t.
+** 函数ffloor, fceiling, ftruncate和fround如文档所述只接受浮点类型参数。先前是可接受整型参数有些会返回无意义的结果如(< N (ffloor N))返回t
 
 ** On hosts like GNU/Linux x86-64 where a 'long double' fraction
    contains at least EMACS_INT_WIDTH - 3 bits, 'format' no longer returns
@@ -1474,10 +1471,7 @@
    these hosts '(eql N (string-to-number (format "%.0f" N)))' now returns
    t for all Emacs integers N.
 
-** Calls that accept floating-point integers (for use on hosts with
-   limited integer range) now signal an error if arguments are not
-   integral.  For example '(decode-char 'ascii 0.5)' now signals an
-   error.
+** 调用那些浮点类型的整型时会抛出异常（如果传入的参数不是整型）例如(decode-char 'ascii 0.5)现在会抛出错误异常
 
 ** 函数string-trim-left, string-trim-right和string-trim接受可选参数指定子串的正则表达式
 
