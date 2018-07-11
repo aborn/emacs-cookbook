@@ -1456,18 +1456,11 @@
    compares their numerical values.  According to this predicate,
    "foo2.png" is smaller than "foo12.png".
 
-** Numeric comparisons and 'logb' no longer return incorrect answers
-   due to internal rounding errors.  For example, '(< most-positive-fixnum
-   (+ 1.0 most-positive-fixnum))' now correctly returns t on 64-bit hosts.
+** 数值比较和logb操作由于内部数据的取位操作，不再返回精确值。例如(< most-positive-fixnum (+ 1.0 most-positive-fixnum))在64位的机器上返回t
 
 ** 函数ffloor, fceiling, ftruncate和fround如文档所述只接受浮点类型参数。先前是可接受整型参数有些会返回无意义的结果如(< N (ffloor N))返回t
 
-** On hosts like GNU/Linux x86-64 where a 'long double' fraction
-   contains at least EMACS_INT_WIDTH - 3 bits, 'format' no longer returns
-   incorrect answers due to internal rounding errors when formatting
-   Emacs integers with '%e', '%f', or '%g' conversions.  For example, on
-   these hosts '(eql N (string-to-number (format "%.0f" N)))' now returns
-   t for all Emacs integers N.
+** 在GNU/Linux x86-64机器上的长浮点型位数至少包含EMACS_INT_WIDTH - 3个bit。格式化返回不正确值是由于取舍问题，例如(eql N (string-to-number (format "%.0f" N)))现在返回t
 
 ** 调用那些浮点类型的整型时会抛出异常（如果传入的参数不是整型）例如(decode-char 'ascii 0.5)现在会抛出错误异常
 
