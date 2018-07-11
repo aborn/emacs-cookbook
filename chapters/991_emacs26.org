@@ -1435,26 +1435,15 @@
    to an interactively callable function as a single argument instead of
    two separate arguments 'region-beginning' and 'region-end'.
 
-** 'parse-partial-sexp' state has a new element.  Element 10 is
-   non-nil when the last character scanned might be the first character
-   of a two character construct, i.e., a comment delimiter or escaped
-   character.  Its value is the syntax of that last character.
+** parse-partial-sexp函数的返回列表新增一种元素，元素10。 当最后一个被扫描的字符可能是两个结构字符的第一个字符时，如注释符，这个元素的值就是最一个字符的语法值
 
-** 'parse-partial-sexp's state, element 9, has now been confirmed as
-   permanent and documented, and may be used by Lisp programs.  Its value
-   is a list of currently open parenthesis positions, starting with the
-   outermost parenthesis.
+** parse-partial-sexp函数返回列表的第9个元素作为固定返回元素，可用于Lisp编程。它的值是括号所含位置的列表，从最外层开始。
 
-** 'read-color' will now display the color names using the color itself
-   as the background color.
+** read-color在将颜色作为背景色时将显示颜色名
 
-** The function 'redirect-debugging-output' now works on platforms
-   other than GNU/Linux.
+** 函数redirect-debugging-output可在非GNU/Linux平台上运行
 
-** The new function 'string-version-lessp' compares strings by
-   interpreting consecutive runs of numerical characters as numbers, and
-   compares their numerical values.  According to this predicate,
-   "foo2.png" is smaller than "foo12.png".
+** 新增函数string-version-lessp比较两个字符串，这里会把不连续的数字解析成数值，然后进行比较例如"foo2.png"比"foo12.png"小
 
 ** 数值比较和logb操作由于内部数据的取位操作，不再返回精确值。例如(< most-positive-fixnum (+ 1.0 most-positive-fixnum))在64位的机器上返回t
 
