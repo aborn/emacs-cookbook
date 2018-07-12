@@ -1416,19 +1416,13 @@
    Set 'autoload-timestamps' to a non-nil value to get timestamps in
    autoload files.
 
-** 'gnutls-boot' now takes a parameter ':complete-negotiation' that
-   says that negotiation should complete even on non-blocking sockets.
+** gnutls-boot接受一个参数:complete-negotiation，表示即使在非阻塞的socket链接里协商应该完成
 
-** There is now a new variable 'flyspell-sort-corrections-function'
-   that allows changing the way corrections are sorted.
+** 新增变量flyspell-sort-corrections-function，它是flyspell.el库里的变量，用于排序修正
 
-** The new command 'fortune-message' has been added, which displays
-   fortunes in the echo area.
+** 新增命令fortune-message用于在echo区域显示名言警句
 
-** 新增函数func-arity返回任意函数的参数列表信息 returns information about the argument list
-   of an arbitrary function.  This generalizes 'subr-arity' for functions
-   that are not built-in primitives.  We recommend using this new
-   function instead of 'subr-arity'.
+** 新增函数func-arity返回任意函数的参数列表信息，用于替代之前的subr-arity
 
 ** 新增函数region-bounds用于交互情境，主要用于提供区域边界（超过一个的长方形区域），只需要传递一个参数，取代之前的两个参数(region-beginning和region-end)
 
