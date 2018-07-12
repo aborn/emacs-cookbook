@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-07-10 09:41
+#+DATE: 2018-07-12 09:52
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -2095,9 +2095,7 @@ ELISP>
    the attack is unrealistic on modern computer systems which don't
    utilize swap memory usually.
 ** Emacs 26.1中Lisp的变化
-*** The function 'assoc' now takes an optional third argument TESTFN.
-   This argument, when non-nil, is used for comparison instead of
-   'equal'.
+*** 函数assoc接受一个可选的第三位参数TESTFN，当这个参数不为nil时，其用于比较而不是相等
 *** New optional argument TESTFN in 'alist-get', 'map-elt' and 'map-put'.
    If non-nil, the argument specifies a function to use for comparison,
    instead of, respectively, 'assq' and 'eql'.
@@ -2149,72 +2147,27 @@ ELISP>
    to decide which buffers to ask about, if the PRED argument is nil.
    The default value of 'save-some-buffers-default-predicate' is nil,
    which means ask about all file-visiting buffers.
-*** string-(to|as|make)-(uni|multi)byte are now declared obsolete.
-*** New variable 'while-no-input-ignore-events' which allow
-   setting which special events 'while-no-input' should ignore.
-   It is a list of symbols.
-*** New function 'undo-amalgamate-change-group' to get rid of
-   undo-boundaries between two states.
-*** New var 'definition-prefixes' is a hash table mapping prefixes to
-   the files where corresponding definitions can be found.  This can be
-   used to fetch definitions that are not yet loaded, for example for
-   'C-h f'.
-*** New var 'syntax-ppss-table' to control the syntax-table used in
-   'syntax-ppss'.
-*** 'define-derived-mode' can now specify an :after-hook form, which
-   gets evaluated after the new mode's hook has run.  This can be used to
-   incorporate configuration changes made in the mode hook into the
-   mode's setup.
-*** Autoload files are now generated without timestamps.
-   Set 'autoload-timestamps' to a non-nil value to get timestamps in
-   autoload files.
-*** 'gnutls-boot' now takes a parameter ':complete-negotiation' that
-   says that negotiation should complete even on non-blocking sockets.
-*** There is now a new variable 'flyspell-sort-corrections-function'
-   that allows changing the way corrections are sorted.
-*** The new command 'fortune-message' has been added, which displays
-   fortunes in the echo area.
-*** New function 'func-arity' returns information about the argument list
-   of an arbitrary function.  This generalizes 'subr-arity' for functions
-   that are not built-in primitives.  We recommend using this new
-   function instead of 'subr-arity'.
-*** New function 'region-bounds' can be used in the interactive spec
-   to provide region boundaries (for rectangular regions more than one)
-   to an interactively callable function as a single argument instead of
-   two separate arguments 'region-beginning' and 'region-end'.
-*** 'parse-partial-sexp' state has a new element.  Element 10 is
-   non-nil when the last character scanned might be the first character
-   of a two character construct, i.e., a comment delimiter or escaped
-   character.  Its value is the syntax of that last character.
-*** 'parse-partial-sexp's state, element 9, has now been confirmed as
-   permanent and documented, and may be used by Lisp programs.  Its value
-   is a list of currently open parenthesis positions, starting with the
-   outermost parenthesis.
-*** 'read-color' will now display the color names using the color itself
-   as the background color.
-*** The function 'redirect-debugging-output' now works on platforms
-   other than GNU/Linux.
-*** The new function 'string-version-lessp' compares strings by
-   interpreting consecutive runs of numerical characters as numbers, and
-   compares their numerical values.  According to this predicate,
-   "foo2.png" is smaller than "foo12.png".
-*** Numeric comparisons and 'logb' no longer return incorrect answers
-   due to internal rounding errors.  For example, '(< most-positive-fixnum
-   (+ 1.0 most-positive-fixnum))' now correctly returns t on 64-bit hosts.
-*** The functions 'ffloor', 'fceiling', 'ftruncate' and 'fround' now
-   accept only floating-point arguments, as per their documentation.
-   Formerly, they quietly accepted integer arguments and sometimes
-   returned nonsensical answers, e.g., '(< N (ffloor N))' could return t.
-*** On hosts like GNU/Linux x86-64 where a 'long double' fraction
-   contains at least EMACS_INT_WIDTH - 3 bits, 'format' no longer returns
-   incorrect answers due to internal rounding errors when formatting
-   Emacs integers with '%e', '%f', or '%g' conversions.  For example, on
-   these hosts '(eql N (string-to-number (format "%.0f" N)))' now returns
-   t for all Emacs integers N.
-*** Calls that accept floating-point integers (for use on hosts with
-   limited integer range) now signal an error if arguments are not
-   integral.  For example '(decode-char 'ascii 0.5)' now signals an
-   error.
+*** string-(to|as|make)-(uni|multi)byte 被声明为废弃
+*** 新变量while-no-input-ignore-events用于设置哪些特定的while-no-input事件可以被忽略，它的值是一个symbol的列表
+*** 新增函数undo-amalgamate-change-group去除两个状态undo之间的边界
+*** 新变量definition-prefixes是有相应文件定义的哈希表的映射前缀，可用于获取那些还没加载的定义(如C-h f)。
+*** 新变量syntax-ppss-table用于在syntax-ppss控制syntax-table
+*** define-derived-mode可指定一个:after-hook形式, 当新的mode的hook被执行后它将被求值，可用于在mode启动时，mode-hook引起配置发生变化的情况
+*** 自动加载产生的文件名不包含时间戳，可通过设置变量autoload-timestamps的值不是nil产生时间戳
+*** gnutls-boot接受一个参数:complete-negotiation，表示即使在非阻塞的socket链接里协商应该完成
+*** 新增变量flyspell-sort-corrections-function，它是flyspell.el库里的变量，用于排序修正
+*** 新增命令fortune-message用于在echo区域显示名言警句
+*** 新增函数func-arity返回任意函数的参数列表信息，用于替代之前的subr-arity
+*** 新增函数region-bounds用于交互情境，主要用于提供区域边界（超过一个的长方形区域），只需要传递一个参数，取代之前的两个参数(region-beginning和region-end)
+*** parse-partial-sexp函数的返回列表新增一种元素，元素10。 当最后一个被扫描的字符可能是两个结构字符的第一个字符时，如注释符，这个元素的值就是最一个字符的语法值
+*** parse-partial-sexp函数返回列表的第9个元素作为固定返回元素，可用于Lisp编程。它的值是括号所含位置的列表，从最外层开始。
+*** read-color在将颜色作为背景色时将显示颜色名
+*** 函数redirect-debugging-output可在非GNU/Linux平台上运行
+*** 新增函数string-version-lessp比较两个字符串，这里会把不连续的数字解析成数值，然后进行比较例如"foo2.png"比"foo12.png"小
+*** 数值比较和logb操作由于内部数据的取位操作，不再返回精确值。例如(< most-positive-fixnum (+ 1.0 most-positive-fixnum))在64位的机器上返回t
+*** 函数ffloor, fceiling, ftruncate和fround如文档所述只接受浮点类型参数。先前是可接受整型参数有些会返回无意义的结果如(< N (ffloor N))返回t
+*** 在GNU/Linux x86-64机器上的长浮点型位数至少包含EMACS_INT_WIDTH - 3个bit。格式化返回不正确值是由于取舍问题，例如(eql N (string-to-number (format "%.0f" N)))现在返回t
+*** 调用那些浮点类型的整型时会抛出异常（如果传入的参数不是整型）例如(decode-char 'ascii 0.5)现在会抛出错误异常
 *** 函数string-trim-left, string-trim-right和string-trim接受可选参数指定子串的正则表达式
 *** 新增函数char-from-name，作用于将Unicode编辑的字符串转换为对应的字符码(character code)
 *** 新增函数sxhash-eq和sxhash-eql返回一个Lisp对象的哈希值，其分别用于eq和eql函数。如果两个对象是eq(eql), 则其函数sxhash-eq(sxhash-eql)计算的哈希值也一样。
