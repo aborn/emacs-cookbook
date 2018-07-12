@@ -1326,7 +1326,7 @@
    If non-nil, the argument specifies a function to use for comparison,
    instead of, respectively, 'assq' and 'eql'.
 
-** New function 'seq-set-equal-p' to check if SEQUENCE1 and SEQUENCE2
+** 新增函数seq-set-equal-p用于 to check if SEQUENCE1 and SEQUENCE2
    contain the same elements, regardless of the order.
 
 ** The new function 'mapbacktrace' applies a function to all frames of
