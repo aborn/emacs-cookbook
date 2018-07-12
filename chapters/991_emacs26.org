@@ -1425,15 +1425,12 @@
 ** The new command 'fortune-message' has been added, which displays
    fortunes in the echo area.
 
-** New function 'func-arity' returns information about the argument list
+** 新增函数func-arity返回任意函数的参数列表信息 returns information about the argument list
    of an arbitrary function.  This generalizes 'subr-arity' for functions
    that are not built-in primitives.  We recommend using this new
    function instead of 'subr-arity'.
 
-** 新增加函数region-bounds可用于交互式环境 can be used in the interactive spec
-   to provide region boundaries (for rectangular regions more than one)
-   to an interactively callable function as a single argument instead of
-   two separate arguments 'region-beginning' and 'region-end'.
+** 新增函数region-bounds用于交互情境，主要用于提供区域边界（超过一个的长方形区域），只需要传递一个参数，取代之前的两个参数(region-beginning和region-end)
 
 ** parse-partial-sexp函数的返回列表新增一种元素，元素10。 当最后一个被扫描的字符可能是两个结构字符的第一个字符时，如注释符，这个元素的值就是最一个字符的语法值
 
