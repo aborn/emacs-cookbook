@@ -1390,31 +1390,19 @@
    The default value of 'save-some-buffers-default-predicate' is nil,
    which means ask about all file-visiting buffers.
 
-** string-(to|as|make)-(uni|multi)byte are now declared obsolete.
+** string-(to|as|make)-(uni|multi)byte 被声明为废弃
 
-** New variable 'while-no-input-ignore-events' which allow
-   setting which special events 'while-no-input' should ignore.
-   It is a list of symbols.
+** 新变量while-no-input-ignore-events用于设置哪些特定的while-no-input事件可以被忽略，它的值是一个symbol的列表
 
-** New function 'undo-amalgamate-change-group' to get rid of
-   undo-boundaries between two states.
+** 新增函数undo-amalgamate-change-group去除两个状态undo之间的边界
 
-** New var 'definition-prefixes' is a hash table mapping prefixes to
-   the files where corresponding definitions can be found.  This can be
-   used to fetch definitions that are not yet loaded, for example for
-   'C-h f'.
+** 新变量definition-prefixes是有相应文件定义的哈希表的映射前缀，可用于获取那些还没加载的定义(如C-h f)。
 
-** New var 'syntax-ppss-table' to control the syntax-table used in
-   'syntax-ppss'.
+** 新变量syntax-ppss-table用于在syntax-ppss控制syntax-table
 
-** 'define-derived-mode' can now specify an :after-hook form, which
-   gets evaluated after the new mode's hook has run.  This can be used to
-   incorporate configuration changes made in the mode hook into the
-   mode's setup.
+** define-derived-mode可指定一个:after-hook形式, 当新的mode的hook被执行后它将被求值，可用于在mode启动时，mode-hook引起配置发生变化的情况
 
-** Autoload files are now generated without timestamps.
-   Set 'autoload-timestamps' to a non-nil value to get timestamps in
-   autoload files.
+** 自动加载产生的文件名不包含时间戳，可通过设置变量autoload-timestamps的值不是nil产生时间戳
 
 ** gnutls-boot接受一个参数:complete-negotiation，表示即使在非阻塞的socket链接里协商应该完成
 
