@@ -1358,19 +1358,13 @@
 ** 'comment-indent-function' values may now return a cons to specify a
    range of indentation.
 
-** New optional argument TEXT in 'make-temp-file'.
+** 函数make-temp-file新增加一个可选参数TEXT
 
-** New function 'define-symbol-prop'.
+** 新增函数define-symbol-prop
 
-** New function 'secure-hash-algorithms' to list the algorithms that
-   'secure-hash' supports.
-   See the node "(elisp) Checksum/Hash" in the ELisp manual for details.
+** 新增函数secure-hash-algorithms，其返回secure-hash支持的算法列表，详情请参考Emacs手册
 
-** Emacs now exposes the GnuTLS cryptographic API with the functions
-   'gnutls-macs' and 'gnutls-hash-mac'; 'gnutls-digests' and
-   'gnutls-hash-digest'; 'gnutls-ciphers' and 'gnutls-symmetric-encrypt'
-   and 'gnutls-symmetric-decrypt'.
-   See the node "(elisp) GnuTLS Cryptography" in the ELisp manual for details.
+** Emacs开放了GnuTLS的加密接口(API)，其对应的函数为gnutls-macs和gnutls-hash-mac; gnutls-digests和gnutls-hash-digest; gnutls-ciphers和gnutls-symmetric-encrypt和gnutls-symmetric-decrypt
 
 ** 函数gnutls-available-p返回在Emacs中支持的GnuTLS库的功能列表
 
