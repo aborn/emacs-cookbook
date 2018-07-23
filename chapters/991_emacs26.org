@@ -1322,17 +1322,13 @@
 
 ** 函数assoc接受一个可选的第三位参数TESTFN，当这个参数不为空时，其用于比较而不是相等
 
-** New optional argument TESTFN in 'alist-get', 'map-elt' and 'map-put'.
-   If non-nil, the argument specifies a function to use for comparison,
-   instead of, respectively, 'assq' and 'eql'.
+** 在alist-get、map-elt和map-put中新增可选参数TESTFN，当不为nil时，这个参数指定一个具体的比较函数，而不是用默认的assq和eql
 
 ** 新增函数seq-set-equal-p用于检查SEQUENCE1和SEQUENCE2是否含有相同元素（不考虑顺序）
 
-** The new function 'mapbacktrace' applies a function to all frames of
-   the current stack trace.
+** 新增函数mapbacktrace，用于将一个函数应用于当前椎栈的所有frames中
 
-** The new function 'file-name-case-insensitive-p' tests whether a
-   given file is on a case-insensitive filesystem.
+** 新增函数file-name-case-insensitive-p测试给定的一个文件是否在一个不区分大小写的文件系统里
 
 ** Several accessors for the value returned by 'file-attributes'
    have been added.  They are: 'file-attribute-type',
@@ -1343,8 +1339,7 @@
    'file-attribute-modes', 'file-attribute-inode-number',
    'file-attribute-device-number' and 'file-attribute-collect'.
 
-** The new function 'buffer-hash' computes a fast, non-consing hash of
-   a buffer's contents.
+** 新增函数buffer-hash用于快速计算一个Buffer内容的非连续(non-consing)的哈希值
 
 ** 'interrupt-process' now consults the list 'interrupt-process-functions',
    to determine which function has to be called in order to deliver the
@@ -1352,11 +1347,9 @@
    asynchronous processes.  The hitherto existing implementation has been
    moved to 'internal-default-interrupt-process'.
 
-** The new function 'read-multiple-choice' prompts for multiple-choice
-   questions, with a handy way to display help texts.
+** 函数read-multiple-choice弹出多选择提问窗，提供一种手工方式来显示帮助信息
 
-** 'comment-indent-function' values may now return a cons to specify a
-   range of indentation.
+** comment-indent-function的值可返回一个cons用于指定格式化范围
 
 ** 函数make-temp-file新增加一个可选参数TEXT
 
