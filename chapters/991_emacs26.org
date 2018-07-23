@@ -1384,10 +1384,7 @@
    package-naming conventions for naming those types.  This is so any
    potential conflicts with other types are avoided.
 
-** 'save-some-buffers' now uses 'save-some-buffers-default-predicate'
-   to decide which buffers to ask about, if the PRED argument is nil.
-   The default value of 'save-some-buffers-default-predicate' is nil,
-   which means ask about all file-visiting buffers.
+** save-some-buffers采用save-some-buffers-default-predicate决定哪些buffer会被确定询问，当PRED参数为nil时，save-some-buffers-default-predicate也为nil，表示询问所有正在访问的Buffer。
 
 ** string-(to|as|make)-(uni|multi)byte 被声明为废弃
 
