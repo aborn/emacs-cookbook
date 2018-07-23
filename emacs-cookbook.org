@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-07-12 09:52
+#+DATE: 2018-07-23 09:39
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -2095,12 +2095,11 @@ ELISP>
    the attack is unrealistic on modern computer systems which don't
    utilize swap memory usually.
 ** Emacs 26.1中Lisp的变化
-*** 函数assoc接受一个可选的第三位参数TESTFN，当这个参数不为nil时，其用于比较而不是相等
+*** 函数assoc接受一个可选的第三位参数TESTFN，当这个参数不为空时，其用于比较而不是相等
 *** New optional argument TESTFN in 'alist-get', 'map-elt' and 'map-put'.
    If non-nil, the argument specifies a function to use for comparison,
    instead of, respectively, 'assq' and 'eql'.
-*** New function 'seq-set-equal-p' to check if SEQUENCE1 and SEQUENCE2
-   contain the same elements, regardless of the order.
+*** 新增函数seq-set-equal-p用于检查SEQUENCE1和SEQUENCE2是否含有相同元素（不考虑顺序）
 *** The new function 'mapbacktrace' applies a function to all frames of
    the current stack trace.
 *** The new function 'file-name-case-insensitive-p' tests whether a
@@ -2124,29 +2123,13 @@ ELISP>
    questions, with a handy way to display help texts.
 *** 'comment-indent-function' values may now return a cons to specify a
    range of indentation.
-*** New optional argument TEXT in 'make-temp-file'.
-*** New function 'define-symbol-prop'.
-*** New function 'secure-hash-algorithms' to list the algorithms that
-   'secure-hash' supports.
-   See the node "(elisp) Checksum/Hash" in the ELisp manual for details.
-*** Emacs now exposes the GnuTLS cryptographic API with the functions
-   'gnutls-macs' and 'gnutls-hash-mac'; 'gnutls-digests' and
-   'gnutls-hash-digest'; 'gnutls-ciphers' and 'gnutls-symmetric-encrypt'
-   and 'gnutls-symmetric-decrypt'.
-   See the node "(elisp) GnuTLS Cryptography" in the ELisp manual for details.
-*** The function 'gnutls-available-p' now returns a list of capabilities
-   supported by the GnuTLS library used by Emacs.
-*** Emacs now supports records for user-defined types, via the new
-   functions 'make-record', 'record', and 'recordp'.  Records are now
-   used internally to represent cl-defstruct and defclass instances, for
-   example.
-   If your program defines new record types, you should use
-   package-naming conventions for naming those types.  This is so any
-   potential conflicts with other types are avoided.
-*** 'save-some-buffers' now uses 'save-some-buffers-default-predicate'
-   to decide which buffers to ask about, if the PRED argument is nil.
-   The default value of 'save-some-buffers-default-predicate' is nil,
-   which means ask about all file-visiting buffers.
+*** 函数make-temp-file新增加一个可选参数TEXT
+*** 新增函数define-symbol-prop
+*** 新增函数secure-hash-algorithms，其返回secure-hash支持的算法列表，详情请参考Emacs手册
+*** Emacs开放了GnuTLS的加密接口(API)，其对应的函数为gnutls-macs和gnutls-hash-mac; gnutls-digests和gnutls-hash-digest; gnutls-ciphers和gnutls-symmetric-encrypt和gnutls-symmetric-decrypt
+*** 函数gnutls-available-p返回在Emacs中支持的GnuTLS库的功能列表
+*** Emacs可通过新函数make-record、record和recordp来实现用户定义类型的记录。记录用于描述cl-defstruct和defclass的实例。例如当你的代码里定义了新的记录类型，使用package-naming去命名这些类型，从而且避免类型冲突。
+*** save-some-buffers采用save-some-buffers-default-predicate决定哪些buffer会被确定询问，当PRED参数为nil时，save-some-buffers-default-predicate也为nil，表示询问所有正在访问的Buffer。
 *** string-(to|as|make)-(uni|multi)byte 被声明为废弃
 *** 新变量while-no-input-ignore-events用于设置哪些特定的while-no-input事件可以被忽略，它的值是一个symbol的列表
 *** 新增函数undo-amalgamate-change-group去除两个状态undo之间的边界
