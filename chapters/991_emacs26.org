@@ -1277,36 +1277,28 @@
    advantage of the doc change to avoid making copies of strings in
    common cases like (format "foo") and (format "%s" "foo").
 
-** The function 'eldoc-message' now accepts a single argument.
+** 函数eldoc-message可接收一个参数
    Programs that called it with multiple arguments before should pass
    them through 'format' first.  Even that is discouraged: for ElDoc
    support, you should set 'eldoc-documentation-function' instead of
    calling 'eldoc-message' directly.
 
-** Using '&rest' or '&optional' incorrectly is now an error.
-   For example giving '&optional' without a following variable, or
-   passing '&optional' multiple times:
-
+** 对&rest或者&optional不正确的使用作为一种错误类型处理
+   例如&optional后面没有一个变量，或者对&optional多次使用：
+   #+BEGIN_SRC emacs-lisp
    (defun foo (&optional &rest x))
    (defun bar (&optional &optional x))
+   #+END_SRC
+   老版本里，Emacs只是忽略额外的关键字，或者在某种情况下给出一个不正确的结果。
 
-   Previously, Emacs would just ignore the extra keyword, or give
-   incorrect results in certain cases.
+** pinentry.el库被移除
+   这个库以及对GnuPG和pinentry的修改目的是使得Emacs可采用GnuPG2.0来实现密码的输入。然而，
+   这次修改变动只针对GnuPG大于2.1（包含）版本做了实现，对GnuPG2.0版本不兼容。对于GnuPG2.1及
+   后续版本，不再需要pinentry.el。因此这个库成了无用库，被我们移除了。GnuPG 2.0不再被上游项
+   目支持。
 
-** The pinentry.el library has been removed.
-   That package (and the corresponding change in GnuPG and pinentry)
-   was intended to provide a way to input passphrase through Emacs with
-   GnuPG 2.0.  However, the change to support that was only implemented
-   in GnuPG >= 2.1 and didn't get backported to GnuPG 2.0.  And with
-   GnuPG 2.1 and later, pinentry.el is not needed at all.  So the
-   library was useless, and we removed it.  GnuPG 2.0 is no longer
-   supported by the upstream project.
-
-   To adapt to the change, you may need to set 'epa-pinentry-mode' to the
-   symbol 'loopback'.  Alternatively, leave 'epa-pinentry-mode' at its
-   default value of nil, and remove the 'allow-emacs-pinentry' setting
-   from your 'gpg-agent.conf' configuration file, usually found in the
-   '~/.gnupg' directory.
+   为了兼容这个变化，你需要设置epa-pinentry-mode为loopback，或者为默认值nil。从你的
+   gpg-agent.conf配置文件里删除allow-emacs-pinentry（一般在~/.gnupg目录)。
 
    Note that previously, it was said that passphrase input through
    minibuffer would be much less secure than other graphical pinentry
@@ -1338,7 +1330,9 @@
 
 ** 新增函数buffer-hash用于快速计算一个Buffer内容的非连续(non-consing)的哈希值
 
-** interrupt-process采用列表interrupt-process-functions来实现传递SIGINT信号决定哪个函数会被调用。这可使Tramp实现向远程异步进程发送SIGINT信号。老的实现方式被迁移到internal-default-interrupt-process。
+** interrupt-process的变化
+   interrupt-process采用列表interrupt-process-functions来实现传递SIGINT信号决定哪个函
+   数会被调用。这可使Tramp实现向远程异步进程发送SIGINT信号。老的实现方式被迁移到internal-default-interrupt-process。
 
 ** 函数read-multiple-choice弹出多选择提问窗，提供一种手工方式来显示帮助信息
 
@@ -1350,11 +1344,14 @@
 
 ** 新增函数secure-hash-algorithms，其返回secure-hash支持的算法列表，详情请参考Emacs手册
 
-** Emacs开放了GnuTLS的加密接口(API)，其对应的函数为gnutls-macs和gnutls-hash-mac; gnutls-digests和gnutls-hash-digest; gnutls-ciphers和gnutls-symmetric-encrypt和gnutls-symmetric-decrypt
+** Emacs开放了GnuTLS的加密接口(API)
+   对应的函数为gnutls-macs和gnutls-hash-mac; gnutls-digests和gnutls-hash-digest;
+   gnutls-ciphers和gnutls-symmetric-encrypt和gnutls-symmetric-decrypt
 
 ** 函数gnutls-available-p返回在Emacs中支持的GnuTLS库的功能列表
 
-** Emacs可通过新函数make-record、record和recordp来实现用户定义类型的记录。记录用于描述cl-defstruct和defclass的实例。例如当你的代码里定义了新的记录类型，使用package-naming去命名这些类型，从而且避免类型冲突。
+** Emacs可通过新函数make-record、record和recordp来实现用户定义类型的记录。
+   记录用于描述cl-defstruct和defclass的实例。例如当你的代码里定义了新的记录类型，使用package-naming去命名这些类型，从而且避免类型冲突。
 
 ** save-some-buffers采用save-some-buffers-default-predicate决定哪些buffer会被确定询问，当PRED参数为nil时，save-some-buffers-default-predicate也为nil，表示询问所有正在访问的Buffer。
 
