@@ -1262,26 +1262,22 @@
    'make-symbolic-link', 'rename-file', 'thumbs-rename-images', and
    'write-file'.
 
-** The list returned by 'overlays-at' is now in decreasing priority order.
+** overlays-at返回的结果列表按优先级降序排列
    The documentation of this function always said the order should be
    that of decreasing priority, if the 2nd argument of the function is
    non-nil, but the code returned the list in the increasing order of
    priority instead.  Now the code does what the documentation says it
    should do.
 
-** 'format' now avoids allocating a new string in more cases.
-   'format' was previously documented to return a newly-allocated string,
-   but this documentation was not correct, as (eq x (format x)) returned
-   t when x was the empty string.  'format' is no longer documented to
-   return a newly-allocated string, and the implementation now takes
-   advantage of the doc change to avoid making copies of strings in
-   common cases like (format "foo") and (format "%s" "foo").
+** format的优化
+   format避免了在大多数据情况下分配一个新的字符串。format在之前的文档中返回一个新分配的字符串,
+   但这文档说明不是很准确，由于 *(eq x (format x))* 在x是一个空字符串时，返回的是t。format
+   文档中不再提及返回一个新分配的字符串，当前的实现如在文档中提及的那样避免了大部分情况下字符串的
+   无用拷贝，如 *(format "foo")* 和 *(format "%s" "foo")* 。
 
 ** 函数eldoc-message可接收一个参数
-   Programs that called it with multiple arguments before should pass
-   them through 'format' first.  Even that is discouraged: for ElDoc
-   support, you should set 'eldoc-documentation-function' instead of
-   calling 'eldoc-message' directly.
+   在对多参数的程序调用之前，应该对其进行format操作。尽管不鼓励这样做，对ElDoc的支持，通过设置
+   eldoc-documentation-function函数，而不是直接调用eldoc-message。
 
 ** 对&rest或者&optional不正确的使用作为一种错误类型处理
    例如&optional后面没有一个变量，或者对&optional多次使用：
