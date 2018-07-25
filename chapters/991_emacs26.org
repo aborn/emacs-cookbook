@@ -1300,15 +1300,9 @@
    为了兼容这个变化，你需要设置epa-pinentry-mode为loopback，或者为默认值nil。从你的
    gpg-agent.conf配置文件里删除allow-emacs-pinentry（一般在~/.gnupg目录)。
 
-   Note that previously, it was said that passphrase input through
-   minibuffer would be much less secure than other graphical pinentry
-   programs.  However, these days the difference is insignificant: the
-   'read-password' function sufficiently protects input from leakage to
-   message logs.  Emacs still doesn't use secure memory to protect
-   passphrases, but it was also removed from other pinentry programs as
-   the attack is unrealistic on modern computer systems which don't
-   utilize swap memory usually.
-
+   注意之前提到的，通过Minibuffer输入密码的安全性比其他图形界面的要差。但是，现在看来是差别不
+   大：read-password函数阻止了通过日志的方式泄漏密码的可能。Emacs仍没有通过使用安全内存来保护
+   密码机制，但这种攻击在当前计算机系统（指没有实现内存交互）是不可能。
 
 * Emacs 26.1中Lisp的变化
 
