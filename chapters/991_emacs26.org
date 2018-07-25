@@ -1391,7 +1391,9 @@
 
 ** 新增函数char-from-name，作用于将Unicode编辑的字符串转换为对应的字符码(character code)
 
-** 新增函数sxhash-eq和sxhash-eql返回一个Lisp对象的哈希值，其分别用于eq和eql函数。如果两个对象是eq(eql), 则其函数sxhash-eq(sxhash-eql)计算的哈希值也一样。
+** 新增函数sxhash-eq和sxhash-eql
+   这两个函数返回一个Lisp对象的哈希值，其分别用于eq和eql函数。如果两个对象是eq(eql), 则其函
+   数sxhash-eq(sxhash-eql)计算的哈希值也一样。
 
 ** 函数sxhash被重命名为sxhash-equal，为了兼容sxhash成为sxhash-equal别名
 
@@ -1401,7 +1403,10 @@
 
 ** 新变量print-escape-control-characters改变prin1和print输出控制字符为反斜杠
 
-** 时间转换函数支持时间区间规划参数，其可为OFFSET或者列表(OFFSET ABBR)整型的OFFSET是相对于UT(Universal Time)时间的东向偏移（单位秒）。字符串ABBR是时间区间的简写。受影响的函数有current-time-string, current-time-zone, decode-time,format-time-string和set-time-zone-rule.
+** 时间转换函数支持时间区间规划参数
+   其可为OFFSET或者列表(OFFSET ABBR)整型的OFFSET是相对于UT(Universal Time)时间的东向偏移
+   （单位秒）。字符串ABBR是时间区间的简写。受影响的函数有current-time-string,
+   current-time-zone, decode-time,format-time-string和set-time-zone-rule.
 
 ** format-time-string函数支持%q，用于日历的季度
 
