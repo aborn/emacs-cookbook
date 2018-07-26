@@ -1263,11 +1263,8 @@
    'write-file'.
 
 ** overlays-at返回的结果列表按优先级降序排列
-   The documentation of this function always said the order should be
-   that of decreasing priority, if the 2nd argument of the function is
-   non-nil, but the code returned the list in the increasing order of
-   priority instead.  Now the code does what the documentation says it
-   should do.
+   老版本的文档说明里指出当函数的第二个参数不为nil里，返回的结果为降序，但实际的代码返回的却是
+   升序的结果。这个版本修复了这个问题，返回的结果正如文档中说明的那样按降序。
 
 ** format的优化
    format避免了在大多数据情况下分配一个新的字符串。format在之前的文档中返回一个新分配的字符串,
