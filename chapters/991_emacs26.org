@@ -1190,9 +1190,8 @@
    example, on a 64-bit host (max 1e16 10000000000000001) now returns its
    second argument instead of its first.
 
-** The variable 'old-style-backquotes' has been made internal and
-   renamed to 'lread--old-style-backquotes'.  No user code should use
-   this variable.
+** 变量old-style-backquotes的变化
+   这个变量已经声明为内部使用，同时重命名为lread--old-style-backquotes。任何用户代码不应用使用这个变量
 
 ** 'default-file-name-coding-system' now defaults to a coding system
    that does not process CRLF.  For example, it defaults to 'utf-8-unix'
