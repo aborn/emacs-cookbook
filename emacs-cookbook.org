@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-07-25 09:22
+#+DATE: 2018-07-27 09:42
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -1983,7 +1983,7 @@ ELISP>
    Unicode horizontal whitespace as defined in the Unicode Technical
    Standard #18.  If you only want to match space and tab, use '[ \t]'
    instead.
-*** 'min' and 'max' no longer round their results.
+*** min和max函数不在对结果进行截断(round)
    Formerly, they returned a floating-point value if any argument was
    floating-point, which was sometimes numerically incorrect.  For
    example, on a 64-bit host (max 1e16 10000000000000001) now returns its
@@ -2020,24 +2020,17 @@ ELISP>
     avoid this expansion in interactive use, you can now prefix the link
     target with "/:".  For example, '(make-symbolic-link "/:~y" "x" 1)'
     now creates a link to literal "~y".
-*** 'file-truename' returns a quoted file name if the target of a
-   symbolic link has remote file name syntax.
-*** Module functions are now implemented slightly differently; in
-   particular, the function 'internal--module-call' has been removed.
-   Code that depends on undocumented internals of the module system might
-   break.
-*** The argument LOCKNAME of 'write-region' is propagated to file name
-   handlers now.
-*** When built against recent versions of GTK+, Emacs always uses
-   gtk_window_move for moving frames and ignores the value of the
-   variable 'x-gtk-use-window-move'.  The variable is now obsolete.
-*** Several functions that create or rename files now treat their
-   destination argument specially only when it is a directory name, i.e.,
-   when it ends in '/' on GNU and other POSIX-like systems.  When the
-   destination argument D of one of these functions is an existing
-   directory and the intent is to act on an entry in that directory, D
-   should now be a directory name.  For example, (rename-file "e" "f/")
-   renames to 'f/e'.  Although this formerly happened sometimes even when
+*** file-truename在一个符号链接指定为远程文件语法时返回一个引用的文件名
+*** 模块函数的实现有轻微的变化
+   作为特殊考虑，函数internal--module-call已经被删除，对此有依赖的系统可能会导致异常
+*** write-region的LOCKNAME参数会被传递给文件名处理器
+*** 构建最新的GTK+的变化
+   当构建最新版本的GTK+时, Emacs使用gtk_window_move来移除frames，同时忽略变量x-gtk-use-window-move
+   的值，这个变量已经被废弃。
+*** 一些文件创建或者重命名的变化
+   这些函数在处理目标参数为目录类型时有一些变化，如，当在GNU或者类POSIX体系里其参数以“/”结尾。
+   当这些函数的目地参数D为已经存在的目录时，其目的是在这个目录里操作。举例(rename-file "e" "f/")
+   结果为'f/e'.  Although this formerly happened sometimes even when
    D was not a directory name, as in (rename-file "e" "f") where 'f'
    happened to be a directory, the old behavior often contradicted the
    documentation and had inherent races that led to security holes.  A
@@ -2048,24 +2041,17 @@ ELISP>
    'copy-file', 'format-write-file', 'gnus-copy-file',
    'make-symbolic-link', 'rename-file', 'thumbs-rename-images', and
    'write-file'.
-*** The list returned by 'overlays-at' is now in decreasing priority order.
-   The documentation of this function always said the order should be
-   that of decreasing priority, if the 2nd argument of the function is
-   non-nil, but the code returned the list in the increasing order of
-   priority instead.  Now the code does what the documentation says it
-   should do.
-*** 'format' now avoids allocating a new string in more cases.
-   'format' was previously documented to return a newly-allocated string,
-   but this documentation was not correct, as (eq x (format x)) returned
-   t when x was the empty string.  'format' is no longer documented to
-   return a newly-allocated string, and the implementation now takes
-   advantage of the doc change to avoid making copies of strings in
-   common cases like (format "foo") and (format "%s" "foo").
+*** overlays-at返回的结果列表按优先级降序排列
+   老版本的文档说明里指出当函数的第二个参数不为nil里，返回的结果为降序，但实际的代码返回的却是
+   升序的结果。这个版本修复了这个问题，返回的结果正如文档中说明的那样按降序。
+*** format的优化
+   format避免了在大多数据情况下分配一个新的字符串。format在之前的文档中返回一个新分配的字符串,
+   但这文档说明不是很准确，由于 *(eq x (format x))* 在x是一个空字符串时，返回的是t。format
+   文档中不再提及返回一个新分配的字符串，当前的实现如在文档中提及的那样避免了大部分情况下字符串的
+   无用拷贝，如 *(format "foo")* 和 *(format "%s" "foo")* 。
 *** 函数eldoc-message可接收一个参数
-   Programs that called it with multiple arguments before should pass
-   them through 'format' first.  Even that is discouraged: for ElDoc
-   support, you should set 'eldoc-documentation-function' instead of
-   calling 'eldoc-message' directly.
+   在对多参数的程序调用之前，应该对其进行format操作。尽管不鼓励这样做，对ElDoc的支持，通过设置
+   eldoc-documentation-function函数，而不是直接调用eldoc-message。
 *** 对&rest或者&optional不正确的使用作为一种错误类型处理
    例如&optional后面没有一个变量，或者对&optional多次使用：
    #+BEGIN_SRC emacs-lisp
@@ -2080,14 +2066,9 @@ ELISP>
    目支持。
    为了兼容这个变化，你需要设置epa-pinentry-mode为loopback，或者为默认值nil。从你的
    gpg-agent.conf配置文件里删除allow-emacs-pinentry（一般在~/.gnupg目录)。
-   Note that previously, it was said that passphrase input through
-   minibuffer would be much less secure than other graphical pinentry
-   programs.  However, these days the difference is insignificant: the
-   'read-password' function sufficiently protects input from leakage to
-   message logs.  Emacs still doesn't use secure memory to protect
-   passphrases, but it was also removed from other pinentry programs as
-   the attack is unrealistic on modern computer systems which don't
-   utilize swap memory usually.
+   注意之前提到的，通过Minibuffer输入密码的安全性比其他图形界面的要差。但是，现在看来是差别不
+   大：read-password函数阻止了通过日志的方式泄漏密码的可能。Emacs仍没有通过使用安全内存来保护
+   密码机制，但这种攻击在当前计算机系统（指没有实现内存交互）是不可能。
 ** Emacs 26.1中Lisp的变化
 *** 函数assoc接受一个可选的第三位参数TESTFN，当这个参数不为空时，其用于比较而不是相等
 *** 在alist-get、map-elt和map-put中新增可选参数TESTFN，当不为nil时，这个参数指定一个具体的比较函数，而不是用默认的assq和eql
@@ -2138,12 +2119,17 @@ ELISP>
 *** 调用那些浮点类型的整型时会抛出异常（如果传入的参数不是整型）例如(decode-char 'ascii 0.5)现在会抛出错误异常
 *** 函数string-trim-left, string-trim-right和string-trim接受可选参数指定子串的正则表达式
 *** 新增函数char-from-name，作用于将Unicode编辑的字符串转换为对应的字符码(character code)
-*** 新增函数sxhash-eq和sxhash-eql返回一个Lisp对象的哈希值，其分别用于eq和eql函数。如果两个对象是eq(eql), 则其函数sxhash-eq(sxhash-eql)计算的哈希值也一样。
+*** 新增函数sxhash-eq和sxhash-eql
+   这两个函数返回一个Lisp对象的哈希值，其分别用于eq和eql函数。如果两个对象是eq(eql), 则其函
+   数sxhash-eq(sxhash-eql)计算的哈希值也一样。
 *** 函数sxhash被重命名为sxhash-equal，为了兼容sxhash成为sxhash-equal别名
 *** make-hash-table默认的刷新阈值从0.8改成0.8125， 避免舍入的小问题
 *** 新增函数add-variable-watcher用于当一个变量的值发生变化时的函数调用。用于实现新的调试命令debug-on-variable-change
 *** 新变量print-escape-control-characters改变prin1和print输出控制字符为反斜杠
-*** 时间转换函数支持时间区间规划参数，其可为OFFSET或者列表(OFFSET ABBR)整型的OFFSET是相对于UT(Universal Time)时间的东向偏移（单位秒）。字符串ABBR是时间区间的简写。受影响的函数有current-time-string, current-time-zone, decode-time,format-time-string和set-time-zone-rule.
+*** 时间转换函数支持时间区间规划参数
+   其可为OFFSET或者列表(OFFSET ABBR)整型的OFFSET是相对于UT(Universal Time)时间的东向偏移
+   （单位秒）。字符串ABBR是时间区间的简写。受影响的函数有current-time-string,
+   current-time-zone, decode-time,format-time-string和set-time-zone-rule.
 *** format-time-string函数支持%q，用于日历的季度
 *** 新的内置函数mapcan，避免不必要的链接(consing)和gc操作
 *** car和cdr，以及cXXXr和cXXXXr的结构已经集成为Elisp一部分
