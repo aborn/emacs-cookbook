@@ -1193,10 +1193,9 @@
 ** 变量old-style-backquotes的变化
    这个变量已经声明为内部使用，同时重命名为lread--old-style-backquotes。任何用户代码不应用使用这个变量
 
-** 'default-file-name-coding-system' now defaults to a coding system
-   that does not process CRLF.  For example, it defaults to 'utf-8-unix'
-   instead of to 'utf-8'.  Before this change, Emacs would sometimes
-   mishandle file names containing these control characters.
+** default-file-name-coding-system默认指定的编码系统不处理CRLF
+   例如，默认由原来的utf-8改为utf-8-unix。在这个变化之前, Emacs有时会对文件名中含有这些控制
+   字符做错误处理
 
 ** 'file-attributes', 'file-symlink-p' and 'make-symbolic-link' no
    longer quietly mutate the target of a local symbolic link, so that
