@@ -1232,17 +1232,14 @@
 ** 'file-truename' returns a quoted file name if the target of a
    symbolic link has remote file name syntax.
 
-** Module functions are now implemented slightly differently; in
-   particular, the function 'internal--module-call' has been removed.
-   Code that depends on undocumented internals of the module system might
-   break.
+** 模块函数的实现有轻微的变化
+   作为特殊考虑，函数internal--module-call已经被删除，对此有依赖的系统可能会导致异常
 
-** The argument LOCKNAME of 'write-region' is propagated to file name
-   handlers now.
+** write-region的LOCKNAME参数会被传递给文件名处理器
 
-** When built against recent versions of GTK+, Emacs always uses
-   gtk_window_move for moving frames and ignores the value of the
-   variable 'x-gtk-use-window-move'.  The variable is now obsolete.
+** 构建最新的GTK+的变化
+   当构建最新版本的GTK+时, Emacs使用gtk_window_move来移除frames，同时忽略变量x-gtk-use-window-move
+   的值，这个变量已经被废弃。
 
 ** 一些文件创建或者重命名的变化
    这些函数在处理目标参数为目录类型时有一些变化，如，当在GNU或者类POSIX体系里其参数以“/”结尾。
