@@ -1184,7 +1184,7 @@
    Standard #18.  If you only want to match space and tab, use '[ \t]'
    instead.
 
-** 'min' and 'max' no longer round their results.
+** min和max函数不在对结果进行截断(round)
    Formerly, they returned a floating-point value if any argument was
    floating-point, which was sometimes numerically incorrect.  For
    example, on a 64-bit host (max 1e16 10000000000000001) now returns its
@@ -1229,8 +1229,7 @@
     target with "/:".  For example, '(make-symbolic-link "/:~y" "x" 1)'
     now creates a link to literal "~y".
 
-** 'file-truename' returns a quoted file name if the target of a
-   symbolic link has remote file name syntax.
+** file-truename在一个符号链接指定为远程文件语法时返回一个引用的文件名
 
 ** 模块函数的实现有轻微的变化
    作为特殊考虑，函数internal--module-call已经被删除，对此有依赖的系统可能会导致异常
