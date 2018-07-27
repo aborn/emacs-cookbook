@@ -1185,10 +1185,8 @@
    instead.
 
 ** min和max函数不在对结果进行截断(round)
-   Formerly, they returned a floating-point value if any argument was
-   floating-point, which was sometimes numerically incorrect.  For
-   example, on a 64-bit host (max 1e16 10000000000000001) now returns its
-   second argument instead of its first.
+   老版本的Emacs，当参数中含有浮点类型时，这些函数返回一个浮点的值（有时这些数值是不正确的），
+   例如，在64位的机器里(max 1e16 10000000000000001)返回的是第二个参数，而不是第一个。
 
 ** 变量old-style-backquotes的变化
    这个变量已经声明为内部使用，同时重命名为lread--old-style-backquotes。任何用户代码不应用使用这个变量
