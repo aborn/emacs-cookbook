@@ -1169,8 +1169,8 @@
 
 *** Many variables obsoleted in 22.1 referring to face symbols.
 
-** The variable 'text-quoting-style' is now a customizable option.  It
-   controls whether to and how to translate ASCII quotes in messages and
+** 变量text-quoting-style改为可定制选项
+   It controls whether to and how to translate ASCII quotes in messages and
    help output.  Its possible values and their semantics remain unchanged
    from Emacs 25.  In particular, when this variable's value is 'grave',
    all quotes in formats are output as-is.
