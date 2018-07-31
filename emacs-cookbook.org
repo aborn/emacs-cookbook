@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-07-27 09:42
+#+DATE: 2018-07-31 09:26
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -1971,30 +1971,23 @@ ELISP>
     'default-buffer-file-coding-system', 'default-major-mode', and
     'default-enable-multibyte-characters'.
 **** Many variables obsoleted in 22.1 referring to face symbols.
-*** The variable 'text-quoting-style' is now a customizable option.  It
-   controls whether to and how to translate ASCII quotes in messages and
-   help output.  Its possible values and their semantics remain unchanged
-   from Emacs 25.  In particular, when this variable's value is 'grave',
-   all quotes in formats are output as-is.
-*** Functions like 'check-declare-file' and 'check-declare-directory'
-   now generate less chatter and more-compact diagnostics.  The auxiliary
-   function 'check-declare-errmsg' has been removed.
+*** 变量text-quoting-style改为可定制选项
+   它控制是否以及怎样在消息和帮助界面显示ASCII的引用符。从Emacs 25开始它的值和语义没有变化。
+   在特定的情况下，当这个变量的值为grave时，所有的引用显示按原样输出。
+*** 函数check-declare-file和check-declare-directory的变化
+   它们将输出更加紧凑的诊断输出，辅助函数check-declare-errmsg已经被移除。
 *** The regular expression character class '[:blank:]' now matches
    Unicode horizontal whitespace as defined in the Unicode Technical
    Standard #18.  If you only want to match space and tab, use '[ \t]'
    instead.
 *** min和max函数不在对结果进行截断(round)
-   Formerly, they returned a floating-point value if any argument was
-   floating-point, which was sometimes numerically incorrect.  For
-   example, on a 64-bit host (max 1e16 10000000000000001) now returns its
-   second argument instead of its first.
-*** The variable 'old-style-backquotes' has been made internal and
-   renamed to 'lread--old-style-backquotes'.  No user code should use
-   this variable.
-*** 'default-file-name-coding-system' now defaults to a coding system
-   that does not process CRLF.  For example, it defaults to 'utf-8-unix'
-   instead of to 'utf-8'.  Before this change, Emacs would sometimes
-   mishandle file names containing these control characters.
+   老版本的Emacs，当参数中含有浮点类型时，这些函数返回一个浮点的值（有时这些数值是不正确的），
+   例如，在64位的机器里(max 1e16 10000000000000001)返回的是第二个参数，而不是第一个。
+*** 变量old-style-backquotes的变化
+   这个变量已经声明为内部使用，同时重命名为lread--old-style-backquotes。任何用户代码不应用使用这个变量
+*** default-file-name-coding-system默认指定的编码系统不处理CRLF
+   例如，默认由原来的utf-8改为utf-8-unix。在这个变化之前, Emacs有时会对文件名中含有这些控制
+   字符做错误处理
 *** 'file-attributes', 'file-symlink-p' and 'make-symbolic-link' no
    longer quietly mutate the target of a local symbolic link, so that
    Emacs can access and copy them reliably regardless of their contents.
