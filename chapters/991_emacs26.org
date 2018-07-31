@@ -1176,10 +1176,8 @@
 ** 函数check-declare-file和check-declare-directory的变化
    它们将输出更加紧凑的诊断输出，辅助函数check-declare-errmsg已经被移除。
 
-** The regular expression character class '[:blank:]' now matches
-   Unicode horizontal whitespace as defined in the Unicode Technical
-   Standard #18.  If you only want to match space and tab, use '[ \t]'
-   instead.
+** 正则表达集合 *[:blank:]* 的变化
+   当前可匹配统一编码的空格（如在UTS技术标准18里定义的那样），如果你仅仅想匹配空格和tab符，请使用 *[ \t]* 。
 
 ** min和max函数不在对结果进行截断(round)
    老版本的Emacs，当参数中含有浮点类型时，这些函数返回一个浮点的值（有时这些数值是不正确的），
