@@ -1170,10 +1170,8 @@
 *** Many variables obsoleted in 22.1 referring to face symbols.
 
 ** 变量text-quoting-style改为可定制选项
-   It controls whether to and how to translate ASCII quotes in messages and
-   help output.  Its possible values and their semantics remain unchanged
-   from Emacs 25.  In particular, when this variable's value is 'grave',
-   all quotes in formats are output as-is.
+   它控制是否以及怎样在消息和帮助界面显示ASCII的引用符。从Emacs 25开始它的值和语义没有变化。
+   在特定的情况下，当这个变量的值为grave时，所有的引用显示按原样输出。
 
 ** Functions like 'check-declare-file' and 'check-declare-directory'
    now generate less chatter and more-compact diagnostics.  The auxiliary
