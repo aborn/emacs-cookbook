@@ -1200,14 +1200,11 @@
     *(make-symbolic-link "/x:y:a" "/x:y:b")* 创建一个“a”的符号链接， *(make-symbolic-link "/x:y:a" "/x:z:b")*
     创建一个“/x:y:a”的符号链接。
 
-*** 'make-symbolic-link' now expands a link target with leading "~"
-    only when the optional third arg is an integer, as when invoked
-    interactively.  For example, '(make-symbolic-link "~y" "x")' now
-    creates a link with target the literal string "~y"; to get the old
-    behavior, use '(make-symbolic-link (expand-file-name "~y") "x")'.  To
-    avoid this expansion in interactive use, you can now prefix the link
-    target with "/:".  For example, '(make-symbolic-link "/:~y" "x" 1)'
-    now creates a link to literal "~y".
+*** 当make-symbolic-link第三个可选参数为整数（作为交互式调用）时，扩展的符号链接目标以"~"开头
+    例如(make-symbolic-link "~y" "x")创建一个目标为"~y"的符号链接，为了达到老版本的效果
+    使用(make-symbolic-link (expand-file-name "~y") "x")。为了防止在交互式环境下的这种
+    扩展，可对目标文件加上"/:"这样的前缀。例如(make-symbolic-link "/:~y" "x" 1)
+    创建一个符号链接指向"~y".
 
 ** file-truename在一个符号链接指定为远程文件语法时返回一个引用的文件名
 
