@@ -1186,15 +1186,12 @@
    例如，默认由原来的utf-8改为utf-8-unix。在这个变化之前, Emacs有时会对文件名中含有这些控制
    字符做错误处理
 
-** file-attributes, file-symlink-p和make-symbolic-link' no
-   longer quietly mutate the target of a local symbolic link, so that
-   Emacs can access and copy them reliably regardless of their contents.
-   The following changes are involved.
+** file-attributes, file-symlink-p和make-symbolic-link的变化
+   这三个函数不再改变本地符号链接的目标文件，使得Emacs可以在不考虑链接文件的内容对其进行获取和
+   复制包括以下方面的变化。
 
-*** 'file-attributes' and 'file-symlink-p' no longer prepend "/:" to
-    symbolic links whose targets begin with "/" and contain ":".  For
-    example, if a symbolic link "x" has a target "/y:z:", '(file-symlink-p
-    "x")' now returns "/y:z:" rather than "/:/y:z:".
+*** file-attributes和file-symlink-p不再对那些以“/”开头并含有“：”的符号链接预添加"/:"。例如
+    如果一个符号链接"x"其目标文件为"/y:z:"，调用 *(file-symlink-p "x")* 现在返回"/y:z:"而不是之前的"/:/y:z:"
 
 *** 'make-symbolic-link' no longer looks for file name handlers of
     target when creating a symbolic link.  For example,
