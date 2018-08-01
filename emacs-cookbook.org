@@ -1,6 +1,6 @@
 #+TITLE: Emacs实践笔记
 #+AUTHOR: aborn
-#+DATE: 2018-07-31 09:26
+#+DATE: 2018-08-01 09:24
 #+EMAIL: aborn.jiang@gmail.com
 #+LANGUAGE: zh
 #+LATEX_HEADER: \usepackage{xeCJK}
@@ -1937,49 +1937,43 @@ ELISP>
 *** If 'comment-auto-fill-only-comments' is non-nil, 'auto-fill-function'
    is now called only if either no comment syntax is defined for the
    current buffer or the self-insertion takes place within a comment.
-*** The alist 'ucs-names' is now a hash table.
-*** 'if-let' and 'when-let' now support binding lists as defined by the
-   SRFI-2 (Scheme Request for Implementation 2).
-*** 'C-up', 'C-down', 'C-left' and 'C-right' are now defined in term
-   mode to send the same escape sequences that xterm does.  This makes
-   things like 'forward-word' in readline work.
+*** ucs-names为哈希表(hash table)
+*** if-let和when-let现在支持绑定列表(如Scheme Request for Implementation 2中的实现一样).
+*** term-mod的一些变量
+   C-up, C-down, C-left和C-right快捷键保持跟在xterm下一样。这样在readline模式下，表现得像forward-word一样
 *** Customizable variable 'query-replace-from-to-separator'
    now doesn't propertize the string value of the separator.
    Instead, text properties are added by 'query-replace-read-from'.
    Additionally, the new nil value restores pre-24.5 behavior
    of not providing replacement pairs via the history.
-*** Some obsolete functions, variables, and faces have been removed:
-**** 'make-variable-frame-local'.  Variables cannot be frame-local any more.
-**** From subr.el: 'window-dot', 'set-window-dot', 'read-input',
-    'show-buffer', 'eval-current-buffer', 'string-to-int'.
-**** 'icomplete-prospects-length'.
-**** All the default-FOO variables that hold the default value of the
-    FOO variable.  Use 'default-value' and 'setq-default' to access and
-    change FOO, respectively.  The exhaustive list of removed variables is:
-    'default-mode-line-format', 'default-header-line-format',
-    'default-line-spacing', 'default-abbrev-mode', 'default-ctl-arrow',
-    'default-truncate-lines', 'default-left-margin', 'default-tab-width',
-    'default-case-fold-search', 'default-left-margin-width',
-    'default-right-margin-width', 'default-left-fringe-width',
-    'default-right-fringe-width', 'default-fringes-outside-margins',
-    'default-scroll-bar-width', 'default-vertical-scroll-bar',
-    'default-indicate-empty-lines', 'default-indicate-buffer-boundaries',
-    'default-fringe-indicator-alist', 'default-fringe-cursor-alist',
-    'default-scroll-up-aggressively', 'default-scroll-down-aggressively',
-    'default-fill-column', 'default-cursor-type',
-    'default-cursor-in-non-selected-windows',
-    'default-buffer-file-coding-system', 'default-major-mode', and
-    'default-enable-multibyte-characters'.
-**** Many variables obsoleted in 22.1 referring to face symbols.
+*** 下面一些老的函数、变量、和样式(face)被移除
+**** make-variable-frame-local 不再是frame-local.
+**** 在subr.el库里下列被移除:
+    window-dot, set-window-dot, read-input, show-buffer, eval-current-buffer, string-to-int.
+**** icomplete-prospects-length
+**** 所有默认值为FOO的default-FOO变量，使用default-value和setq-default分别去获取和修改FOO
+    所有被移除的变量如下: default-mode-line-format, default-header-line-format,
+    default-line-spacing, default-abbrev-mode, default-ctl-arrow,
+    default-truncate-lines, default-left-margin, default-tab-width,
+    default-case-fold-search, default-left-margin-width,
+    default-right-margin-width, default-left-fringe-width,
+    default-right-fringe-width, default-fringes-outside-margins,
+    default-scroll-bar-width, default-vertical-scroll-bar,
+    default-indicate-empty-lines, default-indicate-buffer-boundaries,
+    default-fringe-indicator-alist, default-fringe-cursor-alist,
+    default-scroll-up-aggressively, default-scroll-down-aggressively,
+    default-fill-column, default-cursor-type,
+    default-cursor-in-non-selected-windows,
+    default-buffer-file-coding-system, default-major-mode, and
+    default-enable-multibyte-characters.
+**** 许多在22.1版本被废弃的样式
 *** 变量text-quoting-style改为可定制选项
    它控制是否以及怎样在消息和帮助界面显示ASCII的引用符。从Emacs 25开始它的值和语义没有变化。
    在特定的情况下，当这个变量的值为grave时，所有的引用显示按原样输出。
 *** 函数check-declare-file和check-declare-directory的变化
    它们将输出更加紧凑的诊断输出，辅助函数check-declare-errmsg已经被移除。
-*** The regular expression character class '[:blank:]' now matches
-   Unicode horizontal whitespace as defined in the Unicode Technical
-   Standard #18.  If you only want to match space and tab, use '[ \t]'
-   instead.
+*** 正则表达集合 *[:blank:]* 的变化
+   当前可匹配统一编码的空格（如在UTS技术标准18里定义的那样），如果你仅仅想匹配空格和tab符，请使用 *[ \t]* 。
 *** min和max函数不在对结果进行截断(round)
    老版本的Emacs，当参数中含有浮点类型时，这些函数返回一个浮点的值（有时这些数值是不正确的），
    例如，在64位的机器里(max 1e16 10000000000000001)返回的是第二个参数，而不是第一个。

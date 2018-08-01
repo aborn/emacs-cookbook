@@ -1186,7 +1186,7 @@
    例如，默认由原来的utf-8改为utf-8-unix。在这个变化之前, Emacs有时会对文件名中含有这些控制
    字符做错误处理
 
-** 'file-attributes', 'file-symlink-p' and 'make-symbolic-link' no
+** file-attributes, file-symlink-p和make-symbolic-link' no
    longer quietly mutate the target of a local symbolic link, so that
    Emacs can access and copy them reliably regardless of their contents.
    The following changes are involved.
