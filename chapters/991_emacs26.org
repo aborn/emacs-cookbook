@@ -1188,21 +1188,17 @@
 
 ** file-attributes, file-symlink-p和make-symbolic-link的变化
    这三个函数不再改变本地符号链接的目标文件，使得Emacs可以在不考虑链接文件的内容对其进行获取和
-   复制包括以下方面的变化。
+   复制。具体包括以下方面的变化。
 
 *** file-attributes和file-symlink-p不再对那些以“/”开头并含有“：”的符号链接预添加"/:"。例如
     如果一个符号链接"x"其目标文件为"/y:z:"，调用 *(file-symlink-p "x")* 现在返回"/y:z:"而不是之前的"/:/y:z:"
 
-*** 'make-symbolic-link' no longer looks for file name handlers of
-    target when creating a symbolic link.  For example,
-    '(make-symbolic-link "/y:z:" "x")' now creates a symbolic link to
-    "/y:z:" instead of failing.
+*** 在创建一个符号链接时make-symbolic-link不再查找目标文件名是否可处理，例如
+    *(make-symbolic-link "/y:z:" "x")* 现在直接创建一个指向"/y:z:"的符号链接，而不是导致失败。
 
-*** 'make-symbolic-link' removes the remote part of a link target if
-    target and newname have the same remote part.  For example,
-    '(make-symbolic-link "/x:y:a" "/x:y:b")' creates a link with the
-    literal string "a"; and '(make-symbolic-link "/x:y:a" "/x:z:b")'
-    creates a link with the literal string "/x:y:a" instead of failing.
+*** 当目标文件和新文件名远端相同时make-symbolic-link将移除符号链接的远端部分，例如
+    *(make-symbolic-link "/x:y:a" "/x:y:b")* 创建一个“a”的符号链接， *(make-symbolic-link "/x:y:a" "/x:z:b")*
+    创建一个“/x:y:a”的符号链接。
 
 *** 'make-symbolic-link' now expands a link target with leading "~"
     only when the optional third arg is an integer, as when invoked
